@@ -1,6 +1,6 @@
 from re import search
 
-data = open('data/02.txt').read().splitlines()
+data = open('../data/02.txt').read().splitlines()
 
 
 class Round:

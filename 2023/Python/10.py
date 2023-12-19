@@ -1,6 +1,6 @@
 from collections import deque
 
-data = open('data/10.txt').read().splitlines()
+data = open('../data/10.txt').read().splitlines()
 
 
 def process_grid(g):

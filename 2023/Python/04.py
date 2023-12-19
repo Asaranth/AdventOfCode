@@ -1,4 +1,4 @@
-data = open('data/04.txt').read().splitlines()
+data = open('../data/04.txt').read().splitlines()
 memo = {}
 
 

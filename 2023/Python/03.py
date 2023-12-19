@@ -1,4 +1,4 @@
-data = open('data/03.txt').read().splitlines()
+data = open('../data/03.txt').read().splitlines()
 
 
 def get_all_coordinates(row, col):

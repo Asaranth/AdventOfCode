@@ -1,4 +1,4 @@
-data = open('data/12.txt').read().splitlines()
+data = open('../data/12.txt').read().splitlines()
 data = [line.split() for line in data]
 memo = {}
 
@@ -17,7 +17,8 @@ def count_arrangements(config, damaged_map):
     if config[0] in '.?':
         result += count_arrangements(config[1:], damaged_map)
     if config[0] in '#?':
-        if enough_left(config, damaged_map[0]) and all_broken(config, damaged_map[0]) and next_works(config, damaged_map[0]):
+        if enough_left(config, damaged_map[0]) and all_broken(config, damaged_map[0]) and next_works(config,
+                                                                                                     damaged_map[0]):
             result += count_arrangements(config[damaged_map[0] + 1:], damaged_map[1:])
 
     memo[key] = result

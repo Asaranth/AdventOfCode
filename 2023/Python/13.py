@@ -1,4 +1,4 @@
-data = open('data/13.txt').read().split('\n\n')
+data = open('../data/13.txt').read().split('\n\n')
 
 
 def adjust(upper, lower):
