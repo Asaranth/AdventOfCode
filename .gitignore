@@ -3,3 +3,10 @@
 
 # Ignore IntelliJ IDEA configuration
 .idea/
+
+# Ignore CSharp Proj stuff
+**/CSharp/bin/
+**/CSharp/obj/
+**/CSharp/CSharp.csproj
+**/CSharp/CSharp.sln
+**/CSharp/Program.cs
