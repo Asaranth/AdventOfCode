@@ -1,11 +1,13 @@
 library(stringr)
 
-data <- readLines(file('./2015/data/01.txt', open='r'))
+con <- file('./2015/data/01.txt', open='r')
+data <- readLines(con)
+close(con)
 
 solvePartOne <- function() {
   ups <- str_count(data, '\\(')
   downs <- str_count(data, '\\)')
-  ups - downs
+  return(ups - downs)
 }
 
 solvePartTwo <- function() {
@@ -19,7 +21,7 @@ solvePartTwo <- function() {
       break
     }
   }
-  index
+  return(index)
 }
 
 str_interp('Part One: ${solvePartOne()}')
