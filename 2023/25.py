@@ -1,7 +1,7 @@
 from networkx import Graph, minimum_edge_cut, connected_components
 
 g = Graph()
-for line in open('../data/25.txt'):
+for line in open('data/25.txt'):
     left, right = line.split(':')
     for node in right.split():
         g.add_edge(left, node)

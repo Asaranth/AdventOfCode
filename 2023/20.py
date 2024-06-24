@@ -1,7 +1,7 @@
 from collections import deque
 from math import lcm
 
-data = open('../data/20.txt').read().splitlines()
+data = open('data/20.txt').read().splitlines()
 
 
 class Module:

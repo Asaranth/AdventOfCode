@@ -1,4 +1,4 @@
-data = open('../data/23.txt').read().splitlines()
+data = open('data/23.txt').read().splitlines()
 start = (0, data[0].index('.'))
 end = (len(data) - 1, data[-1].index('.'))
 directions = {

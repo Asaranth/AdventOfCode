@@ -1,4 +1,4 @@
-data = open('../data/11.txt').read().splitlines()
+data = open('data/11.txt').read().splitlines()
 empty_rows = [r for r, row in enumerate(data) if '#' not in row]
 empty_cols = [c for c in range(len(data[0])) if '#' not in [row[c] for row in data]]
 galaxies = {(r, c) for r, row in enumerate(data) for c, ch in enumerate(row) if ch == '#'}

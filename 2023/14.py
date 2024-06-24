@@ -1,4 +1,4 @@
-data = tuple(open('../data/14.txt').read().splitlines())
+data = tuple(open('data/14.txt').read().splitlines())
 
 
 def roll_rocks(prd):

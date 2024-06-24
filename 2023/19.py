@@ -1,6 +1,6 @@
 from re import findall
 
-wfs, ratings = open('../data/19.txt').read().split('\n\n')
+wfs, ratings = open('data/19.txt').read().split('\n\n')
 workflows = {}
 operators = {
     '>': int.__gt__,

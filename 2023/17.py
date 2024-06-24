@@ -1,6 +1,6 @@
 from heapq import heappush, heappop
 
-data = [list(map(int, line.strip())) for line in open('../data/17.txt')]
+data = [list(map(int, line.strip())) for line in open('data/17.txt')]
 rows, cols = len(data), len(data[0])
 
 

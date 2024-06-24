@@ -1,4 +1,4 @@
-data = open('../data/07.txt').read().splitlines()
+data = open('data/07.txt').read().splitlines()
 letter_map = {'T': 'A', 'J': 'B', 'Q': 'C', 'K': 'D', 'A': 'E'}
 
 

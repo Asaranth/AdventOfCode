@@ -1,6 +1,6 @@
 from sympy import symbols, solve
 
-hailstones = [tuple(map(int, line.replace('@', ',').split(','))) for line in open('../data/24.txt')]
+hailstones = [tuple(map(int, line.replace('@', ',').split(','))) for line in open('data/24.txt')]
 
 
 def solve_part_one():

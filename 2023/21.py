@@ -1,6 +1,6 @@
 from collections import deque
 
-grid = open('../data/21.txt').read().splitlines()
+grid = open('data/21.txt').read().splitlines()
 start_row, start_col = next((r, c) for r, row in enumerate(grid) for c, ch in enumerate(row) if ch == 'S')
 
 

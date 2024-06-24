@@ -1,4 +1,4 @@
-data = open('../data/12.txt').read().splitlines()
+data = open('data/12.txt').read().splitlines()
 data = [line.split() for line in data]
 memo = {}
 
