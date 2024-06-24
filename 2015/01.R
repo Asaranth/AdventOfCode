@@ -11,17 +11,10 @@ solvePartOne <- function() {
 }
 
 solvePartTwo <- function() {
-  floor <- 0
-  index <- 0
-  for (char in strsplit(data, '')[[1]]) {
-    index <- index + 1
-    floor <- floor + (ifelse(char == '(', 1, -1))
-
-    if (floor == -1) {
-      break
-    }
-  }
-  return(index)
+  input_data <- strsplit(data, '')[[1]]
+  index_vector <- seq_along(input_data)
+  floor_vector <- cumsum(ifelse(input_data =='(', 1, -1))
+  return(min(index_vector[floor_vector == -1]))
 }
 
 str_interp('Part One: ${solvePartOne()}')

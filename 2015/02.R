@@ -21,11 +21,8 @@ solvePartTwo <- function() {
   total <- 0
   for (present in data[[1]]) {
     dimensions <- as.numeric(strsplit(present, 'x')[[1]])
-    l <- dimensions[1]
-    w <- dimensions[2]
-    h <- dimensions[3]
     smallestSides <- sort(dimensions)[1:2]
-    total <- total + (smallestSides[1] * 2 + smallestSides[2] * 2) + (l * w * h)
+    total <- total + (smallestSides[1] * 2 + smallestSides[2] * 2) + prod(dimensions)
   }
   return(total)
 }
