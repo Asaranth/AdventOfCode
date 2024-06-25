@@ -22,7 +22,7 @@ checkAndMarkVisited <- function(pos, visited) {
   return(list(total, visited))
 }
 
-solvePartOne <- function(data) {
+solvePartOne <- function() {
   total <- 1
   pos <- c(0, 0)
   visited <- list(pos)
@@ -36,7 +36,7 @@ solvePartOne <- function(data) {
   return(total)
 }
 
-solvePartTwo <- function(data) {
+solvePartTwo <- function() {
   total <- 1
   positions <- list(santa = c(0, 0), robot = c(0, 0))
   current <- "santa"
@@ -52,5 +52,5 @@ solvePartTwo <- function(data) {
   return(total)
 }
 
-str_interp('Part One: ${solvePartOne(data)}')
-str_interp('Part Two: ${solvePartTwo(data)}')
+str_interp('Part One: ${solvePartOne()}')
+str_interp('Part Two: ${solvePartTwo()}')
