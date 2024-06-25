@@ -1,8 +1,4 @@
-library(stringr)
-
-con <- file('./2015/data/02.txt', open='r')
-data <- read.csv(con, header=FALSE)
-close(con)
+data <- read.csv('./2015/data/02.txt', header=FALSE)
 
 solvePartOne <- function() {
   total <- 0
@@ -27,5 +23,5 @@ solvePartTwo <- function() {
   return(total)
 }
 
-str_interp('Part One: ${solvePartOne()}')
-str_interp('Part Two: ${solvePartTwo()}')
+stringr::str_interp('Part One: ${solvePartOne()}')
+stringr::str_interp('Part Two: ${solvePartTwo()}')

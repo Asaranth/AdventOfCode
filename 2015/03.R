@@ -1,7 +1,4 @@
-library(stringr)
-con <- file('./2015/data/03.txt', open='r')
-data <- readLines(con)
-close(con)
+data <- readLines('./2015/data/03.txt')
 
 movePos <- function(pos, direction) {
   switch(direction,
@@ -52,5 +49,5 @@ solvePartTwo <- function() {
   return(total)
 }
 
-str_interp('Part One: ${solvePartOne()}')
-str_interp('Part Two: ${solvePartTwo()}')
+stringr::str_interp('Part One: ${solvePartOne()}')
+stringr::str_interp('Part Two: ${solvePartTwo()}')

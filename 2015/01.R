@@ -1,12 +1,8 @@
-library(stringr)
-
-con <- file('./2015/data/01.txt', open='r')
-data <- readLines(con)
-close(con)
+data <- readLines('./2015/data/01.txt')
 
 solvePartOne <- function() {
-  ups <- str_count(data, '\\(')
-  downs <- str_count(data, '\\)')
+  ups <- stringr::str_count(data, '\\(')
+  downs <- stringr::str_count(data, '\\)')
   return(ups - downs)
 }
 
@@ -17,5 +13,5 @@ solvePartTwo <- function() {
   return(min(index_vector[floor_vector == -1]))
 }
 
-str_interp('Part One: ${solvePartOne()}')
-str_interp('Part Two: ${solvePartTwo()}')
+stringr::str_interp('Part One: ${solvePartOne()}')
+stringr::str_interp('Part Two: ${solvePartTwo()}')
