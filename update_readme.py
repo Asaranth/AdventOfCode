@@ -10,7 +10,6 @@ import requests
 LANGUAGE_COLORS = {
     'Python': '3572A5',
     'R': '198CE7'
-
 }
 
 SID = os.getenv("AOC_SESSION_COOKIE")
@@ -84,10 +83,13 @@ def main(args):
         2023: 'Python'
     }
 
-    for y, s in y2s.items():
-        print(get_year_badge_url(y, s), end = ' ')
-        if y in languages and s > 0:
-            print(get_language_badge_url(languages[y]))
+    if args.total_only:
+        print(get_total_badge_url(sum(y2s.values())))
+    else:
+        for y, s in y2s.items():
+            print(f"{get_year_badge_url(y, s)}<br>", end = '')
+            if y in languages and s > 0:
+                print(f"{get_language_badge_url(languages[y])}<br>", end = '')
 
     readme_template = """# Advent of Code 🎄
 
@@ -100,12 +102,13 @@ Advent of Code is a delightful online event created by Eric Wastl. It's a coding
 
     year_lines = []
     for year in args.years:
-        year_lines.append(get_year_badge_url(year, y2s[year]))
+        line = get_year_badge_url(year, y2s[year])
         if y2s[year] > 0 and year in languages:
-            year_lines[-1] += f' {get_language_badge_url(languages[year])}'
+            line += f' {get_language_badge_url(languages[year])}'
+        year_lines.append(line)
 
     with open('README.md', 'w', encoding = 'utf-8') as file:
-        file.write(readme_template.format(year_lines = "\n".join(year_lines)))
+        file.write(readme_template.format(year_lines = "<br>\n".join(year_lines)))
 
 
 if __name__ == "__main__":
