@@ -20,7 +20,7 @@ assert UID is not None
 
 AOC_URL = "https://adventofcode.com/{year}/leaderboard/private/view/{uid}.json"
 HEADERS = {
-    "User-Agent": "https://github.com/Asaranth/AdventOfCode/blob/main/update_readme.py"
+    "User-Agent": "https://github.com/Asaranth/AdventOfCode/blob/main/.scripts/update_readme.py"
 }
 COOKIES = {"session": SID}
 STAR = "⭐"
@@ -107,7 +107,7 @@ Advent of Code is a delightful online event created by Eric Wastl. It's a coding
             line += f' {get_language_badge_url(languages[year])}'
         year_lines.append(line)
 
-    with open('README.md', 'w', encoding = 'utf-8') as file:
+    with open('../README.md', 'w', encoding = 'utf-8') as file:
         file.write(readme_template.format(year_lines = "<br>\n".join(year_lines)))
 
 

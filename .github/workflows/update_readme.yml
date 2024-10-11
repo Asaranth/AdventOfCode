@@ -30,7 +30,7 @@ jobs:
           AOC_SESSION_COOKIE: ${{ secrets.AOC_SESSION_COOKIE }}
           AOC_USER_ID: ${{ secrets.AOC_USER_ID }}
         run: |
-          python update_readme.py
+          python .scripts/update_readme.py
 
       - name: Commit and push changes
         env:
