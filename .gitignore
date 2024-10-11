@@ -1,5 +1,8 @@
 # Ignore data folders
 **/data/
 
+# Ignore .env
+.env
+
 # Ignore IntelliJ IDEA configuration
 .idea/
