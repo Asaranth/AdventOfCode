@@ -10,18 +10,8 @@ import requests
 LANGUAGE_COLORS = {
     'Python': '3572A5',
     'R': '198CE7'
+
 }
-
-
-def rgb2hex(r, g, b):
-    f = lambda x: max(0, min(255, round(x * 255)))
-    return f"{f(r):02x}{f(g):02x}{f(b):02x}"
-
-
-def hsv_interp(t):
-    assert 0 <= t <= 1
-    return rgb2hex(*colorsys.hsv_to_rgb(h = t * 120 / 360, s = 1, v = 0.6))
-
 
 SID = os.getenv("AOC_SESSION_COOKIE")
 assert SID is not None
@@ -38,13 +28,23 @@ STAR = "⭐"
 NUM_YEARS = datetime.now().year - 2015 + 1
 
 
+def rgb2hex(r, g, b):
+    f = lambda x: max(0, min(255, round(x * 255)))
+    return f"{f(r):02x}{f(g):02x}{f(b):02x}"
+
+
+def hsv_interp(t):
+    assert 0 <= t <= 1
+    return rgb2hex(*colorsys.hsv_to_rgb(h = t * 120 / 360, s = 1, v = 0.6))
+
+
 def fmt_year_badge(year: int, stars: int, color: str) -> str:
-    return f"https://img.shields.io/badge/{year}-{stars}%20{STAR}-{color}?style=flat-square"
+    return f"https://img.shields.io/badge/{year}-{stars}%20{STAR}-{color}?style=flat-square&labelColor=2b2b2b"
 
 
 def fmt_language_badge(language: str) -> str:
     color = LANGUAGE_COLORS.get(language, 'blue')
-    return f"https://img.shields.io/badge/{language}-{color}?style=flat-square&labelColor=2b2b2b&logo={language}&logoColor=white"
+    return f"https://img.shields.io/badge/-{language}-{color}?style=flat-square&labelColor=2b2b2b&logo={language}&logoColor=white"
 
 
 def fmt_total_badge(stars: int, color: str) -> str:
@@ -59,20 +59,13 @@ def get_year_stars(year: int, sleep_sec: int) -> int:
     )
     assert res.status_code == 200
     time.sleep(sleep_sec)
-
     data = json.loads(res.text)
-
     return data["members"][UID]["stars"]
 
 
-def get_year_badge_url(year: int, stars: int, link_to_dir: bool) -> str:
+def get_year_badge_url(year: int, stars: int) -> str:
     color = hsv_interp(stars / 50)
-
-    badge = f'<img src="{fmt_year_badge(year, stars, color)}"></img>'
-    if link_to_dir:
-        badge = f'<a href="./{year}">{badge}</a>'
-
-    return badge
+    return f'<img src="{fmt_year_badge(year, stars, color)}"></img>'
 
 
 def get_language_badge_url(language: str) -> str:
@@ -81,10 +74,7 @@ def get_language_badge_url(language: str) -> str:
 
 def get_total_badge_url(stars: int) -> str:
     color = hsv_interp(stars / (NUM_YEARS * 50))
-
-    return (
-        f'<a href="./README.md"><img src="{fmt_total_badge(stars, color)}"></img></a>'
-    )
+    return f'<a href="./README.md"><img src="{fmt_total_badge(stars, color)}"></img></a>'
 
 
 def main(args):
@@ -94,13 +84,10 @@ def main(args):
         2023: 'Python'
     }
 
-    if args.total_only:
-        print(get_total_badge_url(sum(y2s.values())))
-    else:
-        for y, s in y2s.items():
-            print(get_year_badge_url(y, s, args.link_to_dir), end = ' ')
-            if y in languages:
-                print(get_language_badge_url(languages[y]))
+    for y, s in y2s.items():
+        print(get_year_badge_url(y, s), end = ' ')
+        if y in languages and s > 0:
+            print(get_language_badge_url(languages[y]))
 
     readme_template = """# Advent of Code 🎄
 
@@ -113,12 +100,9 @@ Advent of Code is a delightful online event created by Eric Wastl. It's a coding
 
     year_lines = []
     for year in args.years:
-        if y2s[year] == 0:
-            year_lines.append(f"- **{year}:** (not started)")
-        else:
-            language_badge = get_language_badge_url(languages.get(year, "Unknown"))
-            year_lines.append(
-                f"- **{year}:** {language_badge} {get_year_badge_url(year, y2s[year], False)}")
+        year_lines.append(get_year_badge_url(year, y2s[year]))
+        if y2s[year] > 0 and year in languages:
+            year_lines[-1] += f' {get_language_badge_url(languages[year])}'
 
     with open('README.md', 'w', encoding = 'utf-8') as file:
         file.write(readme_template.format(year_lines = "\n".join(year_lines)))
@@ -154,5 +138,4 @@ if __name__ == "__main__":
         help = "Just generate the total number of stars",
     )
     args = parser.parse_args()
-
     main(args)
