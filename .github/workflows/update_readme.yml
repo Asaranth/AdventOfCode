@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -21,7 +23,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4
+          pip install requests beautifulsoup4 python-dotenv
 
       - name: Run update script
         env:
@@ -36,10 +38,26 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Check if there are changes before pulling
+          if git diff --quiet; then
+            echo "No changes to stash"
+          else
+            echo "Stashing changes"
+            git stash
+          fi
+
           git pull --rebase
+
+          # Apply the stash, if there was one
+          if git stash list | grep -q 'stash@{0}'; then
+            echo "Applying stashed changes"
+            git stash pop
+          fi
+
           git add README.md
 
-          # Check if there are changes before committing
+          # Check if there are changes to commit
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
