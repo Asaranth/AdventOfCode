@@ -56,15 +56,19 @@ def hsv_interp(t):
 
 
 def fmt_year_badge(year: int, stars: int, color: str) -> str:
-    stars_formatted = f"{stars:02d}"  # Ensure stars are always 2 digits
+    stars_formatted = f"{stars:02d}"
     return f"https://img.shields.io/badge/{year}-{stars_formatted}%20{STAR}-{color}?style=flat-square&labelColor=2b2b2b"
 
 
 def fmt_language_badge(language: dict) -> str:
     label = language['label']
-    logo = language['logo']
+    logo_url = language['logo']
     color = language['color']
-    return f"https://img.shields.io/badge/-{label}-{color}?style=flat-square&labelColor=2b2b2b&logo={logo}&logoColor=white"
+    if "://" in logo_url:
+        logo = f"&logo={logo_url}"
+    else:
+        logo = f"&logo={logo_url}"
+    return f"https://img.shields.io/badge/-{label}-{color}?style=flat-square&labelColor=2b2b2b{logo}"
 
 
 def fmt_total_badge(stars: int, color: str) -> str:
@@ -122,7 +126,7 @@ Each year in December, the advent calendar with a twist opens! Advent of Code is
     year_lines = []
     for year in args.years:
         line = get_year_badge_url(year, y2s[year])
-        if y2s[year] > 0 and year in LANGUAGE_DETAILS:
+        if year in LANGUAGE_DETAILS:
             line += f' {get_language_badge_url(year)}'
         year_lines.append(line)
 
