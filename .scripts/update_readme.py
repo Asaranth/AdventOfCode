@@ -126,7 +126,7 @@ Each year in December, the advent calendar with a twist opens! Advent of Code is
     year_lines = []
     for year in args.years:
         line = get_year_badge_url(year, y2s[year])
-        if year in LANGUAGE_DETAILS:
+        if y2s[year] > 0 and year in LANGUAGE_DETAILS:
             line += f' {get_language_badge_url(year)}'
         year_lines.append(line)
 
