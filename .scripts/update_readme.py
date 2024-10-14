@@ -129,6 +129,9 @@ Each year in December, the advent calendar with a twist opens! Advent of Code is
     with open('../README.md', 'w', encoding = 'utf-8') as file:
         file.write(readme_template.format(year_lines = "<br>\n".join(year_lines)))
 
+    with open('../README.md', 'r', encoding = 'utf-8') as file:
+        print("Updated README.md content:\n", file.read())
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
