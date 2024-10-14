@@ -1,8 +1,8 @@
-data <- readLines("./2015/data/07.txt")
+data <- readLines('/2015/data/07.txt')
 wires <- new.env()
 
-COMMAND_REGEX <- "[A-Z]+"
-ARGUMENTS_REGEX <- "[a-z0-9]+"
+COMMAND_REGEX <- '[A-Z]+'
+ARGUMENTS_REGEX <- '[a-z0-9]+'
 
 BITWISE_METHODS <- list(
   AND = function(a, b) bitwAnd(a, b),
@@ -19,7 +19,7 @@ parseInstruction <- function(instruction) {
   args <- args[-length(args)]
 
   args <- lapply(args, function(arg) {
-    if (grepl("^\\d+$", arg)) {
+    if (grepl('^\\d+$', arg)) {
       as.numeric(arg)
     } else {
       arg
