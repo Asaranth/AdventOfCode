@@ -13,5 +13,5 @@ solvePartTwo <- function() {
   return(min(index_vector[floor_vector == -1]))
 }
 
-stringr::str_interp('Part One: ${solvePartOne()}')
-stringr::str_interp('Part Two: ${solvePartTwo()}')
+cat(stringr::str_interp('Part One: ${solvePartOne()}\n'))
+cat(stringr::str_interp('Part Two: ${solvePartTwo()}\n'))

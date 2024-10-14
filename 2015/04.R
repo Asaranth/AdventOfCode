@@ -14,5 +14,5 @@ solvePartTwo <- function() {
   return(number[[which(substr(hash, 1, 6) == "000000")]])
 }
 
-stringr::str_interp('Part One: ${solvePartOne()}')
-stringr::str_interp('Part Two: ${solvePartTwo()}')
+cat(stringr::str_interp('Part One: ${solvePartOne()}\n'))
+cat(stringr::str_interp('Part Two: ${solvePartTwo()}\n'))
