@@ -38,29 +38,26 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
-          # Check if there are changes before pulling
-          if git diff --quiet; then
-            echo "No changes to stash"
-          else
-            echo "Stashing changes"
-            git stash
-          fi
 
+          # Stash any local changes before pulling the latest state
+          git stash --include-untracked
+
+          # Pull with rebase to avoid unnecessary merge commits
           git pull --rebase
 
-          # Apply the stash, if there was one
+          # Apply stashed changes if any were stashed
           if git stash list | grep -q 'stash@{0}'; then
-            echo "Applying stashed changes"
             git stash pop
           fi
 
+          # Stage the README.md file before committing
           git add README.md
 
-          # Check if there are changes to commit
+          # Check if there are staged changes that would lead to a commit
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m 'Update star count'
+            echo "Changes detected, committing updates"
+            git commit -m 'Update README'
             git push https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
           fi
