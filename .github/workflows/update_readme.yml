@@ -12,18 +12,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 python-dotenv
+          python -m pip install --upgrade pip
+          pip install requests
 
       - name: Run update script
         env:
@@ -32,18 +31,26 @@ jobs:
         run: |
           python .scripts/update_readme.py
 
+          # Check if README.md content has changed post-script
+          echo "### Content of README.md after script execution ###"
+          cat README.md
+          echo "### Git diff of README.md ###"
+          git diff README.md
+
       - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          touch README.md
-          echo "### After script execution and touching ###"
-          cat README.md
-          git diff README.md
+          
+          # Ensure changes are staged if there's a modification
           git add README.md
+
+          # Verify that the README.md file has been staged
           git status
+
+          # Check for staged changes
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else

@@ -103,12 +103,12 @@ def main(args):
     y2s = {y: get_year_stars(y, args.sleep_sec) for y in args.years}
 
     if args.total_only:
-        print(get_total_badge_url(sum(y2s.values())))
+        get_total_badge_url(sum(y2s.values()))
     else:
         for y, s in y2s.items():
-            print(f"{get_year_badge_url(y, s)}<br>", end = '')
+            get_year_badge_url(y, s)
             if y in LANGUAGE_DETAILS and s > 0:
-                print(f"{get_language_badge_url(y)}<br>", end = '')
+                get_language_badge_url(y)
 
     readme_template = """# Advent of Code 🎄
 
