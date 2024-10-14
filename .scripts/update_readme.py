@@ -32,8 +32,10 @@ LANGUAGE_DETAILS = {
 
 SID = os.getenv('AOC_SESSION_COOKIE')
 assert SID is not None
+
 UID = os.getenv('AOC_USER_ID')
 assert UID is not None
+
 AOC_URL = 'https://adventofcode.com/{year}/leaderboard/private/view/{uid}.json'
 HEADERS = {
     'User-Agent': 'https://github.com/Asaranth/AdventOfCode/blob/main/.scripts/update_readme.py'
@@ -65,6 +67,10 @@ def fmt_language_badge(language: dict) -> str:
     return f'https://img.shields.io/badge/-{label}-{color}?style=flat-square&labelColor=2b2b2b&logo={logo}&logoColor=white'
 
 
+def fmt_total_badge(stars: int, color: str) -> str:
+    return f'https://img.shields.io/badge/total-{stars}%20{STAR}-{color}?style=for-the-badge'
+
+
 def get_year_stars(year: int, sleep_sec: int) -> int:
     res = requests.get(
         AOC_URL.format(year = year, uid = UID),
@@ -79,28 +85,41 @@ def get_year_stars(year: int, sleep_sec: int) -> int:
 
 def get_year_badge_url(year: int, stars: int) -> str:
     color = hsv_interp(stars / 50)
-    return f'![{year} Badge]({fmt_year_badge(year, stars, color)})'
+    return f'<img src="{fmt_year_badge(year, stars, color)}"></img>'
 
 
 def get_language_badge_url(year: int) -> str:
     if year not in LANGUAGE_DETAILS:
         return ''
-    return f'![{LANGUAGE_DETAILS[year]["label"]} Badge]({fmt_language_badge(LANGUAGE_DETAILS[year])})'
+    return f'<img src="{fmt_language_badge(LANGUAGE_DETAILS[year])}"></img>'
+
+
+def get_total_badge_url(stars: int) -> str:
+    color = hsv_interp(stars / (NUM_YEARS * 50))
+    return f'<a href="./README.md"><img src="{fmt_total_badge(stars, color)}"></img></a>'
 
 
 def main(args):
     y2s = {y: get_year_stars(y, args.sleep_sec) for y in args.years}
-    readme_template = '''# Advent of Code 🎄
+
+    for y, s in y2s.items():
+        get_year_badge_url(y, s)
+        if y in LANGUAGE_DETAILS and s > 0:
+            get_language_badge_url(y)
+
+    readme_template = """# Advent of Code 🎄
 Each year in December, the advent calendar with a twist opens! Advent of Code is an annual event where puzzles are released each day from December 1st to December 25th. Created by Eric Wastl, these puzzles cover a variety of programming aspects, encouraging creative problem-solving and improving coding skills. Join the [fun and educational journey](https://adventofcode.com/)!
 ## Years
 {year_lines}
-'''
+"""
+
     year_lines = []
     for year in args.years:
         line = get_year_badge_url(year, y2s[year])
         if y2s[year] > 0 and year in LANGUAGE_DETAILS:
             line += f' {get_language_badge_url(year)}'
         year_lines.append(line)
+
     with open('README.md', 'w', encoding = 'utf-8') as file:
         file.write(readme_template.format(year_lines = '<br>\n'.join(year_lines)))
 
