@@ -13,12 +13,12 @@ LANGUAGE_DETAILS = {
         'logo': 'R',
         'color': '198CE7'
     },
-    2023: {
+    2016: {
         'label': 'C#',
         'logo': 'https://raw.githubusercontent.com/Asaranth/AdventOfCode/main/.assets/csharp.svg',
         'color': '178600'
     },
-    2016: {
+    2023: {
         'label': 'Python',
         'logo': 'Python',
         'color': '3572A5'
