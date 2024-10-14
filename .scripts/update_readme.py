@@ -126,13 +126,13 @@ Each year in December, the advent calendar with a twist opens! Advent of Code is
             line += f' {get_language_badge_url(year)}'
         year_lines.append(line)
 
-    with open('../README.md', 'r', encoding = 'utf-8') as file:
+    with open('README.md', 'r', encoding = 'utf-8') as file:
         print(file)
 
-    with open('../README.md', 'w', encoding = 'utf-8') as file:
+    with open('README.md', 'w', encoding = 'utf-8') as file:
         file.write(readme_template.format(year_lines = "<br>\n".join(year_lines)))
 
-    with open('../README.md', 'r', encoding = 'utf-8') as file:
+    with open('README.md', 'r', encoding = 'utf-8') as file:
         print(file)
 
 
