@@ -14,7 +14,7 @@ LANGUAGE_DETAILS = {
         'color': '198CE7'
     },
     2016: {
-        'label': 'C#',
+        'label': 'C%23',
         'logo': 'data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij4NCiAgPHBhdGgNCiAgICBkPSJNMTE3LjUgMzMuNWwuMy0uMmMtLjYtMS4xLTEuNS0yLjEtMi40LTIuNkw2Ny4xIDIuOWMtLjgtLjUtMS45LS43LTMuMS0uNy0xLjIgMC0yLjMuMy0zLjEuN2wtNDggMjcuOWMtMS43IDEtMi45IDMuNS0yLjkgNS40djU1LjdjMCAxLjEuMiAyLjMuOSAzLjRsLS4yLjFjLjUuOCAxLjIgMS41IDEuOSAxLjlsNDguMiAyNy45Yy44LjUgMS45LjcgMy4xLjcgMS4yIDAgMi4zLS4zIDMuMS0uN2w0OC0yNy45YzEuNy0xIDIuOS0zLjUgMi45LTUuNFYzNi4xYy4xLS44IDAtMS43LS40LTIuNnptLTUzLjUgNzBjLTIxLjggMC0zOS41LTE3LjctMzkuNS0zOS41UzQyLjIgMjQuNSA2NCAyNC41YzE0LjcgMCAyNy41IDguMSAzNC4zIDIwbC0xMyA3LjVDODEuMSA0NC41IDczLjEgMzkuNSA2NCAzOS41Yy0xMy41IDAtMjQuNSAxMS0yNC41IDI0LjVzMTEgMjQuNSAyNC41IDI0LjVjOS4xIDAgMTcuMS01IDIxLjMtMTIuNGwxMi45IDcuNmMtNi44IDExLjgtMTkuNiAxOS44LTM0LjIgMTkuOHpNMTE1IDYyaC0zLjJsLS45IDRoNC4xdjVoLTVsLTEuMiA2aC00LjlsMS4yLTZoLTMuOGwtMS4yIDZoLTQuOGwxLjItNkg5NHYtNWgzLjVsLjktNEg5NHYtNWg1LjNsMS4yLTZoNC45bC0xLjIgNmgzLjhsMS4yLTZoNC44bC0xLjIgNmgyLjJ2NXptLTEyLjcgNGgzLjhsLjktNGgtMy44eiINCiAgICBmaWxsPSIjRkZGIiAvPg0KPC9zdmc+',
         'color': '178600'
     },
@@ -24,7 +24,7 @@ LANGUAGE_DETAILS = {
         'color': '3572A5'
     },
     2024: {
-        'label': 'F#',
+        'label': 'F%23',
         'logo': 'fsharp',
         'color': 'b845fc'
     }
@@ -126,14 +126,8 @@ Each year in December, the advent calendar with a twist opens! Advent of Code is
             line += f' {get_language_badge_url(year)}'
         year_lines.append(line)
 
-    with open('README.md', 'r', encoding = 'utf-8') as file:
-        print(file)
-
     with open('README.md', 'w', encoding = 'utf-8') as file:
         file.write(readme_template.format(year_lines = "<br>\n".join(year_lines)))
-
-    with open('README.md', 'r', encoding = 'utf-8') as file:
-        print(file)
 
 
 if __name__ == "__main__":
