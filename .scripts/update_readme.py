@@ -7,9 +7,27 @@ from datetime import datetime
 
 import requests
 
-LANGUAGE_COLORS = {
-    'Python': '3572A5',
-    'R': '198CE7'
+LANGUAGE_DETAILS = {
+    2015: {
+        'label': 'R',
+        'logo': 'R',
+        'color': '198CE7'
+    },
+    2016: {
+        'label': 'C#',
+        'logo': 'https://raw.githubusercontent.com/Asaranth/AdventOfCode/main/.assets/csharp.svg',
+        'color': '178600'
+    },
+    2023: {
+        'label': 'Python',
+        'logo': 'Python',
+        'color': '3572A5'
+    },
+    2024: {
+        'label': 'F#',
+        'logo': 'fsharp',
+        'color': 'b845fc'
+    }
 }
 
 SID = os.getenv("AOC_SESSION_COOKIE")
@@ -38,12 +56,15 @@ def hsv_interp(t):
 
 
 def fmt_year_badge(year: int, stars: int, color: str) -> str:
-    return f"https://img.shields.io/badge/{year}-{stars}%20{STAR}-{color}?style=flat-square&labelColor=2b2b2b"
+    stars_formatted = f"{stars:02d}"  # Ensure stars are always 2 digits
+    return f"https://img.shields.io/badge/{year}-{stars_formatted}%20{STAR}-{color}?style=flat-square&labelColor=2b2b2b"
 
 
-def fmt_language_badge(language: str) -> str:
-    color = LANGUAGE_COLORS.get(language, 'blue')
-    return f"https://img.shields.io/badge/-{language}-{color}?style=flat-square&labelColor=2b2b2b&logo={language}&logoColor=white"
+def fmt_language_badge(language: dict) -> str:
+    label = language['label']
+    logo = language['logo']
+    color = language['color']
+    return f"https://img.shields.io/badge/-{label}-{color}?style=flat-square&labelColor=2b2b2b&logo={logo}&logoColor=white"
 
 
 def fmt_total_badge(stars: int, color: str) -> str:
@@ -67,8 +88,10 @@ def get_year_badge_url(year: int, stars: int) -> str:
     return f'<img src="{fmt_year_badge(year, stars, color)}"></img>'
 
 
-def get_language_badge_url(language: str) -> str:
-    return f'<img src="{fmt_language_badge(language)}"></img>'
+def get_language_badge_url(year: int) -> str:
+    if year not in LANGUAGE_DETAILS:
+        return ""
+    return f'<img src="{fmt_language_badge(LANGUAGE_DETAILS[year])}"></img>'
 
 
 def get_total_badge_url(stars: int) -> str:
@@ -78,22 +101,18 @@ def get_total_badge_url(stars: int) -> str:
 
 def main(args):
     y2s = {y: get_year_stars(y, args.sleep_sec) for y in args.years}
-    languages = {
-        2015: 'R',
-        2023: 'Python'
-    }
 
     if args.total_only:
         print(get_total_badge_url(sum(y2s.values())))
     else:
         for y, s in y2s.items():
             print(f"{get_year_badge_url(y, s)}<br>", end = '')
-            if y in languages and s > 0:
-                print(f"{get_language_badge_url(languages[y])}<br>", end = '')
+            if y in LANGUAGE_DETAILS and s > 0:
+                print(f"{get_language_badge_url(y)}<br>", end = '')
 
     readme_template = """# Advent of Code 🎄
 
-Advent of Code is a delightful online event created by Eric Wastl. It's a coding celebration that happens every December, treating you to daily programming puzzles from the 1st to the 25th. Join the fun at [Advent of Code](https://adventofcode.com/)!
+Each year in December, the advent calendar with a twist opens! Advent of Code is an annual event where puzzles are released each day from December 1st to December 25th. Created by Eric Wastl, these puzzles cover a variety of programming aspects, encouraging creative problem-solving and improving coding skills. Join the [fun and educational journey](https://adventofcode.com/)!
 
 ## Years
 
@@ -103,8 +122,8 @@ Advent of Code is a delightful online event created by Eric Wastl. It's a coding
     year_lines = []
     for year in args.years:
         line = get_year_badge_url(year, y2s[year])
-        if y2s[year] > 0 and year in languages:
-            line += f' {get_language_badge_url(languages[year])}'
+        if y2s[year] > 0 and year in LANGUAGE_DETAILS:
+            line += f' {get_language_badge_url(year)}'
         year_lines.append(line)
 
     with open('../README.md', 'w', encoding = 'utf-8') as file:
