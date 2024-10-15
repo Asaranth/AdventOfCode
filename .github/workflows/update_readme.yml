@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-  schedule:
-    - cron: '0 0 * * *'
 
 jobs:
   update-readme:
@@ -14,20 +12,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up environment variables
-        run: |
-          echo "AOC_SESSION_COOKIE=${{ secrets.AOC_SESSION_COOKIE }}" >> $GITHUB_ENV
-          echo "AOC_USER_ID=${{ secrets.AOC_USER_ID }}" >> $GITHUB_ENV
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
 
       - name: Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y jq
+          python -m pip install --upgrade pip
+          pip install requests
 
       - name: Run update script
+        env:
+          AOC_SESSION_COOKIE: ${{ secrets.AOC_SESSION_COOKIE }}
+          AOC_USER_ID: ${{ secrets.AOC_USER_ID }}
         run: |
-          chmod +x .scripts/update_readme.sh
-          .scripts/update_readme.sh
+          python .scripts/update_readme.py
 
           # Check if README.md content has changed post-script
           echo "### Content of README.md after script execution ###"
