@@ -3,8 +3,8 @@
 set -e
 
 SID=${AOC_SESSION_COOKIE:?Environment variable AOC_SESSION_COOKIE is missing}
-UID=${AOC_USER_ID:?Environment variable AOC_USER_ID is missing}
-AOC_URL="https://adventofcode.com/%d/leaderboard/private/view/${UID}.json"
+AOC_UID=${AOC_USER_ID:?Environment variable AOC_USER_ID is missing}
+AOC_URL="https://adventofcode.com/%d/leaderboard/private/view/${AOC_UID}.json"
 NUM_YEARS=$(( $(date +%Y) - 2015 + 1))
 STAR="⭐"
 
@@ -72,7 +72,7 @@ function get_year_stars {
                      --cookie "session=${SID}" \
                      "$url")
     sleep "$sleep_sec"
-    echo "$res" | jq -r ".members[\"${UID}\"].stars"
+    echo "$res" | jq -r ".members[\"${AOC_UID}\"].stars"
 }
 
 function get_year_badge_url {
