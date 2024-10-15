@@ -1,53 +1,53 @@
 data <- readLines('./2015/data/08.txt')
 
-calculate_code_length <- function(s) {
+calculateCodeLength <- function(s) {
   return(nchar(s))
 }
 
-calculate_memory_length <- function(s) {
+calculateMemoryLength <- function(s) {
   s <- substring(s, 2, nchar(s) - 1)
   i <- 1
-  in_memory_length <- 0
+  inMemoryLength <- 0
   while (i <= nchar(s)) {
     char <- substring(s, i, i)
     if (char == '\\') {
-      next_char <- substring(s, i+1, i+1)
-      if (next_char %in% c('\\', '\"')) {
-        in_memory_length <- in_memory_length + 1
+      nextChar <- substring(s, i+1, i+1)
+      if (nextChar %in% c('\\', '\"')) {
+        inMemoryLength <- inMemoryLength + 1
         i <- i + 2
-      } else if (next_char == 'x') {
-        in_memory_length <- in_memory_length + 1
+      } else if (nextChar == 'x') {
+        inMemoryLength <- inMemoryLength + 1
         i <- i + 4
       } else {
-        in_memory_length <- in_memory_length + 1
+        inMemoryLength <- inMemoryLength + 1
         i <- i + 1
       }
     } else {
-      in_memory_length <- in_memory_length + 1
+      inMemoryLength <- inMemoryLength + 1
       i <- i + 1
     }
   }
-  return(in_memory_length)
+  return(inMemoryLength)
 }
 
-calculate_encoded_length <- function(s) {
-  encoded_string <- s
-  encoded_string <- gsub('\\\\', '\\\\\\\\', encoded_string)
-  encoded_string <- gsub('\"', '\\\\\\\"', encoded_string)
-  encoded_string <- paste0('\"', encoded_string, '\"')
-  return(nchar(encoded_string))
+calculateEncodedLength <- function(s) {
+  encodedString <- s
+  encodedString <- gsub('\\\\', '\\\\\\\\', encodedString)
+  encodedString <- gsub('\"', '\\\\\\\"', encodedString)
+  encodedString <- paste0('\"', encodedString, '\"')
+  return(nchar(encodedString))
 }
 
 solvePartOne <- function() {
-  total_code_length <- sum(sapply(data, calculate_code_length))
-  total_memory_length <- sum(sapply(data, calculate_memory_length))
-  return(total_code_length - total_memory_length)
+  totalCodeLength <- sum(sapply(data, calculateCodeLength))
+  totalMemoryLength <- sum(sapply(data, calculateMemoryLength))
+  return(totalCodeLength - totalMemoryLength)
 }
 
 solvePartTwo <- function() {
-  total_code_length <- sum(sapply(data, calculate_code_length))
-  total_encoded_length <- sum(sapply(data, calculate_encoded_length))
-  return(total_encoded_length - total_code_length)
+  totalCodeLength <- sum(sapply(data, calculateCodeLength))
+  totalEncodedLength <- sum(sapply(data, calculateEncodedLength))
+  return(totalEncodedLength - totalCodeLength)
 }
 
 cat('Part One:', solvePartOne(), '\n')

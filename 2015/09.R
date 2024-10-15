@@ -1,6 +1,6 @@
 data <- readLines('./2015/data/09.txt')
 
-parse_distances <- function(data) {
+parseDistances <- function(data) {
   distances <- list()
   locations <- NULL
 
@@ -16,31 +16,31 @@ parse_distances <- function(data) {
   return(list(distances = distances, locations = locations))
 }
 
-calculate_all_route_distances <- function(parsed_data) {
-  all_permutations <- combinat::permn(parsed_data$locations)
-  route_distances <- numeric(length(all_permutations))
-  for (i in seq_along(all_permutations)) {
-    route <- all_permutations[[i]]
-    total_distance <- 0
+calculateAllRouteDistances <- function(parsedData) {
+  permutations <- combinat::permn(parsedData$locations)
+  routeDistances <- numeric(length(permutations))
+  for (i in seq_along(permutations)) {
+    route <- permutations[[i]]
+    totalDistance <- 0
     for (j in 1:(length(route) - 1)) {
-      loc_pair <- paste(sort(c(route[j], route[j + 1])), collapse = '-')
-      total_distance <- total_distance + parsed_data$distances[[loc_pair]]
+      locPair <- paste(sort(c(route[j], route[j + 1])), collapse = '-')
+      totalDistance <- totalDistance + parsedData$distances[[locPair]]
     }
-    route_distances[i] <- total_distance
+    routeDistances[i] <- totalDistance
   }
-  return(route_distances)
+  return(routeDistances)
 }
 
-solvePartOne <- function(route_distances) {
-  return(min(route_distances))
+solvePartOne <- function(routeDistances) {
+  return(min(routeDistances))
 }
 
-solvePartTwo <- function(route_distances) {
-  return(max(route_distances))
+solvePartTwo <- function(routeDistances) {
+  return(max(routeDistances))
 }
 
-parsed_data <- parse_distances(data)
-route_distances <- calculate_all_route_distances(parsed_data)
+parsedData <- parseDistances(data)
+routeDistances <- calculateAllRouteDistances(parsedData)
 
-cat('Part One:', solvePartOne(route_distances), '\n')
-cat('Part Two:', solvePartTwo(route_distances), '\n')
+cat('Part One:', solvePartOne(routeDistances), '\n')
+cat('Part Two:', solvePartTwo(routeDistances), '\n')

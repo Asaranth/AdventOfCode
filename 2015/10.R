@@ -1,21 +1,21 @@
 data <- readLines('./2015/data/10.txt')
 
-next_sequence <- function(sequence) {
-  rle_sequence <- rle(strsplit(sequence, NULL)[[1]])
-  paste(mapply(function(times, digit) paste0(times, digit), rle_sequence$lengths, rle_sequence$values), collapse = '')
+nextSequence <- function(sequence) {
+  rleSequence <- rle(strsplit(sequence, NULL)[[1]])
+  paste(mapply(function(times, digit) paste0(times, digit), rleSequence$lengths, rleSequence$values), collapse = '')
 }
 
 solvePartOne <- function() {
   sequence <- data
   for (i in 1:40) {
-    sequence <- next_sequence(sequence)
+    sequence <- nextSequence(sequence)
   }
   return(list(result = nchar(sequence), sequence = sequence))
 }
 
 solvePartTwo <- function(sequence) {
   for (i in 1:10) {
-    sequence <- next_sequence(sequence)
+    sequence <- nextSequence(sequence)
   }
   return(nchar(sequence))
 }

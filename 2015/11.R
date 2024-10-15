@@ -1,10 +1,10 @@
 data <- readLines('./2015/data/11.txt')[1]
-banned_letters <- c('i', 'o', 'l')
+bannedLetters <- c('i', 'o', 'l')
 
-skip_invalid_characters <- function(pw) {
+skipInvalidCharacters <- function(pw) {
   pw <- strsplit(pw, '')[[1]]
   for (i in seq_along(pw)) {
-    if (pw[i] %in% banned_letters) {
+    if (pw[i] %in% bannedLetters) {
       pw[i] <- intToUtf8(utf8ToInt(pw[i]) + 1)
       for (j in (i + 1):length(pw)) {
         pw[j] <- 'a'
@@ -15,7 +15,7 @@ skip_invalid_characters <- function(pw) {
   paste(pw, collapse = "")
 }
 
-increment_password <- function(password) {
+incrementPassword <- function(password) {
   pw <- strsplit(password, '')[[1]]
   for (i in rev(seq_along(pw))) {
     if (pw[i] == 'z') {
@@ -28,7 +28,7 @@ increment_password <- function(password) {
   paste(pw, collapse = '')
 }
 
-contains_increasing_straight <- function(pw) {
+containsIncreasingStraight <- function(pw) {
   for (i in 1:(nchar(pw) - 2)) {
     if (utf8ToInt(substr(pw, i, i)) + 1 == utf8ToInt(substr(pw, i + 1, i + 1)) && utf8ToInt(substr(pw, i, i)) + 2 == utf8ToInt(substr(pw, i + 2, i + 2))) {
       return(TRUE)
@@ -37,34 +37,34 @@ contains_increasing_straight <- function(pw) {
   return(FALSE)
 }
 
-contains_banned_letters <- function(pw) {
-  return(any(charToRaw(pw) %in% charToRaw(paste(banned_letters, collapse = ''))))
+containsBannedLetters <- function(pw) {
+  return(any(charToRaw(pw) %in% charToRaw(paste(bannedLetters, collapse = ''))))
 }
 
-contains_two_pairs <- function(pw) {
+containsTwoPairs <- function(pw) {
   pairs <- gregexpr('(.)\\1', pw)[[1]]
   if (pairs[1] == -1) return(FALSE)
 
-  num_pairs <- 0
-  last_pos <- -2
+  numPairs <- 0
+  lastPos <- -2
 
   for (pos in pairs) {
-    if (pos != last_pos + 1) num_pairs <- num_pairs + 1
-    last_pos <- pos
+    if (pos != lastPos + 1) numPairs <- numPairs + 1
+    lastPos <- pos
   }
 
-  return(num_pairs >= 2)
+  return(numPairs >= 2)
 }
 
-is_valid_password <- function(pw) {
-  contains_increasing_straight(pw) && !contains_banned_letters(pw) && contains_two_pairs(pw)
+isValidPassword <- function(pw) {
+  containsIncreasingStraight(pw) && !containsBannedLetters(pw) && containsTwoPairs(pw)
 }
 
 solvePartOne <- function() {
-  pw <- skip_invalid_characters(data[1])
+  pw <- skipInvalidCharacters(data[1])
   repeat {
-    pw <- increment_password(pw)
-    if (is_valid_password(pw)) {
+    pw <- incrementPassword(pw)
+    if (isValidPassword(pw)) {
       return(pw)
     }
   }
@@ -72,8 +72,8 @@ solvePartOne <- function() {
 
 solvePartTwo <- function(pw) {
   repeat {
-    pw <- increment_password(pw)
-    if (is_valid_password(pw)) {
+    pw <- incrementPassword(pw)
+    if (isValidPassword(pw)) {
       return(pw)
     }
   }

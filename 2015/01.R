@@ -7,10 +7,10 @@ solvePartOne <- function() {
 }
 
 solvePartTwo <- function() {
-  input_data <- strsplit(data, '')[[1]]
-  index_vector <- seq_along(input_data)
-  floor_vector <- cumsum(ifelse(input_data =='(', 1, -1))
-  return(min(index_vector[floor_vector == -1]))
+  inputData <- strsplit(data, '')[[1]]
+  indexVector <- seq_along(inputData)
+  floorVector <- cumsum(ifelse(inputData == '(', 1, -1))
+  return(min(indexVector[floorVector == -1]))
 }
 
 cat('Part One:', solvePartOne(), '\n')
