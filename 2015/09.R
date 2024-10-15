@@ -42,5 +42,5 @@ solvePartTwo <- function(route_distances) {
 parsed_data <- parse_distances(data)
 route_distances <- calculate_all_route_distances(parsed_data)
 
-cat(stringr::str_interp('Part One: ${solvePartOne(route_distances)}\n'))
-cat(stringr::str_interp('Part Two: ${solvePartTwo(route_distances)}\n'))
+cat('Part One:', solvePartOne(route_distances), '\n')
+cat('Part Two:', solvePartTwo(route_distances), '\n')

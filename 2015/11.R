@@ -80,5 +80,5 @@ solvePartTwo <- function(pw) {
 }
 
 partOneResult <- solvePartOne()
-cat(stringr::str_interp('Part One: ${partOneResult}\n'))
-cat(stringr::str_interp('Part Two: ${solvePartTwo(partOneResult)}\n'))
+cat('Part One:', partOneResult, '\n')
+cat('Part Two:', solvePartTwo(partOneResult), '\n')

@@ -21,5 +21,5 @@ solvePartTwo <- function(sequence) {
 }
 
 partOneResult <- solvePartOne()
-cat(stringr::str_interp('Part One: ${partOneResult$result}\n'))
-cat(stringr::str_interp('Part Two: ${solvePartTwo(partOneResult$sequence)}\n'))
+cat('Part One:', partOneResult$result, '\n')
+cat('Part Two:', solvePartTwo(partOneResult$sequence), '\n')

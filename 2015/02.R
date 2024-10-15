@@ -23,5 +23,5 @@ solvePartTwo <- function() {
   return(total)
 }
 
-cat(stringr::str_interp('Part One: ${solvePartOne()}\n'))
-cat(stringr::str_interp('Part Two: ${solvePartTwo()}\n'))
+cat('Part One:', solvePartOne(), '\n')
+cat('Part Two:', solvePartTwo(), '\n')
