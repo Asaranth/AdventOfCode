@@ -1,5 +1,4 @@
 data <- readLines('./2015/data/14.txt')
-reindeers <- lapply(data, parseReindeer)
 raceTime <- 2503
 
 parseReindeer <- function(line) {
@@ -10,6 +9,8 @@ parseReindeer <- function(line) {
   restTime <- as.numeric(parts[14])
   return(list(name = name, speed = speed, flyTime = flyTime, restTime = restTime))
 }
+
+reindeers <- lapply(data, parseReindeer)
 
 calculateDistance <- function(reindeer, raceTime) {
   cycleTime <- reindeer$flyTime + reindeer$restTime
