@@ -57,18 +57,14 @@ def hsv_interp(t):
 
 def fmt_year_badge(year: int, stars: int, color: str) -> str:
     stars_formatted = f'{stars:02d}'
-    return f'https://img.shields.io/badge/{year}-{stars_formatted}%20{STAR}-{color}?style=flat-square&labelColor=2b2b2b'
+    return f'https://img.shields.io/badge/{year}-{stars_formatted}%20{STAR}-{color}?style=for-the-badge&labelColor=2b2b2b'
 
 
 def fmt_language_badge(language: dict) -> str:
     label = language['label']
     logo = language['logo']
     color = language['color']
-    return f'https://img.shields.io/badge/-{label}-{color}?style=flat-square&labelColor=2b2b2b&logo={logo}&logoColor=white'
-
-
-def fmt_total_badge(stars: int, color: str) -> str:
-    return f'https://img.shields.io/badge/total-{stars}%20{STAR}-{color}?style=for-the-badge'
+    return f'https://img.shields.io/badge/-{label}-{color}?style=for-the-badge&labelColor=2b2b2b&logo={logo}&logoColor=white'
 
 
 def get_year_stars(year: int, sleep_sec: int) -> int:
