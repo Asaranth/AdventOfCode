@@ -1,6 +1,7 @@
 from heapq import heappush, heappop
+from utils import get_input_data
 
-data = [list(map(int, line.strip())) for line in open('data/17.txt')]
+data = [list(map(int, line.strip())) for line in get_input_data(17).splitlines()]
 rows, cols = len(data), len(data[0])
 
 

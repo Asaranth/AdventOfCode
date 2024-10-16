@@ -1,7 +1,8 @@
 from collections import deque
 from math import lcm
+from utils import get_input_data
 
-data = open('data/20.txt').read().splitlines()
+data = get_input_data(20).splitlines()
 
 
 class Module:

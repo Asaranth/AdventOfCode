@@ -1,6 +1,7 @@
 from re import findall
+from utils import get_input_data
 
-wfs, ratings = open('data/19.txt').read().split('\n\n')
+wfs, ratings = get_input_data(19).split('\n\n')
 workflows = {}
 operators = {
     '>': int.__gt__,

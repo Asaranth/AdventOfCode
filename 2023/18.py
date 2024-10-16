@@ -1,4 +1,6 @@
-data = open('data/18.txt').read().splitlines()
+from utils import get_input_data
+
+data = get_input_data(18).splitlines()
 directions = {
     'U': (-1, 0),
     'D': (1, 0),

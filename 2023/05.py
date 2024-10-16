@@ -1,4 +1,6 @@
-inputs, *blocks = open('../data/05.txt').read().split('\n\n')
+from utils import get_input_data
+
+inputs, *blocks = get_input_data(5).split('\n\n')
 inputs = list(map(int, inputs.split(':')[1].split()))
 
 

@@ -1,6 +1,7 @@
 from math import gcd
+from utils import get_input_data
 
-instructions, _, *mapping = open('data/08.txt').read().splitlines()
+instructions, _, *mapping = get_input_data(8).splitlines()
 direction_map = {}
 
 for line in mapping:

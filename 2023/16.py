@@ -1,6 +1,7 @@
 from collections import deque
+from utils import get_input_data
 
-data = open('data/16.txt').read().splitlines()
+data = get_input_data(16).splitlines()
 
 
 def fire_beam(r, c, dr, dc):

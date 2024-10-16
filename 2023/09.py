@@ -1,4 +1,6 @@
-data = open('data/09.txt').read().splitlines()
+from utils import get_input_data
+
+data = get_input_data(9).splitlines()
 
 
 def calculate_next_sequence(sequence):

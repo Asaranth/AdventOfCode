@@ -1,6 +1,7 @@
 from re import findall
+from utils import get_input_data
 
-data = open('data/01.txt').read().splitlines()
+data = get_input_data(1).splitlines()
 number_map = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9}
 pattern = r'(?=(' + '|'.join(list(number_map.keys()) + list(map(str, number_map.values()))) + '))'
 

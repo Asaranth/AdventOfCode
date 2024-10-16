@@ -1,7 +1,8 @@
 from collections import deque
 from copy import deepcopy
+from utils import get_input_data
 
-data = [list(map(int, line.replace('~', ',').split(','))) for line in open('data/22.txt')]
+data = [list(map(int, line.replace('~', ',').split(','))) for line in get_input_data(22).splitlines()]
 
 
 def overlaps(a, b):

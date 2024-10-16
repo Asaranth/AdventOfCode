@@ -1,6 +1,7 @@
 from collections import deque
+from utils import get_input_data
 
-grid = open('data/21.txt').read().splitlines()
+grid = get_input_data(21).splitlines()
 start_row, start_col = next((r, c) for r, row in enumerate(grid) for c, ch in enumerate(row) if ch == 'S')
 
 

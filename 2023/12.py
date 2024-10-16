@@ -1,4 +1,6 @@
-data = open('data/12.txt').read().splitlines()
+from utils import get_input_data
+
+data = get_input_data(12).splitlines()
 data = [line.split() for line in data]
 memo = {}
 

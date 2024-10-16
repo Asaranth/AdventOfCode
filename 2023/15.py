@@ -1,6 +1,7 @@
 from re import compile
+from utils import get_input_data
 
-data = open('data/15.txt').read().replace('\n', '').split(',')
+data = get_input_data(15).replace('\n', '').split(',')
 DIVISOR = 256
 
 

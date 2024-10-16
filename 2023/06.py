@@ -1,4 +1,7 @@
-times, distances = [list(map(int, line.split(':')[1].split())) for line in open('../data/06.txt')]
+from utils import get_input_data
+
+data = get_input_data(6).splitlines()
+times, distances = [list(map(int, line.split(':')[1].split())) for line in data]
 
 
 def get_win_conditions(time, distance):

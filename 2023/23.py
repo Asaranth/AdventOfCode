@@ -1,4 +1,6 @@
-data = open('data/23.txt').read().splitlines()
+from utils import get_input_data
+
+data = get_input_data(23).splitlines()
 start = (0, data[0].index('.'))
 end = (len(data) - 1, data[-1].index('.'))
 directions = {

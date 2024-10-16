@@ -1,4 +1,6 @@
-data = open('data/13.txt').read().split('\n\n')
+from utils import get_input_data
+
+data = get_input_data(13).split('\n\n')
 
 
 def adjust(upper, lower):

@@ -1,6 +1,7 @@
 from re import search
+from utils import get_input_data
 
-data = open('../data/02.txt').read().splitlines()
+data = get_input_data(2).splitlines()
 
 
 class Round:
