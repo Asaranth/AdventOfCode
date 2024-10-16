@@ -1,4 +1,5 @@
-data <- readLines('./2015/data/03.txt')
+source(file.path(getwd(), '2015/utils.R'))
+data <- getInputData(3)
 
 movePos <- function(pos, direction) {
   switch(direction,

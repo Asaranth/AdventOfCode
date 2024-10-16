@@ -1,4 +1,5 @@
-data <- readLines('./2015/data/10.txt')
+source(file.path(getwd(), '2015/utils.R'))
+data <- getInputData(10)
 
 nextSequence <- function(sequence) {
   rleSequence <- rle(strsplit(sequence, NULL)[[1]])

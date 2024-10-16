@@ -1,4 +1,5 @@
-data <- readLines('./2015/data/15.txt')
+source(file.path(getwd(), '2015/utils.R'))
+data <- getInputData(15)
 
 parseIngredients <- function(data) {
   ingredients <- list()

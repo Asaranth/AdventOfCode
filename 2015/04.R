@@ -1,4 +1,5 @@
-data <- readLines('./2015/data/04.txt', n=1)
+source(file.path(getwd(), '2015/utils.R'))
+data <- getInputData(4)
 
 solvePartOne <- function() {
   number <- seq_len(400000)

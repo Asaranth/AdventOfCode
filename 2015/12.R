@@ -1,4 +1,5 @@
-data <- readLines('./2015/data/12.txt')
+source(file.path(getwd(), '2015/utils.R'))
+data <- getInputData(12)
 json <- jsonlite::fromJSON(paste(data, collapse = ''))
 
 sumNumbers <- function(x, ignoreRed = FALSE) {

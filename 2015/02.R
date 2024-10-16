@@ -1,9 +1,10 @@
-data <- read.csv('./2015/data/02.txt', header=FALSE)
+source(file.path(getwd(), '2015/utils.R'))
+data <- getInputData(2, 'text')
 
-solvePartOne <- function() {
+solvePartOne <- function(data) {
   total <- 0
-  for (present in data[[1]]) {
-    dimensions <- as.numeric(strsplit(present, 'x')[[1]])
+  for (line in data) {
+    dimensions <- as.numeric(strsplit(line, 'x')[[1]])
     l <- dimensions[1]
     w <- dimensions[2]
     h <- dimensions[3]
@@ -13,15 +14,15 @@ solvePartOne <- function() {
   return(total)
 }
 
-solvePartTwo <- function() {
+solvePartTwo <- function(data) {
   total <- 0
-  for (present in data[[1]]) {
-    dimensions <- as.numeric(strsplit(present, 'x')[[1]])
+  for (line in data) {
+    dimensions <- as.numeric(strsplit(line, 'x')[[1]])
     smallestSides <- sort(dimensions)[1:2]
     total <- total + (smallestSides[1] * 2 + smallestSides[2] * 2) + prod(dimensions)
   }
   return(total)
 }
 
-cat('Part One:', solvePartOne(), '\n')
-cat('Part Two:', solvePartTwo(), '\n')
+cat('Part One:', solvePartOne(data), '\n')
+cat('Part Two:', solvePartTwo(data), '\n')

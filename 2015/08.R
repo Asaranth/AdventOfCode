@@ -1,4 +1,5 @@
-data <- readLines('./2015/data/08.txt')
+source(file.path(getwd(), '2015/utils.R'))
+data <- getInputData(8)
 
 calculateCodeLength <- function(s) {
   return(nchar(s))

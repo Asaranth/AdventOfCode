@@ -1,4 +1,5 @@
-data <- readLines('./2015/data/01.txt')
+source(file.path(getwd(), '2015/utils.R'))
+data <- getInputData(1)
 
 solvePartOne <- function() {
   ups <- stringr::str_count(data, '\\(')

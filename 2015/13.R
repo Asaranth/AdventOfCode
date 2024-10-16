@@ -1,4 +1,5 @@
-data <- readLines('./2015/data/13.txt')
+source(file.path(getwd(), '2015/utils.R'))
+data <- getInputData(13)
 happinessChanges <- list()
 people <- NULL
 

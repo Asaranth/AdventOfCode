@@ -1,4 +1,5 @@
-data <- readLines('./2015/data/11.txt')[1]
+source(file.path(getwd(), '2015/utils.R'))
+data <- getInputData(11)[1]
 bannedLetters <- c('i', 'o', 'l')
 
 skipInvalidCharacters <- function(pw) {

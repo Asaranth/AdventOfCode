@@ -1,4 +1,5 @@
-data <- readLines('./2015/data/14.txt')
+source(file.path(getwd(), '2015/utils.R'))
+data <- getInputData(14)
 raceTime <- 2503
 
 parseReindeer <- function(line) {

@@ -1,4 +1,5 @@
-data <- readLines('/2015/data/07.txt')
+source(file.path(getwd(), '2015/utils.R'))
+data <- getInputData(7)
 wires <- new.env()
 
 COMMAND_REGEX <- '[A-Z]+'

@@ -1,6 +1,7 @@
 library(magrittr)
 
-data <- readLines('./2015/data/06.txt')
+source(file.path(getwd(), '2015/utils.R'))
+data <- getInputData(6)
 
 turnOn <- function(grid, x1, y1, x2, y2) {
   grid <- grid %>% plyr::mutate(lit = ifelse((x >= x1 & x <= x2) & (y >= y1 & y <= y2), TRUE, lit))
