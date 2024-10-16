@@ -6,13 +6,12 @@ load_dotenv()
 
 
 def get_input_data(day):
-    year = 2023
     cache_file = f'data/{day:02d}.txt'
     if os.path.exists(cache_file):
         with open(cache_file, 'r') as file:
             return file.read()
 
-    url = f'https://adventofcode.com/{year}/day/{day}/input'
+    url = f'https://adventofcode.com/2023/day/{day}/input'
     session_cookie = os.getenv('AOC_SESSION_COOKIE')
 
     if not session_cookie:
