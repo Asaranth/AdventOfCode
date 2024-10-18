@@ -81,13 +81,15 @@ def get_year_stars(year: int, sleep_sec: int) -> int:
 
 def get_year_badge_url(year: int, stars: int) -> str:
     color = hsv_interp(stars / 50)
-    return f'<img src="{fmt_year_badge(year, stars, color)}"/>'
+    badge_url = fmt_year_badge(year, stars, color)
+    return f'<a href="./{year}/"><img src="{badge_url}" alt="{year}"></a>'
 
 
 def get_language_badge_url(year: int) -> str:
     if year not in LANGUAGE_DETAILS:
         return ''
-    return f'<img src="{fmt_language_badge(LANGUAGE_DETAILS[year])}"/>'
+    badge_url = fmt_language_badge(LANGUAGE_DETAILS[year])
+    return f'<a href="./{year}/"><img src="{badge_url}" alt="{LANGUAGE_DETAILS[year]["label"]}"></a>'
 
 
 def main(args):
