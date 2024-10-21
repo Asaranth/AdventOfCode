@@ -7,9 +7,6 @@ internal abstract class Program
         Console.Write("Enter the day number you want to run (1-25): ");
         if (int.TryParse(Console.ReadLine(), out var day) && day is >= 1 and <= 25) RunSolution(day);
         else Console.WriteLine("Invalid input. Please enter a number between 1 and 25.");
-
-        Console.WriteLine("Press Enter to close the application...");
-        Console.ReadLine();
     }
 
     private static void RunSolution(int day)
@@ -18,6 +15,9 @@ internal abstract class Program
         {
             case 1:
                 _01.Run();
+                break;
+            case 2:
+                _02.Run();
                 break;
             default:
                 Console.WriteLine("Solution for the given day is not implemented yet.");
