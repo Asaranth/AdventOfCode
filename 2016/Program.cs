@@ -1,17 +1,17 @@
 ﻿namespace _2016;
 
-internal abstract class Program
+public abstract class Program
 {
     private static void Main(string[] args)
     {
-        Console.Write("Enter the day number you want to run (1-25): ");
-        if (int.TryParse(Console.ReadLine(), out var day) && day is >= 1 and <= 25) RunSolution(day);
+        Console.WriteLine("Enter the day number you want to run (1-25):");
+        if (int.TryParse(Console.ReadLine(), out var dayNumber) && dayNumber is >= 1 and <= 25) RunSolution(dayNumber);
         else Console.WriteLine("Invalid input. Please enter a number between 1 and 25.");
     }
 
-    private static void RunSolution(int day)
+    private static void RunSolution(int dayNumber)
     {
-        switch (day)
+        switch (dayNumber)
         {
             case 1:
                 _01.Run();
@@ -24,6 +24,9 @@ internal abstract class Program
                 break;
             case 4:
                 _04.Run();
+                break;
+            case 5:
+                _05.Run();
                 break;
             default:
                 Console.WriteLine("Solution for the given day is not implemented yet.");
