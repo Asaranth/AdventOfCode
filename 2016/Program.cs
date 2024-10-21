@@ -19,6 +19,9 @@ internal abstract class Program
             case 2:
                 _02.Run();
                 break;
+            case 3:
+                _03.Run();
+                break;
             default:
                 Console.WriteLine("Solution for the given day is not implemented yet.");
                 break;
