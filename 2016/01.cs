@@ -1,66 +1,71 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
+namespace _2016;
 
-string[] data = File.ReadAllText("data/01.txt").Split(", ");
-
-(char turn, int distance) ParseInstruction(string instruction) => (instruction[0], int.Parse(instruction.Substring(1)));
-
-char UpdateDirection(char currentDirection, char turn) => currentDirection switch
+public abstract class _01
 {
-    'N' => turn == 'R' ? 'E' : 'W',
-    'E' => turn == 'R' ? 'S' : 'N',
-    'S' => turn == 'R' ? 'W' : 'E',
-    'W' => turn == 'R' ? 'N' : 'S',
-    _ => currentDirection
-};
+    private static readonly string[] Data;
 
-(int X, int Y) Move(int x, int y, char direction, int distance) => direction switch
-{
-    'N' => (x, y + distance),
-    'E' => (x + distance, y),
-    'S' => (x, y - distance),
-    'W' => (x - distance, y),
-    _ => (x, y)
-};
+    static _01() => Data = Task.Run(() => Utils.GetInputData(1)).Result.Split(", ");
 
-int SolvePartOne(string[] instructions)
-{
-    int x = 0, y = 0;
-    char direction = 'N';
+    private static (char turn, int distance) ParseInstruction(string instruction) =>
+        (instruction[0], int.Parse(instruction[1..]));
 
-    foreach (var instruction in instructions)
+    private static char UpdateDirection(char currentDirection, char turn) => currentDirection switch
     {
-        var (turn, distance) = ParseInstruction(instruction);
-        direction = UpdateDirection(direction, turn);
-        (x, y) = Move(x, y, direction, distance);
-    }
+        'N' => turn == 'R' ? 'E' : 'W',
+        'E' => turn == 'R' ? 'S' : 'N',
+        'S' => turn == 'R' ? 'W' : 'E',
+        'W' => turn == 'R' ? 'N' : 'S',
+        _ => currentDirection
+    };
 
-    return Math.Abs(x) + Math.Abs(y);
-}
-
-int SolvePartTwo(string[] instructions)
-{
-    int x = 0, y = 0;
-    char direction = 'N';
-    var visitedLocations = new HashSet<(int X, int Y)>();
-    visitedLocations.Add((x, y));
-
-    foreach (var instruction in instructions)
+    private static (int X, int Y) Move(int x, int y, char direction, int distance) => direction switch
     {
-        var (turn, distance) = ParseInstruction(instruction);
-        direction = UpdateDirection(direction, turn);
+        'N' => (x, y + distance),
+        'E' => (x + distance, y),
+        'S' => (x, y - distance),
+        'W' => (x - distance, y),
+        _ => (x, y)
+    };
 
-        for (int i = 0; i < distance; i++)
+    private static int SolvePartOne()
+    {
+        int x = 0, y = 0;
+        var direction = 'N';
+
+        foreach (var instruction in Data)
         {
-            (x, y) = Move(x, y, direction, 1);
-            if (visitedLocations.Contains((x, y))) return Math.Abs(x) + Math.Abs(y);
-            visitedLocations.Add((x, y));
+            var (turn, distance) = ParseInstruction(instruction);
+            direction = UpdateDirection(direction, turn);
+            (x, y) = Move(x, y, direction, distance);
         }
+
+        return Math.Abs(x) + Math.Abs(y);
     }
 
-    throw new InvalidOperationException("Failed to find a repeated location.");
-}
+    private static int SolvePartTwo()
+    {
+        int x = 0, y = 0;
+        var direction = 'N';
+        var visitedLocations = new HashSet<(int X, int Y)> { (x, y) };
 
-Console.WriteLine($"Part One: {SolvePartOne(data)}");
-Console.WriteLine($"Part Two: {SolvePartTwo(data)}");
+        foreach (var instruction in Data)
+        {
+            var (turn, distance) = ParseInstruction(instruction);
+            direction = UpdateDirection(direction, turn);
+
+            for (var i = 0; i < distance; i++)
+            {
+                (x, y) = Move(x, y, direction, 1);
+                if (!visitedLocations.Add((x, y))) return Math.Abs(x) + Math.Abs(y);
+            }
+        }
+
+        throw new InvalidOperationException("Failed to find a repeated location.");
+    }
+
+    public static void Run()
+    {
+        Console.WriteLine($"Part One: {SolvePartOne()}");
+        Console.WriteLine($"Part Two: {SolvePartTwo()}");
+    }
+}

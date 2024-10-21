@@ -1,8 +1,13 @@
-# Ignore data folders
+# Ignore data directories
 **/data/
 
-# Ignore .env
+# Ignore .env and settings.json
 .env
+appsettings.json
+
+# Ignore bin and obj directories
+bin/
+obj/
 
 # Ignore IntelliJ IDEA configuration
 .idea/
