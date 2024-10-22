@@ -40,6 +40,9 @@ public abstract class Program
             case 9:
                 _09.Run();
                 break;
+            case 10:
+                _10.Run();
+                break;
             default:
                 Console.WriteLine("Solution for the given day is not implemented yet.");
                 break;
