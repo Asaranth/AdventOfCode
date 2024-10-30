@@ -2,7 +2,23 @@
 
 public abstract class Program
 {
-    private static void Main(string[] args)
+    private static readonly Dictionary<int, Action> Solutions = new()
+    {
+        { 1, _01.Run },
+        { 2, _02.Run },
+        { 3, _03.Run },
+        { 4, _04.Run },
+        { 5, _05.Run },
+        { 6, _06.Run },
+        { 7, _07.Run },
+        { 8, _08.Run },
+        { 9, _09.Run },
+        { 10, _10.Run },
+        { 11, _11.Run },
+        { 12, _12.Run }
+    };
+
+    private static void Main()
     {
         Console.Write("Enter the day number you want to run (1-25): ");
         if (int.TryParse(Console.ReadLine(), out var dayNumber) && dayNumber is >= 1 and <= 25) RunSolution(dayNumber);
@@ -11,44 +27,7 @@ public abstract class Program
 
     private static void RunSolution(int dayNumber)
     {
-        switch (dayNumber)
-        {
-            case 1:
-                _01.Run();
-                break;
-            case 2:
-                _02.Run();
-                break;
-            case 3:
-                _03.Run();
-                break;
-            case 4:
-                _04.Run();
-                break;
-            case 5:
-                _05.Run();
-                break;
-            case 6:
-                _06.Run();
-                break;
-            case 7:
-                _07.Run();
-                break;
-            case 8:
-                _08.Run();
-                break;
-            case 9:
-                _09.Run();
-                break;
-            case 10:
-                _10.Run();
-                break;
-            case 11:
-                _11.Run();
-                break;
-            default:
-                Console.WriteLine("Solution for the given day is not implemented yet.");
-                break;
-        }
+        if (Solutions.TryGetValue(dayNumber, out var runAction)) runAction();
+        else Console.WriteLine("Solution for the given day is not implemented yet.");
     }
 }
