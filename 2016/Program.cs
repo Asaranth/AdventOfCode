@@ -27,7 +27,8 @@ public abstract class Program
         { 21, _21.Run },
         { 22, _22.Run },
         { 23, _23.Run },
-        { 24, _24.Run }
+        { 24, _24.Run },
+        { 25, _25.Run }
     };
 
     private static void Main()
