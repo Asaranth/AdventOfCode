@@ -9,10 +9,7 @@ public static class Utils
     static Utils()
     {
         var basePath = AppContext.BaseDirectory;
-        Configuration = new ConfigurationBuilder()
-            .SetBasePath(basePath)
-            .AddJsonFile(Path.Combine(basePath, "../../../appsettings.json"))
-            .Build();
+        Configuration = new ConfigurationBuilder().SetBasePath(basePath).AddJsonFile("appsettings.json").Build();
     }
 
     public static async Task<string> GetInputData(int day)
@@ -26,7 +23,6 @@ public static class Utils
             throw new InvalidOperationException("AdventOfCode session cookie is not configured.");
 
         var url = $"https://adventofcode.com/2016/day/{day}/input";
-
         using var httpClient = new HttpClient();
         httpClient.DefaultRequestHeaders.Add("Cookie", $"session={sessionCookie}");
         var response = await httpClient.GetAsync(url);
@@ -35,10 +31,8 @@ public static class Utils
             throw new HttpRequestException($"Failed to fetch data: {response.ReasonPhrase}");
 
         var data = await response.Content.ReadAsStringAsync();
-
         Directory.CreateDirectory("data");
         await File.WriteAllTextAsync(cacheFile, data);
-
         return data;
     }
 }
