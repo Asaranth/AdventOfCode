@@ -18,7 +18,6 @@ public static class Utils
         if (File.Exists(cacheFile)) return await File.ReadAllTextAsync(cacheFile);
 
         var sessionCookie = Configuration["AOC_SESSION_COOKIE"];
-
         if (string.IsNullOrEmpty(sessionCookie))
             throw new InvalidOperationException("AdventOfCode session cookie is not configured.");
 
