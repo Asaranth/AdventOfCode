@@ -3,8 +3,8 @@
 public static class _24
 {
     private static readonly string[] Data;
-    private static (int, int)[] _points;
-    private static int[,] _distances;
+    private static (int, int)[] _points = [];
+    private static int[,] _distances = new int[0 ,0];
 
     static _24() => Data = Task.Run(() => Utils.GetInputData(24)).Result
         .Split('\n', StringSplitOptions.RemoveEmptyEntries);
