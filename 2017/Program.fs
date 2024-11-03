@@ -6,6 +6,7 @@ module Program =
     let solutions = dict [
         1, _01.Run
         2, _02.Run
+        3, _03.Run
     ]
 
     let runSolution dayNumber =
