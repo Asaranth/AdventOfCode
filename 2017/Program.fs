@@ -3,7 +3,10 @@
 open System
 
 module Program =
-    let solutions = dict [1, _01.Run]
+    let solutions = dict [
+        1, _01.Run
+        2, _02.Run
+    ]
 
     let runSolution dayNumber =
         match solutions.TryGetValue(dayNumber) with
