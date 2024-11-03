@@ -1,7 +1,7 @@
 ﻿namespace _2017
 
 open System
-
+                          
 module _02 =
     let Data = (Utils.GetInputData 2).Split('\n', StringSplitOptions.RemoveEmptyEntries)
 
@@ -16,8 +16,8 @@ module _02 =
 
     let solvePartOne() =
         Data |> Array.fold(fun sum line ->
-            let numbers = parseLine line |> Array.sort
-            sum + (numbers[numbers.Length - 1] - numbers[0])
+            let numbers = parseLine line
+            sum + (Array.max numbers - Array.min numbers)
         ) 0
 
     let solvePartTwo() =
