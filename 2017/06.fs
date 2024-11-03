@@ -30,7 +30,7 @@ module _06 =
         let rec distribute (banks: int[]) cycles =
             let config = String.Join(',', banks)
             if seenConfigurations.ContainsKey(config) then
-                cycles - seenConfigurations.[config]
+                cycles - seenConfigurations[config]
             else
                 seenConfigurations[config] <- cycles
                 redistribute banks
