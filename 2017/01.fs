@@ -16,6 +16,6 @@ module _01 =
         let digits = getDigits()
         calculateSum digits digits.Length (digits.Length / 2)
 
-    let Run () =
+    let Run() =
         printfn $"Part One: {solvePartOne()}"
         printfn $"Part Two: {solvePartTwo()}"
