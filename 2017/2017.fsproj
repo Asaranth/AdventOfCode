@@ -23,6 +23,7 @@
         <Compile Include="10.fs" />
         <Compile Include="11.fs" />
         <Compile Include="12.fs" />
+        <Compile Include="13.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
