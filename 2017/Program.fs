@@ -17,6 +17,7 @@ module Program =
         11, _11.Run
         12, _12.Run
         13, _13.Run
+        14, _14.Run
     ]
 
     let runSolution dayNumber =
