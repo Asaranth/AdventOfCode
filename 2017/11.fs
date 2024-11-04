@@ -28,9 +28,9 @@ module _11 =
         if isPartTwo then maxDistance else distance (0, 0) finalPosition
 
 
-    let solvePartOne () = solve false
+    let solvePartOne() = solve false
 
-    let solvePartTwo () = solve true
+    let solvePartTwo() = solve true
 
     let Run() =
         printfn $"Part One: {solvePartOne()}"
