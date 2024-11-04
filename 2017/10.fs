@@ -29,7 +29,7 @@ module _10 =
                 reverseSublist lst currentPosition length
                 currentPosition <- (currentPosition + length + skipSize) % Array.length lst
                 skipSize <- skipSize + 1
-        let denseHash = [|0..15|] |> Array.map(fun i -> [|0..15|] |> Array.map(fun j -> lst.[i * 16 + j]) |> Array.reduce(^^^))
+        let denseHash = [|0..15|] |> Array.map(fun i -> [|0..15|] |> Array.map(fun j -> lst[i * 16 + j]) |> Array.reduce(^^^))
         denseHash |> Array.map(_.ToString("x2")) |> String.concat ""
 
     let solvePartOne() =
