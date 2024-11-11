@@ -1,10 +1,8 @@
 ﻿namespace _2017
 
 open System
-open System.Collections.Generic
 
 module _23 =
-
     let Data = (Utils.GetInputData 23).Split('\n', StringSplitOptions.RemoveEmptyEntries)
 
     type Source = Reg of char | Value of int64
@@ -15,10 +13,9 @@ module _23 =
         | Jnz of reg: char * value: Source
         | Jump of value: Source
 
-    let regVal reg registers =
-        Map.tryFind reg registers |> Option.defaultValue 0L
+    let regVal reg registers = Map.tryFind reg registers |> Option.defaultValue 0L
 
-    let getSource(text: string) = if Char.IsLetter text.[0] then Reg text[0] else Value (int64 text)
+    let getSource(text: string) = if Char.IsLetter text[0] then Reg text[0] else Value (int64 text)
 
     let getSourceValue registers = function | Value n -> n | Reg c -> regVal c registers
 
@@ -26,9 +23,9 @@ module _23 =
         Data
         |> Array.map (fun line ->
             match line.Split(' ') with
-            | [| "set"; reg; regOrVal |] -> Set (reg.[0], getSource regOrVal)
-            | [| "sub"; reg; regOrVal |] -> Sub (reg.[0], getSource regOrVal)
-            | [| "mul"; reg; regOrVal |] -> Mul (reg.[0], getSource regOrVal)
+            | [| "set"; reg; regOrVal |] -> Set (reg[0], getSource regOrVal)
+            | [| "sub"; reg; regOrVal |] -> Sub (reg[0], getSource regOrVal)
+            | [| "mul"; reg; regOrVal |] -> Mul (reg[0], getSource regOrVal)
             | [| "jnz"; test; regOrVal |] ->
                 match getSource test with
                 | Reg r -> Jnz (r, getSource regOrVal)
@@ -39,7 +36,7 @@ module _23 =
         let rec processor index registers mulCount =
             if index < 0 || index >= instructions.Length then mulCount
             else
-                match instructions.[index] with
+                match instructions[index] with
                 | Jump amount -> processor (index + int (getSourceValue registers amount)) registers mulCount
                 | Jnz (register, amount) ->
                     if regVal register registers = 0L then processor (index + 1) registers mulCount
