@@ -12,7 +12,7 @@ fn solve_part_one(left_list: &[i32], right_list: &[i32]) -> i32 {
 }
 
 fn solve_part_two(left_list: Vec<i32>, right_list: Vec<i32>) -> i32 {
-    let mut right_count: HashMap<i32, i32> = HashMap::new();
+    let mut right_count = HashMap::new();
     for &number in &right_list {
         *right_count.entry(number).or_insert(0) += 1;
     }
@@ -24,8 +24,8 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
     let input_data = get_input_data(1).await?;
     let data: Vec<String> = input_data.lines().map(|s| s.to_string()).collect();
 
-    let mut left_list: Vec<i32> = Vec::new();
-    let mut right_list: Vec<i32> = Vec::new();
+    let mut left_list = Vec::new();
+    let mut right_list = Vec::new();
 
     for line in data {
         if let Some((left_str, right_str)) = line.split_once("   ") {
