@@ -4,7 +4,6 @@ fn extract_sections(data: &[String]) -> (Vec<(i32, i32)>, Vec<Vec<i32>>) {
     let mut rules = Vec::new();
     let mut updates = Vec::new();
     let mut is_update_section = false;
-
     for line in data {
         if line.trim().is_empty() {
             is_update_section = true;
@@ -22,7 +21,6 @@ fn extract_sections(data: &[String]) -> (Vec<(i32, i32)>, Vec<Vec<i32>>) {
             }
         }
     }
-
     (rules, updates)
 }
 
@@ -48,7 +46,6 @@ fn solve_part_two(rules: &[(i32, i32)], updates: &[Vec<i32>]) -> i32 {
         rules.iter().any(|rule| !is_rule_valid(rule, page))
     }).collect();
     let mut fixed_updates = Vec::new();
-
     for update in incorrect_updates {
         let mut numbers = update.clone();
         let mut swaps_made = true;
@@ -66,17 +63,13 @@ fn solve_part_two(rules: &[(i32, i32)], updates: &[Vec<i32>]) -> i32 {
         }
         fixed_updates.push(numbers);
     }
-
     fixed_updates.iter().map(|numbers| numbers[numbers.len() / 2]).sum()
 }
 
 pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
-    let input_data = get_input_data(5).await?;
-    let data: Vec<String> = input_data.lines().map(|s| s.to_string()).collect();
+    let data: Vec<String> = get_input_data(5).await?.lines().map(|s| s.to_string()).collect();
     let (rules, updates) = extract_sections(&data);
-
     println!("Part One: {}", solve_part_one(&rules, &updates));
     println!("Part Two: {}", solve_part_two(&rules, &updates));
-
     Ok(())
 }

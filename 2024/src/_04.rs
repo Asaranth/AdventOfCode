@@ -8,20 +8,17 @@ fn solve_part_one(data: &[String]) -> i32 {
     let mut count = 0;
     let x = data.len();
     let y = data[0].len();
-
     for line in data {
         count += count_xmas(line);
         let reversed: String = line.chars().rev().collect();
         count += count_xmas(&reversed);
     }
-
     for col in 0..y {
         let column: String = data.iter().map(|line| line.chars().nth(col).unwrap()).collect();
         count += count_xmas(&column);
         let reversed: String = column.chars().rev().collect();
         count += count_xmas(&reversed);
     }
-
     for d in 0..(x + y - 1) {
         let mut top_left_diagonal = String::new();
         let mut top_right_diagonal = String::new();
@@ -36,7 +33,6 @@ fn solve_part_one(data: &[String]) -> i32 {
         count += count_xmas(&top_right_diagonal);
         count += count_xmas(&top_right_diagonal.chars().rev().collect::<String>());
     }
-
     count
 }
 
@@ -44,7 +40,6 @@ fn solve_part_two(data: Vec<String>) -> i32 {
     let mut count = 0;
     let x = data.len();
     let y = data[0].len();
-
     for i in 1..x - 1 {
         for j in 1..y - 1 {
             if data[i].chars().nth(j).unwrap() == 'A' {
@@ -57,16 +52,12 @@ fn solve_part_two(data: Vec<String>) -> i32 {
             }
         }
     }
-
     count
 }
 
 pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
-    let input_data = get_input_data(4).await?;
-    let data: Vec<String> = input_data.lines().map(|s| s.to_string()).collect();
-
+    let data: Vec<String> = get_input_data(4).await?.lines().map(|s| s.to_string()).collect();
     println!("Part One: {}", solve_part_one(&data));
     println!("Part Two: {}", solve_part_two(data));
-
     Ok(())
 }

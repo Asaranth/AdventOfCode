@@ -56,10 +56,8 @@ fn solve_part_two(matrix: Vec<Vec<char>>, map: HashMap<char, Vec<(i32, i32)>>) -
 }
 
 pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
-    let input_data = get_input_data(8).await?;
-    let data: Vec<String> = input_data.lines().map(|s| s.to_string()).collect();
     let mut map: HashMap<char, Vec<(i32, i32)>> = HashMap::new();
-    let matrix = data.iter().enumerate().map(|(i, line)| {
+    let matrix = get_input_data(8).await?.lines().enumerate().map(|(i, line)| {
         let chars: Vec<char> = line.chars().collect();
         for (j, &c) in chars.iter().enumerate() {
             if c != '.' && c != '#' {
@@ -68,9 +66,7 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
         }
         chars
     }).collect();
-
     println!("Part One: {}", solve_part_one(&matrix, &map));
     println!("Part Two: {}", solve_part_two(matrix, map));
-
     Ok(())
 }

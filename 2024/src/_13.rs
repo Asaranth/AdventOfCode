@@ -3,7 +3,7 @@ use crate::utils::get_input_data;
 #[derive(Debug)]
 struct Machine { ax: i64, ay: i64, bx: i64, by: i64, px: i64, py: i64 }
 
-fn parse_input(input: &str) -> Vec<Machine> {
+fn parse_input(input: String) -> Vec<Machine> {
     let mut machines = Vec::new();
     for group in input.split("\n\n") {
         let mut ax = 0;
@@ -54,11 +54,8 @@ fn solve_part_two(data: &[Machine]) -> i64 {
 }
 
 pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
-    let input_data = get_input_data(13).await?;
-    let data = parse_input(&input_data);
-
+    let data = parse_input(get_input_data(13).await?);
     println!("Part One: {}", solve_part_one(&data));
     println!("Part Two: {}", solve_part_two(&data));
-
     Ok(())
 }

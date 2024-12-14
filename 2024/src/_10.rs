@@ -13,15 +13,12 @@ fn is_valid_move(x: i32, y: i32, from_height: i32, grid: &[Vec<i32>]) -> bool {
 
 fn solve_part_one(grid: &[Vec<i32>]) -> i32 {
     let mut total_score = 0;
-
     fn bfs(start_x: usize, start_y: usize, grid: &[Vec<i32>]) -> i32 {
         let mut queue = VecDeque::new();
         let mut visited = vec![vec![false; grid[0].len()]; grid.len()];
         queue.push_back((start_x, start_y, grid[start_x][start_y]));
         visited[start_x][start_y] = true;
-
         let mut reachable_nines = 0;
-
         while let Some((x, y, h)) = queue.pop_front() {
             if h == 9 {
                 reachable_nines += 1;
@@ -36,10 +33,8 @@ fn solve_part_one(grid: &[Vec<i32>]) -> i32 {
                 }
             }
         }
-
         reachable_nines
     }
-
     for i in 0..grid.len() {
         for j in 0..grid[0].len() {
             if grid[i][j] == 0 {
@@ -47,7 +42,6 @@ fn solve_part_one(grid: &[Vec<i32>]) -> i32 {
             }
         }
     }
-
     total_score
 }
 
@@ -58,7 +52,6 @@ fn solve_part_two(grid: &[Vec<i32>]) -> i32 {
         if current == 9 {
             return 1;
         }
-
         let mut count = 0;
         for &(dx, dy) in &DIRECTIONS {
             let nx = x as isize + dx as isize;
@@ -75,7 +68,6 @@ fn solve_part_two(grid: &[Vec<i32>]) -> i32 {
         }
         count
     }
-
     for x in 0..grid.len() {
         for y in 0..grid[0].len() {
             if grid[x][y] == 0 {
@@ -85,16 +77,12 @@ fn solve_part_two(grid: &[Vec<i32>]) -> i32 {
             }
         }
     }
-
     total_paths
 }
 
 pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
-    let input_data = get_input_data(10).await?;
-    let data: Vec<Vec<i32>> = input_data.lines().map(|row| row.chars().map(|c| c.to_digit(10).unwrap() as i32).collect()).collect();
-
+    let data: Vec<Vec<i32>> = get_input_data(10).await?.lines().map(|row| row.chars().map(|c| c.to_digit(10).unwrap() as i32).collect()).collect();
     println!("Part One: {}", solve_part_one(&data));
     println!("Part Two: {}", solve_part_two(&data));
-
     Ok(())
 }

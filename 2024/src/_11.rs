@@ -17,11 +17,9 @@ fn split_in_middle(num: i64) -> (i64, i64) {
 
 fn simulate_blinks(data: Vec<i64>, blinks: usize) -> usize {
     let mut stones: HashMap<i64, usize> = HashMap::new();
-
     for stone in data {
         *stones.entry(stone).or_insert(0) += 1;
     }
-
     for _ in 0..blinks {
         let mut after_blink: HashMap<i64, usize> = HashMap::new();
         for (stone, count) in stones {
@@ -36,19 +34,14 @@ fn simulate_blinks(data: Vec<i64>, blinks: usize) -> usize {
                 *after_blink.entry(new_value).or_insert(0) += count;
             }
         }
-
         stones = after_blink;
     }
-
     stones.values().sum()
 }
 
 pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
-    let input_data = get_input_data(11).await?;
-    let data: Vec<i64> = input_data.split_whitespace().filter_map(|s| s.parse::<i64>().ok()).collect();
-
+    let data: Vec<i64> = get_input_data(11).await?.split_whitespace().filter_map(|s| s.parse::<i64>().ok()).collect();
     println!("Part One: {}", simulate_blinks(data.clone(), 25));
     println!("Part Two: {}", simulate_blinks(data, 75));
-
     Ok(())
 }
