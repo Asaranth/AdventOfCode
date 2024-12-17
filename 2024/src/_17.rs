@@ -1,5 +1,4 @@
 use crate::utils::get_input_data;
-use std::collections::HashMap;
 
 struct Computer<'a> { program: &'a [i32], ip: usize, a: i32, b: i32, c: i32 }
 impl<'a> Computer<'a> {
@@ -38,11 +37,8 @@ impl<'a> Computer<'a> {
     }
 }
 
-fn solve_part_one(registers: &HashMap<String, i32>, program: &[i32]) -> String {
-    let mut a = registers.get("Register A").copied().unwrap_or(0);
-    let b = registers.get("Register B").copied().unwrap_or(0);
-    let c = registers.get("Register C").copied().unwrap_or(0);
-    let mut computer = Computer { program, ip: 0, a, b, c };
+fn solve_part_one(a: i32, program: &[i32]) -> String {
+    let mut computer = Computer { program, ip: 0, a, b: 0, c: 0 };
     let mut out = Vec::new();
     while let Some(n) = computer.run() {
         let digit = (n as u8 + b'0') as char;
@@ -55,25 +51,29 @@ fn solve_part_one(registers: &HashMap<String, i32>, program: &[i32]) -> String {
     out.iter().collect()
 }
 
-fn solve_part_two(mut registers: HashMap<String, i32>, program: Vec<i32>) -> i32 {
+fn solve_part_two(program: Vec<i32>) -> i32 {
     0
 }
 
 pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
     let data: Vec<String> = get_input_data(17).await?.lines().map(|s| s.to_string()).collect();
-    let mut registers = HashMap::new();
     let mut program = Vec::new();
+    let mut register_a = 0;
     for line in data {
-        if line.starts_with("Register") {
-            if let Some((key, value)) = line.split_once(": ") {
-                registers.insert(key.trim().to_string(), value.trim().parse::<i32>().unwrap());
+        if line.starts_with("Register A") {
+            if let Some((_, value)) = line.split_once(": ") {
+                register_a = value.trim().parse::<i32>().unwrap();
             }
         } else if line.starts_with("Program:") {
             let program_str = line.split_once(": ").unwrap().1;
-            program = program_str.split(',').map(|num| num.trim().parse::<i32>().unwrap()).collect();
+            program = program_str
+                .split(',')
+                .map(|num| num.trim().parse::<i32>().unwrap())
+                .collect();
         }
     }
-    println!("Part One: {}", solve_part_one(&registers, &program));
-    println!("Part Two: {}", solve_part_two(registers, program));
+
+    println!("Part One: {}", solve_part_one(register_a, &program));
+    println!("Part Two: {}", solve_part_two(program));
     Ok(())
 }
