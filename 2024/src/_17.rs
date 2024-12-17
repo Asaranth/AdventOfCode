@@ -51,8 +51,65 @@ fn solve_part_one(a: i32, program: &[i32]) -> String {
     out.iter().collect()
 }
 
-fn solve_part_two(program: Vec<i32>) -> i32 {
-    0
+fn solve_part_two(program: Vec<i32>) -> i64 {
+    fn find(target: &[i64], ans: i64, program: &[i32]) -> Option<i64> {
+        if target.is_empty() {
+            return Some(ans);
+        }
+        for t in 0..8 {
+            let a = (ans << 3) | t;
+            let mut b = 0;
+            let mut c = 0;
+            let mut output = None;
+            let combo = |operand: i32, a: i64, b: i64, c: i64| -> i64 {
+                match operand {
+                    0..=3 => operand as i64,
+                    4 => a,
+                    5 => b,
+                    6 => c,
+                    _ => panic!("Unrecognized combo operand {}", operand),
+                }
+            };
+            let mut pointer = 0;
+            while pointer < program.len() - 2 {
+                let instruction = program[pointer];
+                let operand = program[pointer + 1];
+                match instruction {
+                    0 => {}
+                    1 => {
+                        b ^= operand as i64;
+                    }
+                    2 => {
+                        b = combo(operand, a, b, c) % 8;
+                    }
+                    3 => {}
+                    4 => {
+                        b ^= c;
+                    }
+                    5 => {
+                        output = Some(combo(operand, a, b, c) % 8);
+                    }
+                    6 => {
+                        let shift_amount = combo(operand, a, b, c) % 64;
+                        b = a >> shift_amount;
+                    }
+                    7 => {
+                        let shift_amount = combo(operand, a, b, c) % 64;
+                        c = a >> shift_amount;
+                    }
+                    _ => panic!("Unrecognized instruction {}", instruction),
+                }
+                pointer += 2;
+            }
+            if output == Some(target[target.len() - 1]) {
+                if let Some(sub_ans) = find(&target[..target.len() - 1], a, program) {
+                    return Some(sub_ans);
+                }
+            }
+        }
+        None
+    }
+    find(&program.iter().map(|&x| x as i64).collect::<Vec<_>>(), 0, &program).unwrap_or(0)
 }
 
 pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
@@ -72,7 +129,6 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
                 .collect();
         }
     }
-
     println!("Part One: {}", solve_part_one(register_a, &program));
     println!("Part Two: {}", solve_part_two(program));
     Ok(())
