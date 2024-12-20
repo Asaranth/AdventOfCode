@@ -99,15 +99,17 @@ def get_language_badge_url(year: int) -> str:
 
 def main(args):
     y2s = {y: get_year_stars(y, args.sleep_sec) for y in args.years}
+    total_stars = sum(y2s.values())
 
     for y, s in y2s.items():
         get_year_badge_url(y, s)
         if y in LANGUAGE_DETAILS and s > 0:
             get_language_badge_url(y)
 
+
     readme_template = """# Advent of Code 🎄
 Each year in December, the advent calendar with a twist opens! Advent of Code is an annual event where puzzles are released each day from December 1st to December 25th. Created by Eric Wastl, these puzzles cover a variety of programming aspects, encouraging creative problem-solving and improving coding skills. Join the [fun and educational journey](https://adventofcode.com/)!
-## Stars
+## Stars ⭐ (Total: {total_stars})
 {year_lines}
 """
 
@@ -119,7 +121,7 @@ Each year in December, the advent calendar with a twist opens! Advent of Code is
         year_lines.append(line)
 
     with open('README.md', 'w', encoding = 'utf-8') as file:
-        file.write(readme_template.format(year_lines = '<br>\n'.join(year_lines)))
+        file.write(readme_template.format(total_stars = total_stars, year_lines = '<br>\n'.join(year_lines)))
 
 
 if __name__ == '__main__':
