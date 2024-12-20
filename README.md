@@ -1,6 +1,6 @@
 # Advent of Code 🎄
 Each year in December, the advent calendar with a twist opens! Advent of Code is an annual event where puzzles are released each day from December 1st to December 25th. Created by Eric Wastl, these puzzles cover a variety of programming aspects, encouraging creative problem-solving and improving coding skills. Join the [fun and educational journey](https://adventofcode.com/)!
-## Stars ⭐ (Total: 240)
+## Stars: 240 ⭐
 <a href="./2024/"><img src="https://img.shields.io/badge/2024-40%20⭐-3d9900?style=for-the-badge&labelColor=2b2b2b" alt="2024"></a> <a href="./2024/"><img src="https://img.shields.io/badge/-Rust-dea584?style=for-the-badge&labelColor=2b2b2b&logo=rust&logoColor=white" alt="Rust"></a><br>
 <a href="./2023/"><img src="https://img.shields.io/badge/2023-50%20⭐-009900?style=for-the-badge&labelColor=2b2b2b" alt="2023"></a> <a href="./2023/"><img src="https://img.shields.io/badge/-Python-3572A5?style=for-the-badge&labelColor=2b2b2b&logo=python&logoColor=white" alt="Python"></a><br>
 <a href="./2022/"><img src="https://img.shields.io/badge/2022-00%20⭐-990000?style=for-the-badge&labelColor=2b2b2b" alt="2022"></a><br>
