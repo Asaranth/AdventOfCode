@@ -23,6 +23,105 @@ impl LogicGate {
     }
 }
 
+struct GateVerifier<'a> {
+    gates: &'a HashMap<&'a str, (&'a str, LogicGate, &'a str)>,
+}
+impl<'a> GateVerifier<'a> {
+    fn are_sorted_equal(vec1: &[&str], vec2: &[&str]) -> bool {
+        let mut sorted1 = vec1.to_vec();
+        let mut sorted2 = vec2.to_vec();
+        sorted1.sort();
+        sorted2.sort();
+        sorted1 == sorted2
+    }
+
+    fn make_sorted_wire_pair(c1: char, c2: char, n: usize) -> Vec<String> {
+        vec![Self::make_wire(c1, n), Self::make_wire(c2, n)]
+    }
+
+    fn make_wire(c: char, n: usize) -> String {
+        format!("{}{:02}", c, n)
+    }
+
+    fn verify_z(&self, wire: &str, n: usize) -> bool {
+        if let Some((x, gate, y)) = self.gates.get(wire) {
+            if *gate == LogicGate::Xor {
+                if n == 0 {
+                    return Self::are_sorted_equal(&[*x, *y], &["x00", "y00"]);
+                }
+                return (self.verify_intermediate_xor(x, n) && self.verify_carry_bit(y, n))
+                    || (self.verify_intermediate_xor(y, n) && self.verify_carry_bit(x, n));
+            }
+        }
+        false
+    }
+
+    fn verify_intermediate_xor(&self, wire: &str, n: usize) -> bool {
+        if let Some((x, gate, y)) = self.gates.get(wire) {
+            if *gate == LogicGate::Xor {
+                return Self::are_sorted_equal(
+                    &[*x, *y],
+                    &Self::make_sorted_wire_pair('x', 'y', n)
+                        .iter()
+                        .map(String::as_str)
+                        .collect::<Vec<_>>(),
+                );
+            }
+        }
+        false
+    }
+
+    fn verify_carry_bit(&self, wire: &str, n: usize) -> bool {
+        if let Some((x, gate, y)) = self.gates.get(wire) {
+            if n == 1 && *gate == LogicGate::And {
+                return Self::are_sorted_equal(&[*x, *y], &["x00", "y00"]);
+            }
+            if *gate == LogicGate::Or {
+                return (self.verify_direct_carry(x, n - 1) && self.verify_recarry(y, n - 1))
+                    || (self.verify_direct_carry(y, n - 1) && self.verify_recarry(x, n - 1));
+            }
+        }
+        false
+    }
+
+    fn verify_direct_carry(&self, wire: &str, n: usize) -> bool {
+        if let Some((x, gate, y)) = self.gates.get(wire) {
+            if *gate == LogicGate::And {
+                return Self::are_sorted_equal(
+                    &[*x, *y],
+                    &Self::make_sorted_wire_pair('x', 'y', n)
+                        .iter()
+                        .map(String::as_str)
+                        .collect::<Vec<_>>(),
+                );
+            }
+        }
+        false
+    }
+
+    fn verify_recarry(&self, wire: &str, n: usize) -> bool {
+        if let Some((x, gate, y)) = self.gates.get(wire) {
+            if *gate == LogicGate::And {
+                return (self.verify_intermediate_xor(x, n) && self.verify_carry_bit(y, n))
+                    || (self.verify_intermediate_xor(y, n) && self.verify_carry_bit(x, n));
+            }
+        }
+        false
+    }
+
+    fn verify(&self, n: usize) -> bool {
+        self.verify_z(Self::make_wire('z', n).as_str(), n)
+    }
+
+    fn progress(&self) -> usize {
+        let mut i = 0;
+        while self.verify(i) {
+            i += 1;
+        }
+        i
+    }
+}
+
 fn solve_part_one<'a>(wires: &mut HashMap<&'a str, bool>, gates: &HashMap<&'a str, (&'a str, LogicGate, &'a str)>) -> u64 {
     let mut to_evaluate: Vec<_> = gates.keys().cloned().collect();
     while !to_evaluate.is_empty() {
@@ -45,105 +144,14 @@ fn solve_part_one<'a>(wires: &mut HashMap<&'a str, bool>, gates: &HashMap<&'a st
 }
 
 fn solve_part_two(mut gates: HashMap<&str, (&str, LogicGate, &str)>) -> String {
-    fn make_wire(c: char, n: usize) -> String {
-        format!("{}{:02}", c, n)
-    }
-
-    fn verify_z(gates: &HashMap<&str, (&str, LogicGate, &str)>, wire: &str, n: usize) -> bool {
-        if let Some((x, gate, y)) = gates.get(wire) {
-            if *gate == LogicGate::Xor {
-                if n == 0 {
-                    let mut temp1 = vec![*x, *y];
-                    temp1.sort();
-                    let mut temp2 = vec!["x00", "y00"];
-                    temp2.sort();
-                    return temp1 == temp2;
-                }
-                return (verify_intermediate_xor(gates, x, n)
-                    && verify_carry_bit(gates, y, n))
-                    || (verify_intermediate_xor(gates, y, n)
-                    && verify_carry_bit(gates, x, n));
-            }
-        }
-        false
-    }
-
-    fn verify_intermediate_xor(gates: &HashMap<&str, (&str, LogicGate, &str)>, wire: &str, n: usize) -> bool {
-        if let Some((x, gate, y)) = gates.get(wire) {
-            if *gate == LogicGate::Xor {
-                let mut temp1 = vec![*x, *y];
-                temp1.sort();
-                let mut temp2 = vec![make_wire('x', n), make_wire('y', n)];
-                temp2.sort();
-                return temp1 == temp2;
-            }
-        }
-        false
-    }
-
-    fn verify_carry_bit(gates: &HashMap<&str, (&str, LogicGate, &str)>, wire: &str, n: usize) -> bool {
-        if let Some((x, gate, y)) = gates.get(wire) {
-            if n == 1 {
-                if *gate == LogicGate::And {
-                    let mut temp1 = vec![*x, *y];
-                    temp1.sort();
-                    let mut temp2 = vec!["x00", "y00"];
-                    temp2.sort();
-                    return temp1 == temp2;
-                }
-                return false;
-            }
-            if *gate == LogicGate::Or {
-                return (verify_direct_carry(gates, x, n - 1)
-                    && verify_recarry(gates, y, n - 1))
-                    || (verify_direct_carry(gates, y, n - 1)
-                    && verify_recarry(gates, x, n - 1));
-            }
-        }
-        false
-    }
-
-    fn verify_direct_carry(gates: &HashMap<&str, (&str, LogicGate, &str)>, wire: &str, n: usize) -> bool {
-        if let Some((x, gate, y)) = gates.get(wire) {
-            if *gate == LogicGate::And {
-                let mut temp1 = vec![*x, *y];
-                temp1.sort();
-                let mut temp2 = vec![make_wire('x', n), make_wire('y', n)];
-                temp2.sort();
-                return temp1 == temp2;
-            }
-        }
-        false
-    }
-
-    fn verify_recarry(gates: &HashMap<&str, (&str, LogicGate, &str)>, wire: &str, n: usize) -> bool {
-        if let Some((x, gate, y)) = gates.get(wire) {
-            if *gate == LogicGate::And {
-                return (verify_intermediate_xor(gates, x, n)
-                    && verify_carry_bit(gates, y, n))
-                    || (verify_intermediate_xor(gates, y, n)
-                    && verify_carry_bit(gates, x, n));
-            }
-        }
-        false
-    }
-
-    fn verify(gates: &HashMap<&str, (&str, LogicGate, &str)>, n: usize) -> bool {
-        verify_z(gates, make_wire('z', n).as_str(), n)
-    }
-
-    fn progress(gates: &HashMap<&str, (&str, LogicGate, &str)>) -> usize {
-        let mut i = 0;
-        while verify(gates, i) {
-            i += 1;
-        }
-        i
-    }
-
     let mut swaps = Vec::new();
     for _ in 0..4 {
-        let baseline = progress(&gates);
+        let baseline = {
+            let verifier = GateVerifier { gates: &gates };
+            verifier.progress()
+        };
         let mut found_swap = false;
+
         for x in gates.keys().cloned().collect_vec() {
             for y in gates.keys().cloned().collect_vec() {
                 if x == y {
@@ -156,7 +164,11 @@ fn solve_part_two(mut gates: HashMap<&str, (&str, LogicGate, &str)>) -> String {
                 if let Some(value) = temp {
                     gates.insert(y, value);
                 }
-                if progress(&gates) > baseline {
+                let new_progress = {
+                    let verifier = GateVerifier { gates: &gates };
+                    verifier.progress()
+                };
+                if new_progress > baseline {
                     found_swap = true;
                     swaps.push(x);
                     swaps.push(y);
