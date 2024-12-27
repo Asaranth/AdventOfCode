@@ -25,8 +25,7 @@ mod _23;
 mod _24;
 mod _25;
 
-use std::io;
-use std::io::Write;
+use std::io::{self, Write};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -35,7 +34,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut day_str = String::new();
     io::stdin().read_line(&mut day_str)?;
     let day: i32 = day_str.trim().parse()?;
-
     if (1..=25).contains(&day) {
         match day {
             1 => _01::run().await,
