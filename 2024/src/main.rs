@@ -23,6 +23,7 @@ mod _21;
 mod _22;
 mod _23;
 mod _24;
+mod _25;
 
 use std::io;
 use std::io::Write;
@@ -61,6 +62,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             22 => _22::run().await,
             23 => _23::run().await,
             24 => _24::run().await,
+            25 => _25::run().await,
             _ => {
                 println!("Solution for the given day is not implemented yet.");
                 Ok(())
