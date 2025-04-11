@@ -109,8 +109,7 @@ def get_years() -> list:
 
 
 def main(args):
-    years = get_years()
-    y2s = {y: get_year_stars(y, args.sleep_sec) for y in years}
+    y2s = {y: get_year_stars(y, args.sleep_sec) for y in args.years}
     total_stars = sum(y2s.values())
 
     for y, s in y2s.items():
@@ -146,7 +145,7 @@ if __name__ == '__main__':
         '--years',
         nargs = '+',
         type = int,
-        default = list(range(datetime.now().year, 2014, -1)),
+        default = get_years(),
         help = 'Years to fetch data from.',
     )
     parser.add_argument(
