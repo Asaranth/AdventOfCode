@@ -23,6 +23,11 @@ LANGUAGE_DETAILS = {
         'logo': 'fsharp',
         'color': 'b845fc'
     },
+    2018: {
+        'label': 'JavaScript',
+        'logo': 'javascript',
+        'color': 'f1e05a'
+    }
     2023: {
         'label': 'Python',
         'logo': 'python',
