@@ -103,7 +103,7 @@ def get_language_badge_url(year: int) -> str:
 
 def get_years() -> list:
     current_year = datetime.now().year
-    current_mount = datetime.now().month
+    current_month = datetime.now().month
     last_year = current_year if current_month >= 12 else (current_year - 1)
     return list(range(2015, last_year + 1))
 
