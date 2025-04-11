@@ -7,6 +7,7 @@ bin/
 obj/
 target/
 data/
+node_modules/
 
 # Ignore IntelliJ IDEA configuration
 .idea/
