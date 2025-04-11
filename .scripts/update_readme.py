@@ -79,7 +79,6 @@ def fmt_language_badge(language: dict) -> str:
 
 def get_year_stars(year: int, sleep_sec: int) -> int:
     url = AOC_URL.format(year = year, uid = UID)
-    print(f"Fetching URL: {url}")
     res = requests.get(url, headers = HEADERS, cookies = COOKIES)
     if res.status_code != 200:
             print(f"Error fetching data for year {year}: HTTP {res.status_code}: {res.text}")
@@ -102,8 +101,16 @@ def get_language_badge_url(year: int) -> str:
     return f'<a href="./{year}/"><img src="{badge_url}" alt="{LANGUAGE_DETAILS[year]["label"]}"></a>'
 
 
+def get_years() -> list:
+    current_year = datetime.now().year
+    current_mount = datetime.now().month
+    last_year = current_year if current_month >= 12 else (current_year - 1)
+    return list(range(2015, last_year + 1))
+
+
 def main(args):
-    y2s = {y: get_year_stars(y, args.sleep_sec) for y in args.years}
+    years = get_years()
+    y2s = {y: get_year_stars(y, args.sleep_sec) for y in years}
     total_stars = sum(y2s.values())
 
     for y, s in y2s.items():
