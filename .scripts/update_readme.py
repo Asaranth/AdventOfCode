@@ -27,7 +27,7 @@ LANGUAGE_DETAILS = {
         'label': 'JavaScript',
         'logo': 'javascript',
         'color': 'f1e05a'
-    }
+    },
     2023: {
         'label': 'Python',
         'logo': 'python',
