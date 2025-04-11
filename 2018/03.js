@@ -9,11 +9,9 @@ function processClaims(processClaimHandler) {
 		const claimId = Number(id.replace('#', ''));
 		const [x, y] = at.replace(':', '').split(',').map(Number);
 		const [width, height] = size.split('x').map(Number);
-		for (let i = x; i < x + width; i++) {
-			for (let j = y; j < y + height; j++) {
-				const key = `${i},${j}`;
-				processClaimHandler(fabric, key, claimId);
-			}
+		for (let i = x; i < x + width; i++) for (let j = y; j < y + height; j++) {
+			const key = `${i},${j}`;
+			processClaimHandler(fabric, key, claimId);
 		}
 	}
 	return fabric;
@@ -33,18 +31,14 @@ function solvePartTwo() {
 	const allClaims = new Set();
 	processClaims((fabric, key, claimId) => {
 		allClaims.add(claimId);
-		if (!fabric.has(key)) {
-			fabric.set(key, [claimId]);
-		} else {
+		if (!fabric.has(key)) fabric.set(key, [claimId]);
+		else {
 			fabric.get(key).forEach(existingClaimId => overlappingClaims.add(existingClaimId));
 			overlappingClaims.add(claimId);
 			fabric.get(key).push(claimId);
 		}
 	});
-	for (const claimId of allClaims)
-		if (!overlappingClaims.has(claimId)) {
-			return claimId;
-		}
+	for (const claimId of allClaims) if (!overlappingClaims.has(claimId)) return claimId;
 	return null;
 }
 

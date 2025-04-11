@@ -15,19 +15,17 @@ function solvePartOne() {
 }
 
 function solvePartTwo() {
-	for (let i = 0; i < data.length; i++) {
-		for (let j = i + 1; j < data.length; j++) {
-			const id1 = data[i];
-			const id2 = data[j];
-			let differingCount = 0;
-			let commonChars = '';
-			for (let k = 0; k < id1.length; k++) {
-				if (id1[k] === id2[k]) commonChars += id1[k];
-				else differingCount++;
-				if (differingCount > 1) break;
-			}
-			if (differingCount === 1) return commonChars;
+	for (let i = 0; i < data.length; i++) for (let j = i + 1; j < data.length; j++) {
+		const id1 = data[i];
+		const id2 = data[j];
+		let differingCount = 0;
+		let commonChars = '';
+		for (let k = 0; k < id1.length; k++) {
+			if (id1[k] === id2[k]) commonChars += id1[k];
+			else differingCount++;
+			if (differingCount > 1) break;
 		}
+		if (differingCount === 1) return commonChars;
 	}
 }
 
