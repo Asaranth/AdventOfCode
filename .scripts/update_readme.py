@@ -78,12 +78,12 @@ def fmt_language_badge(language: dict) -> str:
 
 
 def get_year_stars(year: int, sleep_sec: int) -> int:
-    res = requests.get(
-        AOC_URL.format(year = year, uid = UID),
-        headers = HEADERS,
-        cookies = COOKIES,
-    )
-    assert res.status_code == 200
+    url = AOC_URL.format(year = year, uid = UID)
+    print(f"Fetching URL: {url}")
+    res = requests.get(url, headers = HEADERS, cookies = COOKIES)
+    if res.status_code != 200:
+            print(f"Error fetching data for year {year}: HTTP {res.status_code}: {res.text}")
+            raise AssertionError("Failed to fetch leaderboard data")
     time.sleep(sleep_sec)
     data = json.loads(res.text)
     return data['members'][UID]['stars']
