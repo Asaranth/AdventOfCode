@@ -84,19 +84,19 @@ function simulateRound(grid, units) {
 		if (!unit.alive) continue;
 		const enemies = units.filter((u) => u.alive && u.type !== unit.type);
 		if (enemies.length === 0) return false;
-		const targetPositions = [...new Set(enemies.flatMap((enemy) => DIRECTIONS.map(([dx, dy]) => ({
+		const targetPositions = new Set(enemies.flatMap((enemy) => DIRECTIONS.map(([dx, dy]) => ({
 			x: enemy.x + dx,
 			y: enemy.y + dy
-		}))).filter(({x, y}) => grid[y]?.[x] === '.' && !units.some((u) => u.alive && u.x === x && u.y === y)))];
+		}))).filter(({x, y}) => grid[y]?.[x] === '.' && !units.some((u) => u.alive && u.x === x && u.y === y)));
 		const adjacentEnemies = enemies.filter((enemy) => unit.isAdjacentTo(enemy));
 		if (adjacentEnemies.length > 0) {
 			const target = adjacentEnemies.sort((a, b) => a.hp - b.hp || inReadingOrder(a, b))[0];
 			unit.attack(target);
 			continue;
 		}
-		if (targetPositions.length > 0) {
+		if (targetPositions.size > 0) {
 			const distances = computeDistances(grid, units, unit);
-			const move = findBestMove(unit, distances, targetPositions);
+			const move = findBestMove(unit, distances, Array.from(targetPositions));
 			if (move) {
 				unit.x = move.x;
 				unit.y = move.y;
@@ -119,8 +119,9 @@ function simulateCombat(grid, units) {
 		rounds++;
 	}
 	const remainingHp = units.filter((u) => u.alive).reduce((sum, u) => sum + u.hp, 0);
-	return [rounds * remainingHp, units.some((u) => u.type === 'E' && u.alive)];
+	return [rounds * remainingHp, true];
 }
+
 
 function solvePartOne() {
 	const {grid, units} = parseInput();
@@ -131,8 +132,8 @@ function solvePartTwo() {
 	let elfAtk = 4;
 	while (true) {
 		const {grid, units} = parseInput(elfAtk);
-		const [outcome, elvesSurvived] = simulateCombat(grid, units);
-		if (elvesSurvived) return outcome;
+		const [result, elvesWin] = simulateCombat(grid, units);
+		if (elvesWin && units.filter((u) => u.type === 'E').every((e) => e.alive)) return result;
 		elfAtk++;
 	}
 }
