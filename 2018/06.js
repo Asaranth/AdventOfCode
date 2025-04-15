@@ -1,6 +1,6 @@
 import {getInputData} from './utils.js';
 
-const data = (await getInputData(6)).split('\n').filter(x => x !== '').map(x => x.split(', ').map(Number));
+const data = (await getInputData(6)).trim().split('\n').map(x => x.split(', ').map(Number));
 const xMin = Math.min(...data.map(([x, _]) => x));
 const xMax = Math.max(...data.map(([x, _]) => x));
 const yMin = Math.min(...data.map(([_, y]) => y));

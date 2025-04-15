@@ -1,6 +1,6 @@
 import {getInputData} from './utils.js';
 
-const data = (await getInputData(5)).split('\n')[0];
+const data = (await getInputData(5)).trim();
 
 function reactPolymer(str) {
 	const stack = [];

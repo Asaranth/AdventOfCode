@@ -1,6 +1,6 @@
 import {getInputData} from './utils.js';
 
-const [_, players, lastMarble] = (await getInputData(9)).match(/(\d+) players.*?(\d+) points/).map(Number);
+const [_, players, lastMarble] = (await getInputData(9)).trim().match(/(\d+) players.*?(\d+) points/).map(Number);
 
 class Node {
 	constructor(value) {

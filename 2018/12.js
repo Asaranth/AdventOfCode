@@ -1,6 +1,6 @@
 import {getInputData} from './utils.js';
 
-const data = (await getInputData(12)).split('\n').filter(x => x !== '');
+const data = (await getInputData(12)).trim().split('\n');
 const initialState = data[0].replace('initial state: ', '');
 
 function generateRecipe() {

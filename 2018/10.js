@@ -1,6 +1,6 @@
 import {getInputData} from './utils.js';
 
-const data = (await getInputData(10)).split('\n').filter(x => x !== '').map(x => {
+const data = (await getInputData(10)).trim().split('\n').map(x => {
 	const match = x.match(/position=<\s*(-?\d+),\s*(-?\d+)> velocity=<\s*(-?\d+),\s*(-?\d+)>/);
 	if (match) return { x: parseInt(match[1]), y: parseInt(match[2]), vx: parseInt(match[3]), vy: parseInt(match[4]) };
 });

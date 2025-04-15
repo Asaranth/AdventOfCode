@@ -1,6 +1,6 @@
 import {getInputData} from './utils.js';
 
-const data = (await getInputData(1)).split('\n').filter(x => x !== '').map(Number);
+const data = (await getInputData(1)).trim().split('\n').map(Number);
 
 function calculateFrequency(stopOnRepeat = false) {
 	let frequency = 0;

@@ -1,6 +1,6 @@
 import {getInputData} from './utils.js';
 
-const data = (await getInputData(2)).split('\n').filter(x => x !== '');
+const data = (await getInputData(2)).trim().split('\n');
 
 function solvePartOne() {
 	let twoCounts = 0;

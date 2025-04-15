@@ -1,6 +1,6 @@
 import {getInputData} from './utils.js';
 
-const data = (await getInputData(3)).split('\n').filter(x => x !== '');
+const data = (await getInputData(3)).trim().split('\n');
 
 function processClaims(processClaimHandler) {
 	const fabric = new Map();

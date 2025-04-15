@@ -1,6 +1,6 @@
 import {getInputData} from './utils.js';
 
-const data = (await getInputData(7)).split('\n').filter(x => x !== '');
+const data = (await getInputData(7)).trim().split('\n');
 
 function parseDependencies(data) {
 	const dependencyGraph = new Map();

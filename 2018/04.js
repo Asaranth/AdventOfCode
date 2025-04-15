@@ -1,6 +1,6 @@
 import {getInputData} from './utils.js';
 
-const data = (await getInputData(4)).split('\n').filter((x) => x !== '').map((line) => ({
+const data = (await getInputData(4)).trim().split('\n').map((line) => ({
 	date: new Date(line.match(/\[(.*?)]/)[1]),
 	line
 })).sort((a, b) => a.date - b.date).map((entry) => entry.line);

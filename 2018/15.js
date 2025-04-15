@@ -1,6 +1,6 @@
 import {getInputData} from './utils.js';
 
-const data = (await getInputData(15)).split('\n').filter((x) => x !== '');
+const data = (await getInputData(15)).trim().split('\n');
 const DIRECTIONS = [[0, -1], [-1, 0], [1, 0], [0, 1]];
 
 const inReadingOrder = (a, b) => (a.y === b.y ? a.x - b.x : a.y - b.y);

@@ -1,6 +1,6 @@
 import {getInputData} from './utils.js';
 
-const data = (await getInputData(8)).split(' ').map(Number);
+const data = (await getInputData(8)).trim().split(' ').map(Number);
 
 function parseNode(numbers, index, isPartTwo = false) {
 	const numChildren = numbers[index];
