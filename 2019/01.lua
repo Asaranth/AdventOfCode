@@ -5,7 +5,7 @@ for line in utils.getInputData(1):gmatch("[^\r\n]+") do
     table.insert(data, tonumber(line))
 end
 
-function solvePartOne()
+local function solvePartOne()
     local total = 0
     for _, mass in ipairs(data) do
         total = total + (math.floor(mass / 3) - 2)
@@ -13,7 +13,7 @@ function solvePartOne()
     return total
 end
 
-function solvePartTwo()
+local function solvePartTwo()
     local total = 0
     for _, mass in ipairs(data) do
         local fuel = math.floor(mass / 3) - 2
