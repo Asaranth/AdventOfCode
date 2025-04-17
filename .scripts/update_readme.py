@@ -28,6 +28,11 @@ LANGUAGE_DETAILS = {
         'logo': 'javascript',
         'color': 'f1e05a'
     },
+    {
+        'label': 'Lua',
+        'logo': 'lua',
+        'color': '000080'
+    },
     2023: {
         'label': 'Python',
         'logo': 'python',
