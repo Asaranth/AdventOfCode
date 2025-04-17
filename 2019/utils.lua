@@ -34,11 +34,11 @@ local function getInputData(day)
     end
     local url = string.format("https://adventofcode.com/2019/day/%d/input", day)
     local response = {}
-    local _, status = https.request {
+    local status = select(2, https.request {
         url = url,
         headers = { ["Cookie"] = "session=" .. sessionCookie },
         sink = ltn12.sink.table(response)
-    } or {}, nil
+    })
     if status ~= 200 then
         error("Failed to fetch data. HTTP status: " .. tostring(status))
     end
