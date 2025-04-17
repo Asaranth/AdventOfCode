@@ -47,7 +47,7 @@ local function solvePartOne()
     for point in pairs(wire1Path) do
         if wire2Path[point] then
             local x, y = point:match("([^,]+),([^,]+)")
-            local distance = math.abs(tonumber(x)) + math.abs(tonumber(y))
+            local distance = math.abs(tonumber(x) or 0) + math.abs(tonumber(y) or 0)
             if distance < closestDistance then
                 closestDistance = distance
             end

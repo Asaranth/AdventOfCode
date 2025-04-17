@@ -8,7 +8,7 @@ local function loadEnv()
     end
     local envVars = {}
     for line in envFile:lines() do
-        local key, value = line:match("^([^=]+)%s*=%s*(.+)$")
+        local key, value = tostring(line):match("^([^=]+)%s*=%s*(.+)$")
         if key and value then
             envVars[key] = value
         end
@@ -38,7 +38,7 @@ local function getInputData(day)
         url = url,
         headers = { ["Cookie"] = "session=" .. sessionCookie },
         sink = ltn12.sink.table(response)
-    }
+    } or {}, nil
     if status ~= 200 then
         error("Failed to fetch data. HTTP status: " .. tostring(status))
     end
