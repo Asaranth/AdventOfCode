@@ -28,7 +28,7 @@ LANGUAGE_DETAILS = {
         'logo': 'javascript',
         'color': 'f1e05a'
     },
-    {
+    2019: {
         'label': 'Lua',
         'logo': 'lua',
         'color': '000080'
