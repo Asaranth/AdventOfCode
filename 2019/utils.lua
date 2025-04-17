@@ -34,7 +34,7 @@ local function getInputData(day)
     end
     local url = string.format("https://adventofcode.com/2019/day/%d/input", day)
     local response = {}
-    local _, status, headers, statusLine = https.request {
+    local _, status = https.request {
         url = url,
         headers = { ["Cookie"] = "session=" .. sessionCookie },
         sink = ltn12.sink.table(response)
