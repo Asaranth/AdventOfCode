@@ -8,6 +8,7 @@ obj/
 target/
 data/
 node_modules/
+__pycache__/
 
 # Ignore IntelliJ IDEA configuration
 .idea/
