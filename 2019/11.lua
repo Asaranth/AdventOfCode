@@ -183,8 +183,7 @@ local function solvePartTwo()
     for y = maxY, minY, -1 do
         local line = ""
         for x = minX, maxX do
-            local key = x .. "," .. y
-            line = line .. (robot.panels[key] == 1 and "#" or " ")
+            line = line .. (robot.panels[x .. "," .. y] == 1 and "#" or " ")
         end
         output = output .. line .. "\n"
     end
