@@ -143,17 +143,14 @@ local function solvePartOne()
 end
 
 local function solvePartTwo()
-    local robot = { x = 0, y = 0, direction = 0, panels = {} }
-    robot.panels["0,0"] = 1
+    local robot = { x = 0, y = 0, direction = 0, panels = { ["0,0"] = 1 } }
 
     local function getPanelColor()
-        local key = robot.x .. "," .. robot.y
-        return robot.panels[key] or 0
+        return robot.panels[robot.x .. "," .. robot.y] or 0
     end
 
     local function paintPanel(color)
-        local key = robot.x .. "," .. robot.y
-        robot.panels[key] = color
+        robot.panels[robot.x .. "," .. robot.y] = color
     end
 
     local function moveRobot(turn)
