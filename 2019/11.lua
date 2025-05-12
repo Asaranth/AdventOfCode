@@ -13,10 +13,8 @@ local directions = {
 
 local function createComputer(program)
     local comp = { memory = {}, ip = 0, relativeBase = 0, halted = false }
+    for i, v in ipairs(program) do comp.memory[i - 1] = v end
 
-    for i, v in ipairs(program) do
-        comp.memory[i - 1] = v
-    end
     function comp:get(pos)
         return self.memory[pos] or 0
     end
@@ -108,67 +106,31 @@ local function createComputer(program)
     return comp
 end
 
-local function solvePartOne()
-    local robot = { x = 0, y = 0, direction = 0, panels = {} }
-
-    local function getPanelColor()
-        return robot.panels[robot.x .. "," .. robot.y] or 0
-    end
-
-    local function paintPanel(color)
+local function handleRobot(robot)
+    local computer = createComputer(data)
+    while not computer.halted do
+        local color = computer:run(robot.panels[robot.x .. "," .. robot.y] or 0)
+        if color == nil then break end
+        local turn = computer:run()
+        if turn == nil then break end
         robot.panels[robot.x .. "," .. robot.y] = color
-    end
-
-    local function moveRobot(turn)
         robot.direction = (robot.direction + (turn == 0 and -1 or 1)) % 4
         local dir = directions[robot.direction]
         robot.x = robot.x + dir[1]
         robot.y = robot.y + dir[2]
     end
+    return robot
+end
 
-    local computer = createComputer(data)
-    while not computer.halted do
-        local color = computer:run(getPanelColor())
-        if color == nil then break end
-        local turn = computer:run()
-        if turn == nil then break end
-        paintPanel(color)
-        moveRobot(turn)
-    end
+local function solvePartOne()
+    local robot = handleRobot({ x = 0, y = 0, direction = 0, panels = {} })
     local count = 0
-    for _ in pairs(robot.panels) do
-        count = count + 1
-    end
+    for _ in pairs(robot.panels) do count = count + 1 end
     return count
 end
 
 local function solvePartTwo()
-    local robot = { x = 0, y = 0, direction = 0, panels = { ["0,0"] = 1 } }
-
-    local function getPanelColor()
-        return robot.panels[robot.x .. "," .. robot.y] or 0
-    end
-
-    local function paintPanel(color)
-        robot.panels[robot.x .. "," .. robot.y] = color
-    end
-
-    local function moveRobot(turn)
-        robot.direction = (robot.direction + (turn == 0 and -1 or 1)) % 4
-        local dir = directions[robot.direction]
-        robot.x = robot.x + dir[1]
-        robot.y = robot.y + dir[2]
-    end
-
-    local computer = createComputer(data)
-    while not computer.halted do
-        local color = computer:run(getPanelColor())
-        if color == nil then break end
-        local turn = computer:run()
-        if turn == nil then break end
-        paintPanel(color)
-        moveRobot(turn)
-    end
+    local robot = handleRobot({ x = 0, y = 0, direction = 0, panels = { ["0,0"] = 1 } })
     local minX, maxX = math.huge, -math.huge
     local minY, maxY = math.huge, -math.huge
     for key in pairs(robot.panels) do
@@ -182,9 +144,7 @@ local function solvePartTwo()
     local output = "\n"
     for y = maxY, minY, -1 do
         local line = ""
-        for x = minX, maxX do
-            line = line .. (robot.panels[x .. "," .. y] == 1 and "#" or " ")
-        end
+        for x = minX, maxX do line = line .. (robot.panels[x .. "," .. y] == 1 and "#" or " ") end
         output = output .. line .. "\n"
     end
     return output
