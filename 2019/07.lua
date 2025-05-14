@@ -20,94 +20,23 @@ local function permutations(array, n, results)
     end
 end
 
-local function intcodeComputer(program, inputs)
-    local mem = { table.unpack(program) }
-    local output = {}
-    local ip = 1
-    local inputIndex = 1
-    local halted = false
-
-    local function getParam(mode, offset)
-        if mode == 0 then
-            return mem[mem[ip + offset] + 1] or 0
-        elseif mode == 1 then
-            return mem[ip + offset] or 0
-        end
-    end
-    local function run()
-        while mem[ip] ~= 99 do
-            local instruction = mem[ip]
-            local opcode = instruction % 100
-            local mode1 = math.floor(instruction / 100) % 10
-            local mode2 = math.floor(instruction / 1000) % 10
-            if opcode == 1 then
-                local a, b, c = getParam(mode1, 1), getParam(mode2, 2), mem[ip + 3] + 1
-                mem[c] = a + b
-                ip = ip + 4
-            elseif opcode == 2 then
-                local a, b, c = getParam(mode1, 1), getParam(mode2, 2), mem[ip + 3] + 1
-                mem[c] = a * b
-                ip = ip + 4
-            elseif opcode == 3 then
-                if inputIndex > #inputs then
-                    return false
-                end
-                local a = mem[ip + 1] + 1
-                mem[a] = inputs[inputIndex]
-                inputIndex = inputIndex + 1
-                ip = ip + 2
-            elseif opcode == 4 then
-                local a = getParam(mode1, 1)
-                table.insert(output, a)
-                ip = ip + 2
-                return a
-            elseif opcode == 5 then
-                local a, b = getParam(mode1, 1), getParam(mode2, 2)
-                if a ~= 0 then
-                    ip = b + 1
-                else
-                    ip = ip + 3
-                end
-            elseif opcode == 6 then
-                local a, b = getParam(mode1, 1), getParam(mode2, 2)
-                if a == 0 then
-                    ip = b + 1
-                else
-                    ip = ip + 3
-                end
-            elseif opcode == 7 then
-                local a, b, c = getParam(mode1, 1), getParam(mode2, 2), mem[ip + 3] + 1
-                mem[c] = (a < b) and 1 or 0
-                ip = ip + 4
-            elseif opcode == 8 then
-                local a, b, c = getParam(mode1, 1), getParam(mode2, 2), mem[ip + 3] + 1
-                mem[c] = (a == b) and 1 or 0
-                ip = ip + 4
-            else
-                error("Unknown opcode: " .. opcode)
-            end
-        end
-        halted = true
-        return nil
-    end
-    return {
-        run = run,
-        isHalted = function() return halted end,
-        addInput = function(value) table.insert(inputs, value) end,
-        getOutput = function() return table.remove(output, 1) end
-    }
+local function runAmplifier(program, phaseSetting, inputSignal)
+    local computer = utils.intcode(program)
+    computer:addInput(phaseSetting)
+    computer:addInput(inputSignal)
+    computer:run()
+    return computer:getOutput()
 end
 
 local function solvePartOne()
     local maxOutput = 0
     local phaseSettings = { 0, 1, 2, 3, 4 }
-    local perms = {}
-    permutations(phaseSettings, #phaseSettings, perms)
-    for _, perm in ipairs(perms) do
+    local permutationsList = {}
+    permutations(phaseSettings, #phaseSettings, permutationsList)
+    for _, perm in ipairs(permutationsList) do
         local signal = 0
         for _, phase in ipairs(perm) do
-            local amp = intcodeComputer(data, { phase, signal })
-            signal = amp.run()
+            signal = runAmplifier(data, phase, signal)
         end
         maxOutput = math.max(maxOutput, signal)
     end
@@ -117,29 +46,30 @@ end
 local function solvePartTwo()
     local maxOutput = 0
     local phaseSettings = { 5, 6, 7, 8, 9 }
-    local perms = {}
-    permutations(phaseSettings, #phaseSettings, perms)
-    for _, perm in ipairs(perms) do
+    local permutationsList = {}
+    permutations(phaseSettings, #phaseSettings, permutationsList)
+    for _, perm in ipairs(permutationsList) do
         local amplifiers = {}
         for i = 1, 5 do
-            amplifiers[i] = intcodeComputer(data, { perm[i] })
+            amplifiers[i] = utils.intcode(data)
+            amplifiers[i]:addInput(perm[i])
         end
         local signal = 0
-        local lastOutput = 0
-        while true do
-            for _, amp in ipairs(amplifiers) do
-                amp.addInput(signal)
-                local output = amp.run()
+        local done = false
+        while not done do
+            for i, amp in ipairs(amplifiers) do
+                amp:addInput(signal)
+                amp:run()
+                local output = amp:getOutput()
                 if output then
                     signal = output
                 end
-            end
-            if amplifiers[5].isHalted() then
-                lastOutput = signal
-                break
+                if amp:isHalted() and i == 5 then
+                    done = true
+                end
             end
         end
-        maxOutput = math.max(maxOutput, lastOutput)
+        maxOutput = math.max(maxOutput, signal)
     end
     return maxOutput
 end

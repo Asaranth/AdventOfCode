@@ -14,114 +14,21 @@ local DIRECTIONS = {
     [EAST] = { x = 1, y = 0 }
 }
 
-local Computer = {}
-Computer.__index = Computer
-
-function Computer.new(program)
-    local self = setmetatable({}, Computer)
-    self.memory = {}
-    for i, v in ipairs(program) do
-        self.memory[i - 1] = v
-    end
-    self.position = 0
-    self.relativeBase = 0
-    self.inputs = {}
-    self.halted = false
-    return self
-end
-
-function Computer:clone()
-    local new = setmetatable({}, Computer)
-    new.memory = {}
-    for k, v in pairs(self.memory) do
+local function cloneComputer(original)
+    local new = utils.intcode({})
+    for k, v in pairs(original.memory) do
         new.memory[k] = v
     end
-    new.position = self.position
-    new.relativeBase = self.relativeBase
-    new.inputs = {}
-    new.halted = self.halted
+    new.ip = original.ip
+    new.relativeBase = original.relativeBase
+    new.inputs = { table.unpack(original.inputs) }
+    new.outputs = { table.unpack(original.outputs) }
+    new.halted = original.halted
     return new
 end
 
-function Computer:getParam(position, mode)
-    mode = mode or 0
-    local value = self.memory[position] or 0
-    if mode == 0 then
-        return self.memory[value] or 0
-    elseif mode == 1 then
-        return value
-    else
-        return self.memory[value + self.relativeBase] or 0
-    end
-end
-
-function Computer:setParam(position, mode, value)
-    mode = mode or 0
-    local addr = self.memory[position] or 0
-    if mode == 2 then addr = addr + self.relativeBase end
-    self.memory[addr] = value
-end
-
-function Computer:run(input)
-    table.insert(self.inputs, input)
-    while true do
-        local opcode = self.memory[self.position] or 0
-        local instruction = opcode % 100
-        local mode1 = math.floor(opcode / 100) % 10
-        local mode2 = math.floor(opcode / 1000) % 10
-        local mode3 = math.floor(opcode / 10000) % 10
-        if instruction == 99 then
-            self.halted = true
-            return nil
-        end
-        if instruction == 1 then
-            local param1 = self:getParam(self.position + 1, mode1)
-            local param2 = self:getParam(self.position + 2, mode2)
-            self:setParam(self.position + 3, mode3, param1 + param2)
-            self.position = self.position + 4
-        elseif instruction == 2 then
-            local param1 = self:getParam(self.position + 1, mode1)
-            local param2 = self:getParam(self.position + 2, mode2)
-            self:setParam(self.position + 3, mode3, param1 * param2)
-            self.position = self.position + 4
-        elseif instruction == 3 then
-            if #self.inputs == 0 then return nil end
-            self:setParam(self.position + 1, mode1, table.remove(self.inputs, 1))
-            self.position = self.position + 2
-        elseif instruction == 4 then
-            local output = self:getParam(self.position + 1, mode1)
-            self.position = self.position + 2
-            return output
-        elseif instruction == 5 then
-            local param1 = self:getParam(self.position + 1, mode1)
-            local param2 = self:getParam(self.position + 2, mode2)
-            self.position = param1 ~= 0 and param2 or self.position + 3
-        elseif instruction == 6 then
-            local param1 = self:getParam(self.position + 1, mode1)
-            local param2 = self:getParam(self.position + 2, mode2)
-            self.position = param1 == 0 and param2 or self.position + 3
-        elseif instruction == 7 then
-            local param1 = self:getParam(self.position + 1, mode1)
-            local param2 = self:getParam(self.position + 2, mode2)
-            self:setParam(self.position + 3, mode3, param1 < param2 and 1 or 0)
-            self.position = self.position + 4
-        elseif instruction == 8 then
-            local param1 = self:getParam(self.position + 1, mode1)
-            local param2 = self:getParam(self.position + 2, mode2)
-            self:setParam(self.position + 3, mode3, param1 == param2 and 1 or 0)
-            self.position = self.position + 4
-        elseif instruction == 9 then
-            local param1 = self:getParam(self.position + 1, mode1)
-            self.relativeBase = self.relativeBase + param1
-            self.position = self.position + 2
-        else
-            error("Unknown opcode: " .. instruction)
-        end
-    end
-end
-
 local function buildCompleteMap()
-    local computer = Computer.new(data)
+    local computer = utils.intcode(data)
     local position = { x = 0, y = 0 }
     local map = { ["0,0"] = "." }
     local queue = { { pos = position, computer = computer } }
@@ -131,10 +38,12 @@ local function buildCompleteMap()
         local pos = current.pos
         for dir = 1, 4 do
             local newPos = { x = pos.x + DIRECTIONS[dir].x, y = pos.y + DIRECTIONS[dir].y }
-            local posKey = newPos.x .. "," .. newPos.y
+            local posKey = string.format("%d,%d", newPos.x, newPos.y)
             if not map[posKey] then
-                local newComputer = current.computer:clone()
-                local status = newComputer:run(dir)
+                local newComputer = cloneComputer(current.computer)
+                newComputer:addInput(dir)
+                newComputer:run()
+                local status = newComputer:getOutput()
                 if status == FOUND_OXYGEN then
                     map[posKey] = "O"
                     oxygenPos = newPos
@@ -152,7 +61,7 @@ local function buildCompleteMap()
 end
 
 local function solvePartOne()
-    local computer = Computer.new(data)
+    local computer = utils.intcode(data)
     local position = { x = 0, y = 0 }
     local visited = { ["0,0"] = true }
     local queue = { { pos = position, steps = 0, computer = computer } }
@@ -161,10 +70,12 @@ local function solvePartOne()
         local pos = current.pos
         for dir = 1, 4 do
             local newPos = { x = pos.x + DIRECTIONS[dir].x, y = pos.y + DIRECTIONS[dir].y }
-            local posKey = newPos.x .. "," .. newPos.y
+            local posKey = string.format("%d,%d", newPos.x, newPos.y)
             if not visited[posKey] then
-                local newComputer = current.computer:clone()
-                local status = newComputer:run(dir)
+                local newComputer = cloneComputer(current.computer)
+                newComputer:addInput(dir)
+                newComputer:run()
+                local status = newComputer:getOutput()
                 if status == FOUND_OXYGEN then
                     return current.steps + 1
                 elseif status == MOVED then
@@ -192,7 +103,7 @@ local function solvePartTwo()
                 x, y = tonumber(x), tonumber(y)
                 for _, dir in ipairs(DIRECTIONS) do
                     local newPos = { x = x + dir.x, y = y + dir.y }
-                    local newKey = newPos.x .. "," .. newPos.y
+                    local newKey = string.format("%d,%d", newPos.x, newPos.y)
                     if map[newKey] == "." then
                         newOxygen[newKey] = true
                         filledSomething = true

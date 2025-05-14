@@ -8,31 +8,13 @@ local function parseInput()
     return data
 end
 
-local function runIntcode(program)
-    local index = 1
-    while program[index] ~= 99 do
-        local opcode = program[index]
-        local param1 = program[index + 1] + 1
-        local param2 = program[index + 2] + 1
-        local param3 = program[index + 3] + 1
-        if opcode == 1 then
-            program[param3] = program[param1] + program[param2]
-        elseif opcode == 2 then
-            program[param3] = program[param1] * program[param2]
-        else
-            error("Unknown opcode: " .. opcode)
-        end
-        index = index + 4
-    end
-    return program
-end
-
 local function solvePartOne()
     local program = parseInput()
     program[2] = 12
     program[3] = 2
-    local finalProgram = runIntcode(program)
-    return finalProgram[1]
+    local computer = utils.intcode(program)
+    computer:run()
+    return computer.memory[0]
 end
 
 local function solvePartTwo(targetOutput)
@@ -42,8 +24,9 @@ local function solvePartTwo(targetOutput)
             local program = { table.unpack(originalProgram) }
             program[2] = noun
             program[3] = verb
-            local result = runIntcode(program)
-            if result[1] == targetOutput then
+            local computer = utils.intcode(program)
+            computer:run()
+            if computer.memory[0] == targetOutput then
                 return 100 * noun + verb
             end
         end
