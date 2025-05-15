@@ -46,7 +46,42 @@ local function solvePartOne()
 end
 
 local function solvePartTwo()
-    return 0
+    local dataCopy = { table.unpack(data) }
+    dataCopy[1] = 2
+
+    -- Constants from obvervation
+    local FUNC_A = "R,10,R,8,L,10,L,10"
+    local FUNC_B = "R,8,L,6,L,6"
+    local FUNC_C = "L,10,R,10,L,6"
+    local MAIN_ROUTINE = "A,B,B,A,C,B,C,C,B,A"
+
+    local movementInputs = {}
+
+    local function addAscii(input)
+        for i = 1, #input do
+            table.insert(movementInputs, input:byte(i))
+        end
+        table.insert(movementInputs, 10)
+    end
+
+    addAscii(MAIN_ROUTINE)
+    addAscii(FUNC_A)
+    addAscii(FUNC_B)
+    addAscii(FUNC_C)
+    addAscii("n")
+
+    local computer = utils.intcode(dataCopy)
+    for _, input in ipairs(movementInputs) do
+        computer:addInput(input)
+    end
+    computer:run()
+    local dustCollected = 0
+    for _, value in ipairs(computer.outputs) do
+        if value > 127 then
+            dustCollected = value
+        end
+    end
+    return dustCollected
 end
 
 print("Part One: " .. solvePartOne())
