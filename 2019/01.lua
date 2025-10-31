@@ -1,6 +1,7 @@
 local utils = require("utils")
 
 local data = {}
+
 for line in utils.getInputData(1):gmatch("[^\r\n]+") do
     table.insert(data, tonumber(line))
 end

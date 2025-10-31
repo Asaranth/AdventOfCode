@@ -2,6 +2,7 @@ local utils = require("utils")
 
 local function parseInput()
     local data = {}
+
     for value in utils.getInputData(2):gmatch("[^,]+") do
         table.insert(data, tonumber(value))
     end
