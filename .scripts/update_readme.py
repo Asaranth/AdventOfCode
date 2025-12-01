@@ -46,7 +46,7 @@ LANGUAGE_DETAILS = {
     2025: {
         'label': 'Haskell',
         'logo': 'haskell',
-        'color': '29b544'
+        'color': '5e5086'
     }
 }
 
