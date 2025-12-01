@@ -76,7 +76,7 @@ def hsv_interp(t):
 
 
 def fmt_year_badge(year: int, stars: int, max_stars: int, color: str) -> str:
-    stars_formatted = f'{stars}%2F{max_stars}'
+    stars_formatted = f'{stars:02d}%2F{max_stars:02d}'
     return f'https://img.shields.io/badge/{year}-{stars_formatted}%20{STAR}-{color}?style=for-the-badge&labelColor=2b2b2b'
 
 
