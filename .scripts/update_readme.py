@@ -75,8 +75,8 @@ def hsv_interp(t):
     return rgb2hex(*colorsys.hsv_to_rgb(h = t * 120 / 360, s = 1, v = 0.6))
 
 
-def fmt_year_badge(year: int, stars: int, color: str) -> str:
-    stars_formatted = f'{stars:02d}'
+def fmt_year_badge(year: int, stars: int, max_stars: int, color: str) -> str:
+    stars_formatted = f'{stars}%2F{max_stars}'
     return f'https://img.shields.io/badge/{year}-{stars_formatted}%20{STAR}-{color}?style=for-the-badge&labelColor=2b2b2b'
 
 
@@ -101,7 +101,7 @@ def get_year_stars(year: int, sleep_sec: int) -> int:
 def get_year_badge_url(year: int, stars: int) -> str:
     max_stars = 24 if year >= 2025 else 50
     color = hsv_interp(stars / max_stars)
-    badge_url = fmt_year_badge(year, stars, color)
+    badge_url = fmt_year_badge(year, stars, max_stars, color)
     return f'<a href="./{year}/"><img src="{badge_url}" alt="{year}"></a>'
 
 
@@ -130,7 +130,7 @@ def main(args):
 
 
     readme_template = """# Advent of Code 🎄
-Each year in December, the advent calendar with a twist opens! Advent of Code is an annual event where puzzles are released each day from December 1st to December 25th. Created by Eric Wastl, these puzzles cover a variety of programming aspects, encouraging creative problem-solving and improving coding skills. Join the [fun and educational journey](https://adventofcode.com/)!
+Each year in December, the advent calendar with a twist opens! Advent of Code is an annual event where puzzles are released each day from December 1st to December 25th (12th as of 2025). Created by Eric Wastl, these puzzles cover a variety of programming aspects, encouraging creative problem-solving and improving coding skills. Join the [fun and educational journey](https://adventofcode.com/)!
 ## Stars: {total_stars} ⭐
 {year_lines}
 """
