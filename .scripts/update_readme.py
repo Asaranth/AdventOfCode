@@ -42,6 +42,11 @@ LANGUAGE_DETAILS = {
         'label': 'Rust',
         'logo': 'rust',
         'color': 'dea584'
+    },
+    2025: {
+        'label': 'Haskell',
+        'logo': 'haskell',
+        'color': '29b544'
     }
 }
 
@@ -94,7 +99,8 @@ def get_year_stars(year: int, sleep_sec: int) -> int:
 
 
 def get_year_badge_url(year: int, stars: int) -> str:
-    color = hsv_interp(stars / 50)
+    max_stars = 24 if year >= 2025 else 50
+    color = hsv_interp(stars / max_stars)
     badge_url = fmt_year_badge(year, stars, color)
     return f'<a href="./{year}/"><img src="{badge_url}" alt="{year}"></a>'
 
@@ -143,7 +149,7 @@ Each year in December, the advent calendar with a twist opens! Advent of Code is
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description = '''Generate badge URLs with stars/year.
-        The badge color is interpolated with respect to the number of stars: from 0 to 50.''',
+        The badge color is interpolated with respect to the number of stars: from 0 to 50 (or 24 for 2025+).''',
         formatter_class = argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
