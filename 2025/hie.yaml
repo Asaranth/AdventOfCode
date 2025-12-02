@@ -1,0 +1,8 @@
+cradle:
+  direct:
+    arguments:
+      - "-i."
+      - "-package split"
+      - "-package directory"
+      - "-package filepath"
+      - "-package process"

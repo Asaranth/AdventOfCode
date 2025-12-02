@@ -9,6 +9,7 @@ target/
 data/
 node_modules/
 __pycache__/
+dist-newstyle/
 
 # Ignore IntelliJ IDEA configuration
 .idea/
