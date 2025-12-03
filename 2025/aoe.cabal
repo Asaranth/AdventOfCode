@@ -21,3 +21,11 @@ executable day02
     build-depends:    base, directory, filepath, process, split
     hs-source-dirs:   .
     default-language: Haskell2010
+
+executable day03
+    import:           warnings
+    main-is:          03.hs
+    other-modules:    Utils
+    build-depends:    base, directory, filepath, process
+    hs-source-dirs:   .
+    default-language: Haskell2010
