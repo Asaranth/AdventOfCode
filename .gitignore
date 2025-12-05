@@ -10,6 +10,7 @@ data/
 node_modules/
 __pycache__/
 dist-newstyle/
+.stack-work/
 
 # Ignore IntelliJ IDEA configuration
 .idea/
