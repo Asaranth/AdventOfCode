@@ -13,33 +13,46 @@ executable day01
   hs-source-dirs:      .
   main-is:             01.hs
   build-depends:       base >=4.17 && <5, aoc, directory, filepath, process
-  other-modules:       Utils
   default-language:    Haskell2010
 
 executable day02
   hs-source-dirs:      .
   main-is:             02.hs
   build-depends:       base >=4.17 && <5, aoc, directory, filepath, process, split, containers
-  other-modules:       Utils
   default-language:    Haskell2010
 
 executable day03
   hs-source-dirs:      .
   main-is:             03.hs
   build-depends:       base >=4.17 && <5, aoc, directory, filepath, process
-  other-modules:       Utils
   default-language:    Haskell2010
 
 executable day04
   hs-source-dirs:      .
   main-is:             04.hs
   build-depends:       base >=4.17 && <5, aoc, directory, filepath, process
-  other-modules:       Utils
   default-language:    Haskell2010
 
 executable day05
   hs-source-dirs:      .
   main-is:             05.hs
   build-depends:       base >=4.17 && <5, aoc, directory, filepath, process, split, containers
-  other-modules:       Utils
+  default-language:    Haskell2010
+
+executable day06
+  hs-source-dirs:      .
+  main-is:             06.hs
+  build-depends:       base >=4.17 && <5, aoc, directory, filepath, process
+  default-language:    Haskell2010
+
+executable day07
+  hs-source-dirs:      .
+  main-is:             07.hs
+  build-depends:       base >=4.17 && <5, aoc, directory, filepath, process, vector
+  default-language:    Haskell2010
+
+executable day08
+  hs-source-dirs:      .
+  main-is:             08.hs
+  build-depends:       base >=4.17 && <5, aoc, directory, filepath, process, array
   default-language:    Haskell2010

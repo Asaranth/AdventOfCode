@@ -1,3 +1,47 @@
 cradle:
-  stack:
-    stackYaml: stack.yaml
+  multi:
+    - path: "Utils.hs"
+      config:
+        cradle:
+          stack:
+            component: "aoc:lib"
+    - path: "01.hs"
+      config:
+        cradle:
+          stack:
+            component: "aoc:exe:day01"
+    - path: "02.hs"
+      config:
+        cradle:
+          stack:
+            component: "aoc:exe:day02"
+    - path: "03.hs"
+      config:
+        cradle:
+          stack:
+            component: "aoc:exe:day03"
+    - path: "04.hs"
+      config:
+        cradle:
+          stack:
+            component: "aoc:exe:day04"
+    - path: "05.hs"
+      config:
+        cradle:
+          stack:
+            component: "aoc:exe:day05"
+    - path: "06.hs"
+      config:
+        cradle:
+          stack:
+            component: "aoc:exe:day06"
+    - path: "07.hs"
+      config:
+        cradle:
+          stack:
+            component: "aoc:exe:day07"
+    - path: "08.hs"
+      config:
+        cradle:
+          stack:
+            component: "aoc:exe:day08"
