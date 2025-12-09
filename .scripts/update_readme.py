@@ -129,9 +129,8 @@ def main(args):
             get_language_badge_url(y)
 
 
-    readme_template = """# Advent of Code 🎄
-Each year in December, the advent calendar with a twist opens! Advent of Code is an annual event where puzzles are released each day from December 1st to December 25th (12th as of 2025). Created by Eric Wastl, these puzzles cover a variety of programming aspects, encouraging creative problem-solving and improving coding skills. Join the [fun and educational journey](https://adventofcode.com/)!
-## Stars: {total_stars} ⭐
+    readme_template = """
+# Stars: {total_stars} ⭐
 {year_lines}
 """
 

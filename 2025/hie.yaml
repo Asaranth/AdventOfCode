@@ -45,3 +45,8 @@ cradle:
         cradle:
           stack:
             component: "aoc:exe:day08"
+    - path: "09.hs"
+      config:
+        cradle:
+          stack:
+            component: "aoc:exe:day09"
