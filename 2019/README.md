@@ -24,7 +24,7 @@
 
 ### Day 03 – Crossed Wires
 #### Part 1
-- **Requirement:** Compute Manhattan distance of closest intersection of two wire paths.
+- **Requirement:** Compute Manhattan distance of the closest intersection of two wire paths.
 - **Technique:** Grid tracing and Manhattan geometry.
 
 #### Part 2
@@ -68,22 +68,22 @@
 
 ### Day 07 – Amplification Circuit
 #### Part 1
-- **Requirement:** Maximize thruster signal with series of amplifiers (phase permutations).
+- **Requirement:** Maximise thruster signal with a series of amplifiers (phase permutations).
 - **Technique:** Permutation search.
 
 #### Part 2
-- **Requirement:** Maximize thruster signal with feedback loop of amplifiers.
+- **Requirement:** Maximise thruster signal with a feedback loop of amplifiers.
 - **Technique:** Feedback loop scheduling.
 
 ---
 
 ### Day 08 – Space Image Format
 #### Part 1
-- **Requirement:** Find layer with fewest zeros; multiply count of 1s × 2s.
+- **Requirement:** Find a layer with the fewest zeros; multiply the count of 1s × 2s.
 - **Technique:** Image layer counting.
 
 #### Part 2
-- **Requirement:** Render final image by stacking layers respecting transparency.
+- **Requirement:** Render the final image by stacking layers respecting transparency.
 - **Technique:** Layer compositing.
 
 ---
@@ -105,7 +105,7 @@
 - **Technique:** Visibility detection and angle sorting.
 
 #### Part 2
-- **Requirement:** Vaporize asteroids in order; find specific target.
+- **Requirement:** Vaporise asteroids in order; find specific target.
 - **Technique:** Angle + distance sorting for laser sweep.
 
 ---
@@ -138,7 +138,7 @@
 - **Technique:** Intcode arcade simulation.
 
 #### Part 2
-- **Requirement:** Play automatically for highest score.
+- **Requirement:** Play automatically for the highest score.
 - **Technique:** Autopilot heuristic.
 
 ---
@@ -149,7 +149,7 @@
 - **Technique:** Reaction graph + topological processing.
 
 #### Part 2
-- **Requirement:** Maximize FUEL with given ORE budget.
+- **Requirement:** Maximise FUEL with given ORE budget.
 - **Technique:** Binary search on ORE.
 
 ---
@@ -160,7 +160,7 @@
 - **Technique:** BFS mapping with Intcode droid.
 
 #### Part 2
-- **Requirement:** Compute time to fill entire area with oxygen.
+- **Requirement:** Compute time to fill an entire area with oxygen.
 - **Technique:** BFS spreading from oxygen.
 
 ---
@@ -182,14 +182,14 @@
 - **Technique:** Scaffold path analysis + VM output parsing.
 
 #### Part 2
-- **Requirement:** Compress movement path into main routine + 3 functions; feed VM.
+- **Requirement:** Compress a movement path into main routine + 3 functions; feed VM.
 - **Technique:** Command sequence compression.
 
 ---
 
 ### Day 18 – Many-Worlds Interpretation
 #### Part 1
-- **Requirement:** Collect all keys in shortest path.
+- **Requirement:** Collect all keys in the shortest path.
 - **Technique:** BFS with bitmask representing keys.
 
 #### Part 2
@@ -211,7 +211,7 @@
 
 ### Day 20 – Donut Maze
 #### Part 1
-- **Requirement:** Compute shortest path through portal maze.
+- **Requirement:** Compute the shortest path through portal maze.
 - **Technique:** BFS with portal labels.
 
 #### Part 2
@@ -222,11 +222,11 @@
 
 ### Day 21 – Springdroid Adventure
 #### Part 1
-- **Requirement:** Write logic program to safely walk using sensors.
-- **Technique:** Boolean reasoning for springdroid.
+- **Requirement:** Write a logic program to safely walk using sensors.
+- **Technique:** Boolean reasoning for spring droid.
 
 #### Part 2
-- **Requirement:** Extend program for longer jumps.
+- **Requirement:** Extend the program for longer jumps.
 - **Technique:** Advanced sensor logic.
 
 ---
@@ -237,7 +237,7 @@
 - **Technique:** Modular arithmetic / affine functions.
 
 #### Part 2
-- **Requirement:** Apply shuffle transform large number of times.
+- **Requirement:** Apply shuffle transform a large number of times.
 - **Technique:** Exponentiation by squaring.
 
 ---

@@ -3,7 +3,7 @@
 ### Day 01 – Chronal Calibration
 #### Part 1
 - **Requirement:** Sum all frequency changes to get the final frequency.
-- **Technique:** Running sum over signed changes.
+- **Technique:** Running a sum over signed changes.
 
 #### Part 2
 - **Requirement:** Find the first frequency reached twice.
@@ -39,7 +39,7 @@
 - **Technique:** Guard log sorting and histograms.
 
 #### Part 2
-- **Requirement:** Find the guard-minute combination with highest frequency.
+- **Requirement:** Find the guard-minute combination with the highest frequency.
 - **Technique:** Per-minute argmax across guards.
 
 ---
@@ -79,8 +79,8 @@
 
 ### Day 08 – Memory Maneuver
 #### Part 1
-- **Requirement:** Sum all metadata entries in tree encoded as numbers.
-- **Technique:** Tree parsing from stream.
+- **Requirement:** Sum all metadata entries in a tree encoded as numbers.
+- **Technique:** Tree parsing from a stream.
 
 #### Part 2
 - **Requirement:** Compute node values where metadata references child nodes.
@@ -94,29 +94,29 @@
 - **Technique:** Circular deque simulation.
 
 #### Part 2
-- **Requirement:** Efficiently simulate large number of marbles.
+- **Requirement:** Efficiently simulate a large number of marbles.
 - **Technique:** Optimized deque/linked structure.
 
 ---
 
 ### Day 10 – The Stars Align
 #### Part 1
-- **Requirement:** Advance points with velocities until message appears; render message.
+- **Requirement:** Advance points with velocities until a message appears; render a message.
 - **Technique:** Point motion simulation.
 
 #### Part 2
-- **Requirement:** Report second when message appears (minimal bounding box).
+- **Requirement:** Report second when a message appears (minimal bounding box).
 - **Technique:** Detect minimal area timing.
 
 ---
 
 ### Day 11 – Chronal Charge
 #### Part 1
-- **Requirement:** Find 3×3 square with largest total power in grid.
+- **Requirement:** Find 3×3 square with the largest total power in grid.
 - **Technique:** Summed-area table (integral image).
 
 #### Part 2
-- **Requirement:** Find square of any size with maximum power.
+- **Requirement:** Find a square of any size with maximum power.
 - **Technique:** Variable-size summed-area search.
 
 ---
@@ -124,7 +124,7 @@
 ### Day 12 – Subterranean Sustainability
 #### Part 1
 - **Requirement:** Simulate plant growth in pots for fixed generations; sum indices with plants.
-- **Technique:** 1D automaton with sliding window.
+- **Technique:** 1D automaton with a sliding window.
 
 #### Part 2
 - **Requirement:** Extrapolate far-future sum after pattern stabilizes.
@@ -145,11 +145,11 @@
 
 ### Day 14 – Chocolate Charts
 #### Part 1
-- **Requirement:** Generate scoreboard; return 10 recipes after target number.
+- **Requirement:** Generate a scoreboard; return 10 recipes after the target number.
 - **Technique:** Recipe scoreboard simulation.
 
 #### Part 2
-- **Requirement:** Find first occurrence of target sequence in growing scoreboard.
+- **Requirement:** Find first occurrence of a target sequence in growing scoreboard.
 - **Technique:** Substring search in stream.
 
 ---
@@ -200,18 +200,18 @@
 
 ### Day 19 – Go With The Flow
 #### Part 1
-- **Requirement:** Run VM with bound instruction pointer; report final register.
+- **Requirement:** Run VM with a bound instruction pointer; report final register.
 - **Technique:** Instruction pointer VM simulation.
 
 #### Part 2
-- **Requirement:** Optimize slow loop by summing divisors of target.
+- **Requirement:** Optimize slow loop by summing divisors of the target.
 - **Technique:** Mathematical factorization.
 
 ---
 
 ### Day 20 – A Regular Map
 #### Part 1
-- **Requirement:** Build graph from regex; find farthest room.
+- **Requirement:** Build graph from regex; find the farthest room.
 - **Technique:** BFS on room graph.
 
 #### Part 2
@@ -222,7 +222,7 @@
 
 ### Day 21 – Chronal Conversion
 #### Part 1
-- **Requirement:** Find first value causing VM to halt earliest.
+- **Requirement:** Find the first value causing VM to halt earliest.
 - **Technique:** VM analysis.
 
 #### Part 2
@@ -237,7 +237,7 @@
 - **Technique:** Erosion/region type calculations.
 
 #### Part 2
-- **Requirement:** Find shortest time to target with gear change constraints.
+- **Requirement:** Find the shortest time to target with gear change constraints.
 - **Technique:** Dijkstra with gear state.
 
 ---
@@ -248,7 +248,7 @@
 - **Technique:** 3D Manhattan spheres.
 
 #### Part 2
-- **Requirement:** Find point in range of most bots, minimal distance to origin.
+- **Requirement:** Find a point in range of most bots, minimal distance to origin.
 - **Technique:** Branch-and-bound search.
 
 ---

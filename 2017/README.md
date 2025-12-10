@@ -28,7 +28,7 @@
 - **Technique:** Spiral coordinate math.
 
 #### Part 2
-- **Requirement:** Fill a spiral with each cell being the sum of adjacent cells until exceeding a target number; report first value above target.
+- **Requirement:** Fill a spiral with each cell being the sum of adjacent cells until exceeding a target number; report the first value above target.
 - **Technique:** Neighbor-sum spiral.
 
 ---
@@ -94,7 +94,7 @@
 - **Technique:** Stream parsing/group scoring.
 
 #### Part 2
-- **Requirement:** Count all non-canceled characters within garbage sections.
+- **Requirement:** Count all non-cancelled characters within garbage sections.
 - **Technique:** Garbage counting.
 
 ---
@@ -171,14 +171,14 @@
 - **Technique:** Permutation simulation.
 
 #### Part 2
-- **Requirement:** Detect cycle period and fast-forward simulation to 1 billion iterations.
+- **Requirement:** Detect a cycle period and fast-forward simulation to 1 billion iterations.
 - **Technique:** Cycle detection.
 
 ---
 
 ### Day 17 – Spinlock
 #### Part 1
-- **Requirement:** Insert numbers into a circular buffer with given step size; report value after last insertion.
+- **Requirement:** Insert numbers into a circular buffer with a given step size; report value after last insertion.
 - **Technique:** Spinlock simulation.
 
 #### Part 2
@@ -226,8 +226,8 @@
 - **Technique:** Fractal rule expansion.
 
 #### Part 2
-- **Requirement:** Extend iterations and optimize with caching/composition.
-- **Technique:** Pattern caching/tiling optimization.
+- **Requirement:** Extend iterations and optimise with caching/composition.
+- **Technique:** Pattern caching/tiling optimisation.
 
 ---
 
@@ -245,11 +245,11 @@
 ### Day 23 – Coprocessor Conflagration
 #### Part 1
 - **Requirement:** Execute assembly program; count `mul` instructions executed.
-- **Technique:** Assembunny interpreter.
+- **Technique:** Assembly interpreter.
 
 #### Part 2
-- **Requirement:** Analyze loop behavior; compute final value using number theory instead of simulation.
-- **Technique:** Number theory optimization.
+- **Requirement:** Analyse loop behaviour; compute final value using number theory instead of simulation.
+- **Technique:** Number theory optimisation.
 
 ---
 

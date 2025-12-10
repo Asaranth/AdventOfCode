@@ -2,11 +2,11 @@
 
 ### Day 01 – Not Quite Lisp
 #### Part 1
-- **Requirement:** Process parentheses to compute final floor (up / down moves).
+- **Requirement:** Process parentheses to compute a final floor (up / down moves).
 - **Technique:** Running sum / character scan.
 
 #### Part 2
-- **Requirement:** Find first position where cumulative floor reaches −1.
+- **Requirement:** Find first position where a cumulative floor reaches −1.
 - **Technique:** First-passage detection / prefix-sum scan.
 
 ---
@@ -46,7 +46,7 @@
 
 ### Day 05 – Doesn’t He Have Intern-Elves For This?
 #### Part 1
-- **Requirement:** Count strings with 3 vowels, double letter, and no banned substrings.
+- **Requirement:** Count strings with 3 vowels, double letters, and no banned substrings.
 - **Technique:** Pattern checks / simple scanning.
 
 #### Part 2
@@ -90,7 +90,7 @@
 
 ### Day 09 – All in a Single Night
 #### Part 1
-- **Requirement:** Find shortest route visiting all cities exactly once.
+- **Requirement:** Find the shortest route visiting all cities exactly once.
 - **Technique:** Permutations / brute-force TSP.
 
 #### Part 2
@@ -112,7 +112,7 @@
 
 ### Day 11 – Corporate Policy
 #### Part 1
-- **Requirement:** Find next valid password meeting straight, banned-char, and pair rules.
+- **Requirement:** Find the next valid password meeting straight, banned-char, and pair rules.
 - **Technique:** Increment base-26 string / validation checks.
 
 #### Part 2
@@ -134,7 +134,7 @@
 
 ### Day 13 – Knights of the Dinner Table
 #### Part 1
-- **Requirement:** Maximize happiness around a circular seating arrangement.
+- **Requirement:** Maximise happiness around a circular seating arrangement.
 - **Technique:** Permutations / adjacency scoring.
 
 #### Part 2
@@ -156,7 +156,7 @@
 
 ### Day 15 – Science for Hungry People
 #### Part 1
-- **Requirement:** Allocate 100 teaspoons to maximize cookie score.
+- **Requirement:** Allocate 100 teaspoons to maximise cookie score.
 - **Technique:** Brute-force combinations / nested loops.
 
 #### Part 2
@@ -171,14 +171,14 @@
 - **Technique:** Property comparison / dictionary filtering.
 
 #### Part 2
-- **Requirement:** Use modified comparison rules: >, <, or = depending on property.
+- **Requirement:** Use modified comparison rules: >, <, or = depending on the property.
 - **Technique:** Custom rule-based matching.
 
 ---
 
 ### Day 17 – No Such Thing as Too Much
 #### Part 1
-- **Requirement:** Count combinations of containers that exactly sum to 150 liters.
+- **Requirement:** Count combinations of containers that exactly sum to 150 litres.
 - **Technique:** Subset enumeration / DFS.
 
 #### Part 2
@@ -205,7 +205,7 @@
 
 #### Part 2
 - **Requirement:** Reduce molecule to `e` in fewest steps.
-- **Technique:** Reverse greedy reductions / randomized descent.
+- **Technique:** Reverse greedy reductions / randomised descent.
 
 ---
 
@@ -233,11 +233,11 @@
 
 ### Day 22 – Wizard Simulator 20XX
 #### Part 1
-- **Requirement:** Win fight with minimal mana using spells with effects & timers.
+- **Requirement:** Win fight with minimal mana using spells with effects and timers.
 - **Technique:** DFS state search / pruning / memoization.
 
 #### Part 2
-- **Requirement:** Hard mode: player loses 1 HP each turn; minimize mana.
+- **Requirement:** Hard mode: player loses 1 HP each turn; minimise mana.
 - **Technique:** Same DFS with extra constraint.
 
 ---
@@ -255,7 +255,7 @@
 
 ### Day 24 – It Hangs in the Balance
 #### Part 1
-- **Requirement:** Split packages into two equal-weight groups; minimize group size then quantum entanglement.
+- **Requirement:** Split packages into two equal-weight groups; minimise group size then quantum entanglement.
 - **Technique:** Subset generation / weight check / QE minimization.
 
 #### Part 2

@@ -105,14 +105,14 @@
 - **Technique:** Directed simulation.
 
 #### Part 2
-- **Requirement:** After simulation stabilizes, multiply the values in output bins 0, 1, and 2.
+- **Requirement:** After simulation stabilises, multiply the values in output bins 0, 1, and 2.
 - **Technique:** Extract outputs post-simulation.
 
 ---
 
 ### Day 11 – Radioisotope Thermoelectric Generators
 #### Part 1
-- **Requirement:** Move microchips and generators between floors safely to reach top; minimize moves.
+- **Requirement:** Move microchips and generators between floors safely to reach the top; minimise moves.
 - **Technique:** BFS/IDDFS with state canonicalization.
 
 #### Part 2
@@ -123,7 +123,7 @@
 
 ### Day 12 – Leonardo’s Monorail
 #### Part 1
-- **Requirement:** Run a simple Assembunny program and report register values at completion.
+- **Requirement:** Run a simple "Assembunny" program and report register values at completion.
 - **Technique:** Assembly interpreter.
 
 #### Part 2
@@ -160,7 +160,7 @@
 - **Technique:** Modular arithmetic / congruences.
 
 #### Part 2
-- **Requirement:** Include an additional disc and recompute earliest valid drop time.
+- **Requirement:** Include an additional disc and recompute the earliest valid drop time.
 - **Technique:** Expand congruence system.
 
 ---
@@ -171,7 +171,7 @@
 - **Technique:** Efficient string growth + checksum folding.
 
 #### Part 2
-- **Requirement:** Repeat same process for much larger data size.
+- **Requirement:** Repeat the same process for much larger data size.
 - **Technique:** Optimized expansion.
 
 ---
@@ -205,7 +205,7 @@
 
 #### Part 2
 - **Requirement:** Determine the winning elf in the across-the-circle elimination variant.
-- **Technique:** Mathematical recurrence / optimized simulation.
+- **Technique:** Mathematical recurrence / optimised simulation.
 
 ---
 
@@ -244,8 +244,8 @@
 
 ### Day 23 – Safe Cracking
 #### Part 1
-- **Requirement:** Run Assembunny code with self-modifying `tgl` instruction; determine resulting register value.
-- **Technique:** Assembunny interpreter + optimization.
+- **Requirement:** Run "Assembunny" code with self-modifying `tgl` instruction; determine resulting register value.
+- **Technique:** "Assembunny" interpreter + optimization.
 
 #### Part 2
 - **Requirement:** Run again with larger starting registers; compute final value.
@@ -259,12 +259,12 @@
 - **Technique:** BFS pairwise distances + TSP bitmask DP.
 
 #### Part 2
-- **Requirement:** Same as Part 1, but must return to starting position.
+- **Requirement:** Same as Part 1, but must return to the starting position.
 - **Technique:** TSP DP with return constraint.
 
 ---
 
 ### Day 25 – Clock Signal
 #### Solution
-- **Requirement:** Find the smallest initial register value `a` that causes the Assembunny program to output an alternating 0/1 clock signal.
-- **Technique:** Assembunny execution + pattern detection.
+- **Requirement:** Find the smallest initial register value `a` that causes the "Assembunny" program to output an alternating 0/1 clock signal.
+- **Technique:** "Assembunny" execution + pattern detection.

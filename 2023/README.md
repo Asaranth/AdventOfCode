@@ -6,14 +6,14 @@
 - Technique: Parsing + String Scanning
 
 #### Part 2
-- Requirement: As above — but digits may also appear spelled out (words). Recognize spelled‑out numbers and treat them equivalently; then again form two‑digit numbers from first + last digit and sum.
+- Requirement: As above — but digits may also appear spelled out (words). Recognise spelled‑out numbers and treat them equivalently; then again form two‑digit numbers from first + last digit and sum.
 - Technique: Extended Scanning Rules
 
 ---
 
 ### Day 02 – Cube Conundrum
 #### Part 1
-- Requirement: Parse each record of colored‑cube draws; validate based on given constraints to determine which draws are plausible; sum IDs (or counts) of valid draws.
+- Requirement: Parse each record of coloured‑cube draws; validate based on given constraints to determine which draws are plausible; sum IDs (or counts) of valid draws.
 - Technique: Validation Under Constraints
 
 #### Part 2
@@ -46,7 +46,7 @@
 
 ### Day 05 – If You Give A Seed A Fertilizer
 #### Part 1
-- Requirement: Given seeds and a chain of interval‑to‑interval mappings (seed → soil → fertilizer → … → final “location”), map each seed through the pipeline and return the minimal resulting location.
+- Requirement: Given seeds and a chain of interval‑to‑interval mappings (seed → soil → fertiliser → … → final “location”), map each seed through the pipeline and return the minimal resulting location.
 - Technique: Range Mapping
 
 #### Part 2
@@ -79,7 +79,7 @@
 
 ### Day 08 – Haunted Wasteland
 #### Part 1
-- Requirement: Traverse a graph defined by labeled nodes and a sequence of L/R instructions; start from a given node and follow instructions to a target; return number of steps taken.
+- Requirement: Traverse a graph defined by labelled nodes and a sequence of L/R instructions; start from a given node and follow instructions to a target; return number of steps taken.
 - Technique: Graph Traversal with Instructions
 
 #### Part 2
@@ -156,7 +156,7 @@
 
 ### Day 15 – Lens Library
 #### Part 1
-- Requirement: Input is a list of comma‑separated labels. Hash each label (custom hash), sum all hashes to get result. (As described in your original notes.)
+- Requirement: Input is a list of comma‑separated labels. Hash each label (custom hash), sum all hashes to get a result. (As described in your original notes.)
 - Technique: Custom Hash Function
 
 #### Part 2
@@ -171,18 +171,18 @@
 - Technique: Beam Simulation with Visited‑State Caching
 
 #### Part 2
-- Requirement: Try all possible entrance edges for beams; compute maximum energized tile count across all entrance choices; output that best result.
+- Requirement: Try all possible entrance edges for beams; compute maximum energised tile count across all entrance choices; output that best result.
 - Technique: Best‑of‑All‑Entrances Search
 
 ---
 
 ### Day 17 – Clumsy Crucible
 #### Part 1
-- Requirement: In a graph or grid, find a shortest path from start to goal under constraints: you can move in straight runs but run-length is limited (min/max run length before turn). Compute minimal cost/path length. (As per your original notes.)
+- Requirement: In a graph or grid, find the shortest path from start to goal under constraints: you can move in straight runs but run-length is limited (min/max run length before turn). Compute minimal cost/path length. (As per your original notes.)
 - Technique: Constrained Dijkstra
 
 #### Part 2
-- Requirement: Same as Part 1 but with altered constraints (different min/max run-lengths etc.); recompute shortest path under new rules.
+- Requirement: Same as Part 1 but with altered constraints (different min/max run-lengths etc.); recompute the shortest path under new rules.
 - Technique: Altered Constraints
 
 ---
@@ -204,7 +204,7 @@
 - Technique: Rule Parsing + Evaluation
 
 #### Part 2
-- Requirement: Generalize to multi‑dimensional/range inputs (e.g. hyper‑rectangles); recursively split ranges by thresholds and count all accepted combinations; output total count.
+- Requirement: Generalise to multi‑dimensional/range inputs (e.g. hyper‑rectangles); recursively split ranges by thresholds and count all accepted combinations; output total count.
 - Technique: Range Splitting with Recursion
 
 ---
@@ -215,7 +215,7 @@
 - Technique: Signal Propagation on a Graph
 
 #### Part 2
-- Requirement: Analyze repeating behavior / cycles in the network output; compute synchronization time or repeated output via cycle detection and least common multiple (LCM) of periods.
+- Requirement: Analyse repeating behaviour / cycles in the network output; compute synchronisation time or repeated output via cycle detection and least common multiple (LCM) of periods.
 - Technique: Cycle/LCM Analysis
 
 ---
@@ -237,7 +237,7 @@
 - Technique: 3D stacking simulation + dependency graph for brick support
 
 #### Part 2
-- Requirement: For each brick, determine the number of other bricks that would fall if it were disintegrated (i.e., simulate a chain reaction). Compute the sum of all these counts across all bricks.
+- Requirement: For each brick, determine the number of other bricks that would fall if it were disintegrated (i.e. simulate a chain reaction). Compute the sum of all these counts across all bricks.
 - Technique: Dependency graph simulation + cascading fall computation
 
 ---
