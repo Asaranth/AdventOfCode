@@ -1,93 +1,148 @@
-# Advent of Code 2025 — Solution Notes
+# Advent of Code 2025 — Requirements & Techniques Overview
 
-Each day is split into Part 1 and Part 2 with a short note on what technique was used and why. Titles are left as placeholders so they can be filled with the official AoC names later.
+Each day includes **Part 1** and **Part 2** with a short *Requirement* and *Technique* summary.  
+Official titles are included for Days 1–9 based on publicly available AoC 2025 write-ups.
 
-### Day 01 - [Title TBD]
+---
 
-#### Part 1
-- Technique: circular track simulation with modular arithmetic.
-- What/Why: Walk a pointer around a ring of size 100 following `L/Rk`. Count a “hit” when the pointer lands on index 0.
-
-#### Part 2
-- Technique: arithmetic wrap counting via integer-division deltas (no step-by-step simulation).
-- What/Why: Compute how many times a contiguous left/right move crosses multiples of the track size using `div` differences, summing hits analytically.
-
-### Day 02 - [Title TBD]
+### Day 01 – Secret Entrance
 
 #### Part 1
-- Technique: range parsing; string test on halves.
-- What/Why: Expand numeric ranges, test each number’s decimal form for even length and exact half-duplication (first half equals second half).
+- **Requirement:** Simulate movement around a circular 100-position dial using instructions like `Lk` and `Rk`; count how many times the dial lands exactly on position 0.
+- **Technique:** Circular track simulation using modular arithmetic.
 
 #### Part 2
-- Technique: periodic string detection via the classic rotation trick.
-- What/Why: Detect whether a string is composed of repeated blocks by checking membership in `(s+s)` minus its first and last chars.
+- **Requirement:** Without stepwise simulation, compute how many times movement instructions cause the dial to cross position 0.
+- **Technique:** Integer-division delta analysis to count wrap-around crossings.
 
-### Day 03 - [Title TBD]
+---
+
+### Day 02 – Gift Shop
 
 #### Part 1
-- Technique: greedy windowed selection; fold digits to an integer.
-- What/Why: From each bank of digits, repeatedly pick the maximum feasible next digit to maximize a 2-digit number.
+- **Requirement:** Expand numeric ranges into individual IDs; count how many IDs have even digit-length and whose first half matches the second half.
+- **Technique:** Range parsing; half-string equality check.
 
 #### Part 2
-- Technique: same greedy construction scaled to longer output.
-- What/Why: Build the lexicographically largest possible 12-digit number using the same greedy-in-window method.
+- **Requirement:** Determine whether each ID’s decimal representation is a repeated‐pattern string (periodic).
+- **Technique:** Repetition detection using `(s + s)` substring method.
 
-### Day 04 - [Title TBD]
+---
+
+### Day 03 – Lobby
 
 #### Part 1
-- Technique: grid neighbor-degree check on 8-neighborhood.
-- What/Why: Count cells marked `@` that have fewer than 4 occupied neighbors; uses bounds checking over the 8 surrounding cells.
+- **Requirement:** From each bank of digits, select two digits (preserving order) that produce the largest possible 2-digit number.
+- **Technique:** Greedy windowed selection.
 
 #### Part 2
-- Technique: iterative pruning (peeling) process.
-- What/Why: Repeatedly remove “accessible” `@` cells (degree < 4) and continue until none remain, summing all removed.
+- **Requirement:** Build the lexicographically largest 12-digit number by selecting digits under the same greedy-selection rules.
+- **Technique:** Greedy construction scaled to large output.
 
-### Day 05 - [Title TBD]
+---
+
+### Day 04 – Printing Department
 
 #### Part 1
-- Technique: interval containment using parsed ranges + set of candidates.
-- What/Why: Count available IDs that fall within any “fresh” range.
+- **Requirement:** Count all `@` cells that have fewer than four occupied neighbours in the 8-direction neighbourhood.
+- **Technique:** Grid neighbor-degree check.
 
 #### Part 2
-- Technique: interval merge and length sum.
-- What/Why: Sort and merge overlapping/adjacent ranges, then sum merged lengths for the total coverage.
+- **Requirement:** Iteratively remove all `@` cells with degree < 4 until no more qualify; total all removed.
+- **Technique:** Iterative pruning (“peeling”) by degree.
 
-### Day 06 - [Title TBD]
+---
+
+### Day 05 – Cafeteria
 
 #### Part 1
-- Technique: columnar parsing with `transpose`; reduce numbers by trailing operator.
-- What/Why: Treat each column as numbers plus an operator at the end; apply `+` or `*` to aggregate the numbers.
+- **Requirement:** Given ranges of “fresh” IDs and a list of candidate IDs, count how many candidates fall in at least one fresh range.
+- **Technique:** Interval containment checks.
 
 #### Part 2
-- Technique: right-to-left streaming accumulation; batch by encountering an operator.
-- What/Why: Scan columns from the right, collect digits into numbers until an operator column is found, then aggregate and reset.
+- **Requirement:** Merge overlapping or adjacent fresh ranges and sum the total covered span.
+- **Technique:** Interval merge + length summation.
 
-### Day 07 - [Title TBD]
+---
+
+### Day 06 – Column Operatinator
 
 #### Part 1
-- Technique: scanline-like simulation of beam splits with dedup/sort.
-- What/Why: Track beam columns per row; `^` causes left/right splits. Count total splits as beams traverse rows.
+- **Requirement:** Treat each column as digits followed by an operator (`+` or `*`); aggregate the digits using that operator.
+- **Technique:** Columnar transpose and operator-driven reduction.
 
 #### Part 2
-- Technique: dynamic programming over columns with unboxed vectors.
-- What/Why: Propagate the number of beams per column row-by-row; `^` doubles to neighbors. Sum exits at the bottom row.
+- **Requirement:** Parse columns from right to left, bundling digits into numbers until an operator column is found, then aggregate and reset.
+- **Technique:** Right-to-left streaming accumulation.
 
-### Day 08 - [Title TBD]
+---
+
+### Day 07 – Laser Splittinator
 
 #### Part 1
-- Technique: Kruskal-like DSU over the 1000 shortest edges.
-- What/Why: Form components by uniting near neighbors; compute and multiply the top three component sizes.
+- **Requirement:** Simulate downward-moving beams in a grid; when encountering `^`, split beams left and right. Count total splits.
+- **Technique:** Scanline beam simulation with deduped beam tracking.
 
 #### Part 2
-- Technique: full edge sweep with DSU until single-component convergence.
-- What/Why: Process sorted edges; when the final union occurs, output a product of the uniting points’ x-coordinates.
+- **Requirement:** Track number of beams per column as they travel; at each `^`, double to neighbours. Sum total beams exiting the bottom.
+- **Technique:** Dynamic programming over columns using vector propagation.
 
-### Day 09 - [Title TBD]
+---
+
+### Day 08 – Playground
 
 #### Part 1
-- Technique: combinatorial rectangle search over all point pairs.
-- What/Why: For each pair of red points, compute the axis-aligned rectangle area and take the maximum.
+- **Requirement:** Compute distances between all point pairs; union the 1000 shortest edges to form components. Return the product of the three largest component sizes.
+- **Technique:** Kruskal-like DSU using the 1000 nearest edges.
 
 #### Part 2
-- Technique: AABB collision checks against a rectilinear polyline.
-- What/Why: Build the polygonal chain from the red points, and only consider rectangles whose interiors do not intersect any horizontal/vertical edge. Among those, take the maximum area.
+- **Requirement:** Union edges in increasing distance order until all points are connected. For the final union, output is the product of the two points’ x-coordinates.
+- **Technique:** Full DSU edge sweep until final merge.
+
+---
+
+### Day 09 – Movie Theater
+
+#### Part 1
+- **Requirement:** For all pairs of given red grid points, form axis-aligned rectangles using them as opposite corners; return the maximum rectangle area.
+- **Technique:** Combinatorial rectangle search.
+
+#### Part 2
+- **Requirement:** Use the red points to define a rectilinear polygon; consider only rectangles entirely inside the polygon. Return the largest such rectangle area.
+- **Technique:** Rectangle–polyline AABB collision checks.
+
+---
+
+### Day 10 – Factory
+
+#### Part 1
+- **Requirement:** Determine the minimum number of button presses needed to match all machines’ indicator light diagrams.
+- **Technique:** BFS over XOR bitmask states to find minimal button presses.
+
+#### Part 2
+- **Requirement:** Determine the fewest total button presses needed to configure all machines’ "joltage" counters to exactly match their specified requirements, using the button wiring schematics.
+- **Technique:** TBD
+
+---
+
+### Day 11 – [Title TBD]
+
+#### Part 1
+- **Requirement:** TBD
+- **Technique:** TBD
+
+#### Part 2
+- **Requirement:** TBD
+- **Technique:** TBD
+
+---
+
+### Day 12 – [Title TBD]
+
+#### Part 1
+- **Requirement:** TBD
+- **Technique:** TBD
+
+#### Part 2
+- **Requirement:** TBD
+- **Technique:** TBD
