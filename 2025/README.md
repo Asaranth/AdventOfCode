@@ -1,7 +1,6 @@
 # Advent of Code 2025
 
-<img src="https://img.shields.io/badge/-Haskell-5e5086?style=for-the-badge&labelColor=2b2b2b&logo=haskell&logoColor=white" alt="Haskell">
-<img src="https://img.shields.io/badge/⭐-22%2F24%20-409900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+<img src="https://img.shields.io/badge/-Haskell-5e5086?style=for-the-badge&labelColor=2b2b2b&logo=haskell&logoColor=white" alt="Haskell"> <img src="https://img.shields.io/badge/⭐-22%2F24%20-409900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Secret Entrance
 

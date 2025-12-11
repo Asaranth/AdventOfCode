@@ -1,7 +1,6 @@
 # Advent of Code 2018
 
-<img src="https://img.shields.io/badge/-JavaScript-f1e05a?style=for-the-badge&labelColor=2b2b2b&logo=javascript&logoColor=white" alt="JavaScript">
-<img src="https://img.shields.io/badge/⭐-50%2F50%20-009900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+<img src="https://img.shields.io/badge/-JavaScript-f1e05a?style=for-the-badge&labelColor=2b2b2b&logo=javascript&logoColor=white" alt="JavaScript"> <img src="https://img.shields.io/badge/⭐-50%2F50%20-009900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Chronal Calibration
 #### Part 1
