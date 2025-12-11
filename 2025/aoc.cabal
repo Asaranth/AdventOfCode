@@ -12,59 +12,65 @@ library
 executable day01
   hs-source-dirs:      .
   main-is:             01.hs
-  build-depends:       base >=4.17 && <5, aoc, directory, filepath, process
+  build-depends:       base >=4.17 && <5, directory, filepath, process
   default-language:    Haskell2010
 
 executable day02
   hs-source-dirs:      .
   main-is:             02.hs
-  build-depends:       base >=4.17 && <5, aoc, directory, filepath, process, split, containers
+  build-depends:       base >=4.17 && <5, directory, filepath, process, split, containers
   default-language:    Haskell2010
 
 executable day03
   hs-source-dirs:      .
   main-is:             03.hs
-  build-depends:       base >=4.17 && <5, aoc, directory, filepath, process
+  build-depends:       base >=4.17 && <5, directory, filepath, process
   default-language:    Haskell2010
 
 executable day04
   hs-source-dirs:      .
   main-is:             04.hs
-  build-depends:       base >=4.17 && <5, aoc, directory, filepath, process
+  build-depends:       base >=4.17 && <5, directory, filepath, process
   default-language:    Haskell2010
 
 executable day05
   hs-source-dirs:      .
   main-is:             05.hs
-  build-depends:       base >=4.17 && <5, aoc, directory, filepath, process, split, containers
+  build-depends:       base >=4.17 && <5, directory, filepath, process, split, containers
   default-language:    Haskell2010
 
 executable day06
   hs-source-dirs:      .
   main-is:             06.hs
-  build-depends:       base >=4.17 && <5, aoc, directory, filepath, process
+  build-depends:       base >=4.17 && <5, directory, filepath, process
   default-language:    Haskell2010
 
 executable day07
   hs-source-dirs:      .
   main-is:             07.hs
-  build-depends:       base >=4.17 && <5, aoc, directory, filepath, process, vector
+  build-depends:       base >=4.17 && <5, directory, filepath, process, vector
   default-language:    Haskell2010
 
 executable day08
   hs-source-dirs:      .
   main-is:             08.hs
-  build-depends:       base >=4.17 && <5, aoc, directory, filepath, process, array
+  build-depends:       base >=4.17 && <5, directory, filepath, process, array
   default-language:    Haskell2010
 
 executable day09
   hs-source-dirs:      .
   main-is:             09.hs
-  build-depends:       base >=4.17 && <5, aoc, directory, filepath, process, containers
+  build-depends:       base >=4.17 && <5, directory, filepath, process, containers
   default-language:    Haskell2010
 
 executable day10
   hs-source-dirs:      .
   main-is:             10.hs
-  build-depends:       base >=4.17 && <5, aoc, directory, filepath, process, containers, split
+  build-depends:       base >=4.17 && <5, directory, filepath, process, containers, split
+  default-language:    Haskell2010
+
+executable day11
+  hs-source-dirs:      .
+  main-is:             11.hs
+  build-depends:       base >=4.17 && <5, directory, filepath, process, containers
   default-language:    Haskell2010

@@ -1,7 +1,7 @@
 # Advent of Code 2025
 
 <img src="https://img.shields.io/badge/-Haskell-5e5086?style=for-the-badge&labelColor=2b2b2b&logo=haskell&logoColor=white" alt="Haskell">
-<img src="https://img.shields.io/badge/⭐-20%2F24%20-409900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+<img src="https://img.shields.io/badge/⭐-22%2F24%20-409900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Secret Entrance
 
@@ -123,15 +123,15 @@
 
 ---
 
-### Day 11 – [Title TBD]
+### Day 11 – Reactor
 
 #### Part 1
-- **Requirement:** TBD
-- **Technique:** TBD
+- **Requirement:** Count all possible paths from the device labeled `you` to the main output device `out` through a network of interconnected devices.
+- **Technique:** Represent the devices as a directed graph and perform a recursive depth-first search (DFS) from `you` to `out`, summing the number of paths reaching the target.
 
 #### Part 2
-- **Requirement:** TBD
-- **Technique:** TBD
+- **Requirement:** Count all paths from the device labeled `svr` (server rack) to the main output `out` that pass through both `dac` and `fft`, in any order.
+- **Technique:** Represent the devices as a directed graph and perform a memoized recursive DFS from `svr` to `out`. Keep track of which required nodes (`dac` and `fft`) have been visited and cache results for each `(current node, remaining required nodes)` combination to avoid redundant computations.
 
 ---
 
