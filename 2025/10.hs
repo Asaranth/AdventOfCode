@@ -8,7 +8,14 @@ import Data.Set (Set)
 import qualified Data.Set as Set
 import Utils (getInputData)
 
-data Machine = Machine {targetVal :: Int, targetStr :: String, buttons :: [Int], buttonsMap :: [M.Map Int Int], joltages :: [Int]} deriving (Show, Eq)
+data Machine = Machine
+  { targetVal :: Int,
+    targetStr :: String,
+    buttons :: [Int],
+    buttonsMap :: [M.Map Int Int],
+    joltages :: [Int]
+  }
+  deriving (Show, Eq)
 
 lightsToMask :: String -> Int
 lightsToMask s = foldl' (\acc c -> acc * 2 + if c == '#' then 1 else 0) 0 . reverse $ filter (`elem` "#.") s
@@ -76,8 +83,7 @@ toBits :: Int -> [Int]
 toBits n = [i | i <- [0 .. finiteBitSize n - 1], n .&. (1 `shiftL` i) /= 0]
 
 substitute :: [(Int, Int)] -> (Int, Int) -> (Int, Int)
-substitute subs (vars, target) =
-  foldl apply (vars, target) subs
+substitute subs (vars, target) = foldl apply (vars, target) subs
   where
     apply (v, t) (var, val)
       | v .&. (1 `shiftL` var) /= 0 = (v - (1 `shiftL` var), t - val)
