@@ -1,4 +1,7 @@
-# Advent of Code 2019 — Requirements & Techniques Overview
+# Advent of Code 2019
+
+<img src="https://img.shields.io/badge/-Lua-000080?style=for-the-badge&labelColor=2b2b2b&logo=lua&logoColor=white" alt="Lua">
+<img src="https://img.shields.io/badge/⭐-50%2F50%20-009900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – The Tyranny of the Rocket Equation
 #### Part 1

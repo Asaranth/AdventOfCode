@@ -1,4 +1,7 @@
-# Advent of Code 2024 — Requirements & Techniques Overview
+# Advent of Code 2024
+
+<img src="https://img.shields.io/badge/-Rust-dea584?style=for-the-badge&labelColor=2b2b2b&logo=rust&logoColor=white" alt="Rust">
+<img src="https://img.shields.io/badge/⭐-50%2F50%20-009900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Historian Hysteria
 #### Part 1

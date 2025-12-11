@@ -1,4 +1,7 @@
-# Advent of Code 2023 — Requirements & Techniques Overview
+# Advent of Code 2023
+
+<img src="https://img.shields.io/badge/-Python-3572A5?style=for-the-badge&labelColor=2b2b2b&logo=python&logoColor=white" alt="Python">
+<img src="https://img.shields.io/badge/⭐-50%2F50%20-009900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Trebuchet?!
 #### Part 1

@@ -1,5 +1,8 @@
 # Advent of Code 2015
 
+<img src="https://img.shields.io/badge/-R-198CE7?style=for-the-badge&labelColor=2b2b2b&logo=r&logoColor=white" alt="R">
+<img src="https://img.shields.io/badge/⭐-50%2F50%20-009900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+
 ### Day 01 – Not Quite Lisp
 #### Part 1
 - **Requirement:** Process parentheses to compute a final floor (up / down moves).

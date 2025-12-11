@@ -1,9 +1,7 @@
-# Advent of Code 2025 — Requirements & Techniques Overview
+# Advent of Code 2025
 
-Each day includes **Part 1** and **Part 2** with a short *Requirement* and *Technique* summary.  
-Official titles are included for Days 1–9 based on publicly available AoC 2025 write-ups.
-
----
+<img src="https://img.shields.io/badge/-Haskell-5e5086?style=for-the-badge&labelColor=2b2b2b&logo=haskell&logoColor=white" alt="Haskell">
+<img src="https://img.shields.io/badge/⭐-20%2F24%20-409900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Secret Entrance
 
@@ -120,8 +118,8 @@ Official titles are included for Days 1–9 based on publicly available AoC 2025
 - **Technique:** BFS over XOR bitmask states to find minimal button presses.
 
 #### Part 2
-- **Requirement:** Determine the fewest total button presses needed to configure all machines’ "joltage" counters to exactly match their specified requirements, using the button wiring schematics.
-- **Technique:** TBD
+- **Requirement:** Determine the fewest total button presses needed to configure all machines’ "joltage" counters to exactly match their specified requirements, taking into account that buttons can affect multiple counters simultaneously.
+- **Technique:** Backtracking search with pruning and bitmask arithmetic; each machine is modelled as a system of linear constraints, and the solver explores combinations of button presses to minimise the total count while satisfying all constraints.
 
 ---
 

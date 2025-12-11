@@ -1,5 +1,8 @@
 # Advent of Code 2017
 
+<img src="https://img.shields.io/badge/-F%23-b845fc?style=for-the-badge&labelColor=2b2b2b&logo=fsharp&logoColor=white" alt="F%23">
+<img src="https://img.shields.io/badge/⭐-50%2F50%20-009900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+
 ### Day 01 – Inverse Captcha
 #### Part 1
 - **Requirement:** Sum all digits in the input that match the next digit in the circular list.
