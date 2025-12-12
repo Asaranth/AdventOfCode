@@ -1,6 +1,6 @@
 
-# Stars: 372 ⭐
-<a href="./2025/"><img src="https://img.shields.io/badge/2025-22%2F24%20⭐-199900?style=for-the-badge&labelColor=2b2b2b" alt="2025"></a> <a href="./2025/"><img src="https://img.shields.io/badge/-Haskell-5e5086?style=for-the-badge&labelColor=2b2b2b&logo=haskell&logoColor=white" alt="Haskell"></a><br>
+# Stars: 374 ⭐
+<a href="./2025/"><img src="https://img.shields.io/badge/2025-24%2F24%20⭐-009900?style=for-the-badge&labelColor=2b2b2b" alt="2025"></a> <a href="./2025/"><img src="https://img.shields.io/badge/-Haskell-5e5086?style=for-the-badge&labelColor=2b2b2b&logo=haskell&logoColor=white" alt="Haskell"></a><br>
 <a href="./2024/"><img src="https://img.shields.io/badge/2024-50%2F50%20⭐-009900?style=for-the-badge&labelColor=2b2b2b" alt="2024"></a> <a href="./2024/"><img src="https://img.shields.io/badge/-Rust-dea584?style=for-the-badge&labelColor=2b2b2b&logo=rust&logoColor=white" alt="Rust"></a><br>
 <a href="./2023/"><img src="https://img.shields.io/badge/2023-50%2F50%20⭐-009900?style=for-the-badge&labelColor=2b2b2b" alt="2023"></a> <a href="./2023/"><img src="https://img.shields.io/badge/-Python-3572A5?style=for-the-badge&labelColor=2b2b2b&logo=python&logoColor=white" alt="Python"></a><br>
 <a href="./2022/"><img src="https://img.shields.io/badge/2022-00%2F50%20⭐-990000?style=for-the-badge&labelColor=2b2b2b" alt="2022"></a><br>
