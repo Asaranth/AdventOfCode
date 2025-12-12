@@ -60,3 +60,8 @@ cradle:
         cradle:
           stack:
             component: "aoc:exe:day11"
+    - path: "12.hs"
+      config:
+        cradle:
+          stack:
+            component: "aoc:exe:day12"

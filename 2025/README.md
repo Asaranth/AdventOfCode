@@ -1,6 +1,6 @@
 # Advent of Code 2025
 
-<img src="https://img.shields.io/badge/-Haskell-5e5086?style=for-the-badge&labelColor=2b2b2b&logo=haskell&logoColor=white" alt="Haskell"> <img src="https://img.shields.io/badge/⭐-22%2F24%20-409900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+<img src="https://img.shields.io/badge/-Haskell-5e5086?style=for-the-badge&labelColor=2b2b2b&logo=haskell&logoColor=white" alt="Haskell"> <img src="https://img.shields.io/badge/⭐-24%2F24%20-409900?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Secret Entrance
 
@@ -134,12 +134,8 @@
 
 ---
 
-### Day 12 – [Title TBD]
+### Day 12 – Christmas Tree Farm
 
-#### Part 1
-- **Requirement:** TBD
-- **Technique:** TBD
-
-#### Part 2
-- **Requirement:** TBD
-- **Technique:** TBD
+#### Solution
+- **Requirement:** Count how many regions can fit all required presents.
+- **Technique:** Sum blocks of all presents and check if total ≤ region area.
