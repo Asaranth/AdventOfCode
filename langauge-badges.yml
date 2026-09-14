@@ -1,0 +1,40 @@
+languages:
+  2015:
+    label: R
+    linguist: R
+    logo: r
+
+  2016:
+    label: C%23
+    linguist: C#
+    logo: csharp
+
+  2017:
+    label: F%23
+    linguist: F#
+    logo: fsharp
+
+  2018:
+    label: JavaScript
+    linguist: JavaScript
+    logo: javascript
+
+  2019:
+    label: Lua
+    linguist: Lua
+    logo: lua
+
+  2023:
+    label: Python
+    linguist: Python
+    logo: python
+
+  2024:
+    label: Rust
+    linguist: Rust
+    logo: rust
+
+  2025:
+    label: Haskell
+    linguist: Haskell
+    logo: haskell
