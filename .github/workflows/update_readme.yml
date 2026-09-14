@@ -1,26 +1,34 @@
 name: Update README
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - main
+    paths:
+      - '[0-9][0-9][0-9][0-9]/**'
 
 jobs:
   update-readme:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
+          python -m pip install requests pyyaml
 
       - name: Run update script
         env:
@@ -29,30 +37,25 @@ jobs:
         run: |
           python .scripts/update_readme.py
 
-          # Check if README.md content has changed post-script
           echo "### Content of README.md after script execution ###"
           cat README.md
+
           echo "### Git diff of README.md ###"
           git diff README.md
 
       - name: Commit and push changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
-          # Ensure changes are staged if there's a modification
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
           git add README.md
 
-          # Verify that the README.md file has been staged
           git status
 
-          # Check for staged changes
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
             echo "Changes detected, committing updates"
             git commit -m 'Update README'
-            git push https://github-actions:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+            git push
           fi
