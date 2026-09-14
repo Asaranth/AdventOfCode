@@ -11,7 +11,11 @@ import requests
 import yaml
 
 
-LANGUAGE_CONFIG = Path('language-badges.yml')
+SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR.parent
+
+LANGUAGE_CONFIG = REPO_ROOT / 'language-badges.yml'
+README = REPO_ROOT / 'README.md'
 
 LINGUIST_URL = (
     'https://raw.githubusercontent.com/'
@@ -285,8 +289,7 @@ def main(args):
 
         year_lines.append(line)
 
-    with open(
-        'README.md',
+    with README.open(
         'w',
         encoding='utf-8',
     ) as file:
