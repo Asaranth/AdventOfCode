@@ -1,6 +1,6 @@
 # Advent of Code 2020
 
-<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-12%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-14%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Report Repair
 #### Part 1
@@ -70,12 +70,12 @@
 
 ### Day 07 – Handy Haversacks
 #### Part 1
-- **Requirement:** Count how many bag colors can eventually contain at least one `shiny gold` bag.
-- **Technique:**
+- **Requirement:** Count how many bag colours can eventually contain at least one `shiny gold` bag.
+- **Technique:** Build an inverted containment map (reverse adjacency graph) and traverse it using breadth-first search (BFS) to find all unique ancestor bag colours.
 
 #### Part 2
 - **Requirement:** Count the total number of individual bags required inside a single `shiny gold` bag.
-- **Technique:**
+- **Technique:** Recursive depth-first traversal of the bag containment graph to calculate the cumulative sum and product of all nested bags.
 
 ---
 
@@ -118,7 +118,7 @@
 - **Technique:**
 
 #### Part 2
-- **Requirement:** Simulate the seating automaton based on the first visible seat in each of the 8 directions with an occupancy threshold of 5; return the total number of occupied seats.
+- **Requirement:** Simulate the seating automaton based on the first visible seat in each of the eight directions with an occupancy threshold of 5; return the total number of occupied seats.
 - **Technique:**
 
 ---
@@ -147,11 +147,11 @@
 
 ### Day 14 – Docking Data
 #### Part 1
-- **Requirement:** Execute the initialization program where bitmasks modify the binary values written to memory addresses; return the sum of all values in memory.
+- **Requirement:** Execute the initialisation program where bitmasks modify the binary values written to memory addresses; return the sum of all values in memory.
 - **Technique:**
 
 #### Part 2
-- **Requirement:** Execute the initialization program where bitmasks apply to memory addresses with floating bits; return the sum of all values in memory.
+- **Requirement:** Execute the initialisation program where bitmasks apply to memory addresses with floating bits; return the sum of all values in memory.
 - **Technique:**
 
 ---
@@ -180,11 +180,11 @@
 
 ### Day 17 – Conway Cubes
 #### Part 1
-- **Requirement:** Simulate a 3D Conway's Game of Life on pocket dimension hypercubes for 6 cycles; return the total number of active cubes.
+- **Requirement:** Simulate a 3D Conway's Game of Life on pocket dimension hypercubes for six cycles; return the total number of active cubes.
 - **Technique:**
 
 #### Part 2
-- **Requirement:** Simulate a 4D Conway's Game of Life (4D hypercubes) for 6 cycles; return the total number of active cubes.
+- **Requirement:** Simulate a 4D Conway's Game of Life (4D hypercubes) for six cycles; return the total number of active cubes.
 - **Technique:**
 
 ---
@@ -250,7 +250,7 @@
 - **Technique:**
 
 #### Part 2
-- **Requirement:** Simulate 10,000,000 moves with 1,000,000 cups; return the product of the two cup labels immediately clockwise of cup 1.
+- **Requirement:** Simulate 10 million moves with one million cups; return the product of the two cup labels immediately clockwise of cup 1.
 - **Technique:**
 
 ---
@@ -268,5 +268,5 @@
 
 ### Day 25 – Combo Breaker
 #### Solution
-- **Requirement:** Determine the secret loop sizes for the card and door public keys using modular arithmetic, and calculate the resulting encryption key.
+- **Requirement:** Determine the secret loop sizes for the card and door public keys using modular arithmetic and calculate the resulting encryption key.
 - **Technique:**
