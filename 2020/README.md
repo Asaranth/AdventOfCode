@@ -1,6 +1,6 @@
 # Advent of Code 2020
 
-<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-14%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-16%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Report Repair
 #### Part 1
@@ -82,11 +82,11 @@
 ### Day 08 – Handheld Halting
 #### Part 1
 - **Requirement:** Simulate the boot code instructions until an instruction is about to execute a second time; return the accumulator value.
-- **Technique:**
+- **Technique:** State machine simulation with a visited instruction set (`HashSet`) to detect infinite loops.
 
 #### Part 2
 - **Requirement:** Fix the boot program by changing exactly one `jmp` to `nop` (or `nop` to `jmp`) so it terminates normally; return the accumulator value after termination.
-- **Technique:**
+- **Technique:** Iterative single-instruction mutation testing (`nop` ↔ `jmp`) and state machine simulation until reaching normal termination.
 
 ---
 

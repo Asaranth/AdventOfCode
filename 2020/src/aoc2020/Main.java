@@ -21,6 +21,7 @@ public class Main {
         SOLUTIONS.put(5, Day05::run);
         SOLUTIONS.put(6, Day06::run);
         SOLUTIONS.put(7, Day07::run);
+        SOLUTIONS.put(8, Day08::run);
     }
 
     static void main(String[] args) {
