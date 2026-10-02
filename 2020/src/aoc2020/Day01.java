@@ -26,7 +26,7 @@ public class Day01 {
      * @param startIndex the index to start searching from
      * @return the product of the matching numbers, or 0 if no match is found
      */
-    public static int findProductForSum(int[] numbers, int target, int count, int startIndex) {
+    private static int findProductForSum(int[] numbers, int target, int count, int startIndex) {
         if (count == 0) return target == 0 ? 1 : 0;
 
         for (int i = startIndex; i < numbers.length; i++) {
