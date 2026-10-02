@@ -1,6 +1,6 @@
 # Advent of Code 2020
 
-<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-10%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-12%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Report Repair
 #### Part 1
@@ -54,3 +54,14 @@
 #### Part 2
 - **Requirement:** Find the missing seat ID whose neighbouring seat IDs (`ID - 1` and `ID + 1`) are present.
 - **Technique:** Collect all seat IDs in a set, determine the min and max seat IDs, and identify the missing ID with both adjacent neighbours present.
+
+---
+
+### Day 06 – Custom Customs
+#### Part 1
+- **Requirement:** Count the number of questions to which anyone in each group answered "yes" and return the sum across all groups.
+- **Technique:** Concatenate each group's passenger answer strings, extract distinct character counts using streams, and sum totals across groups.
+
+#### Part 2
+- **Requirement:** Count the number of questions to which everyone in each group answered "yes" and return the sum across all groups.
+- **Technique:** Filter unique characters from the first person's answers where every person in the group answered "yes", and sum counts across groups.
