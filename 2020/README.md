@@ -1,6 +1,6 @@
 # Advent of Code 2020
 
-<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-18%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-20%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Report Repair
 #### Part 1
@@ -104,11 +104,11 @@
 ### Day 10 – Adapter Array
 #### Part 1
 - **Requirement:** Connect all adapters from the 0-jolt outlet to your device; return the product of the number of 1-jolt differences and 3-jolt differences.
-- **Technique:**
+- **Technique:** Array sorting and linear traversal tracking 1-jolt and 3-jolt step differences.
 
 #### Part 2
 - **Requirement:** Calculate the total number of distinct valid arrangements of adapters that can connect the charging outlet to your device.
-- **Technique:**
+- **Technique:** Dynamic programming (1D tabulation) over the sorted adapter sequence summing reachable predecessor paths within a 3-jolt window.
 
 ---
 
