@@ -11,6 +11,7 @@ node_modules/
 __pycache__/
 dist-newstyle/
 .stack-work/
+out/
 
 # Ignore IntelliJ IDEA configuration
 .idea/

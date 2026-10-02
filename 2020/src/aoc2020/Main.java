@@ -16,6 +16,9 @@ public class Main {
         configureLogging();
         SOLUTIONS.put(1, Day01::run);
         SOLUTIONS.put(2, Day02::run);
+        SOLUTIONS.put(3, Day03::run);
+        SOLUTIONS.put(4, Day04::run);
+        SOLUTIONS.put(5, Day05::run);
     }
 
     static void main(String[] args) {

@@ -1,6 +1,6 @@
 # Advent of Code 2020
 
-<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-04%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-10%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Report Repair
 #### Part 1
@@ -23,3 +23,34 @@
 - **Technique:** Treat policy numbers as one-based positions, check both indexed characters, and use XOR logic to require exactly one match.
 
 ---
+
+### Day 03 – Toboggan Trajectory
+#### Part 1
+- **Requirement:** Count trees encountered starting at top-left and following a slope of right 3, down 1 across a horizontally repeating map until reaching the bottom.
+- **Technique:** 2D grid traversal using modular arithmetic for horizontal pattern repetition (`col % width`).
+
+#### Part 2
+- **Requirement:** Count trees encountered across five different slopes and find the product of all counts.
+- **Technique:** Generalised slope traversal helper parameterised by `(right, down)` and 64-bit product reduction.
+
+---
+
+### Day 04 – Passport Processing
+#### Part 1
+- **Requirement:** Count passports that contain all required fields (`byr`, `iyr`, `eyr`, `hgt`, `hcl`, `ecl`, `pid`; `cid` is optional).
+- **Technique:** Parse blank-line-separated passport records into key-value maps and filter for the presence of all required fields.
+
+#### Part 2
+- **Requirement:** Count passports where all required fields are present and satisfy specific format and range validation rules.
+- **Technique:** Strict data validation using regular expressions and bounded range checks for each field.
+
+---
+
+### Day 05 – Binary Boarding
+#### Part 1
+- **Requirement:** Find the highest seat ID on a boarding pass.
+- **Technique:** Decode binary space partitioning instructions (`F`/`B` for 7-bit row, `L`/`R` for 3-bit column) to calculate seat ID (`row * 8 + column`) and find the maximum ID.
+
+#### Part 2
+- **Requirement:** Find the missing seat ID whose neighbouring seat IDs (`ID - 1` and `ID + 1`) are present.
+- **Technique:** Collect all seat IDs in a set, determine the min and max seat IDs, and identify the missing ID with both adjacent neighbours present.
