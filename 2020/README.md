@@ -1,6 +1,6 @@
 # Advent of Code 2020
 
-<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-16%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-18%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Report Repair
 #### Part 1
@@ -93,11 +93,11 @@
 ### Day 09 – Encoding Error
 #### Part 1
 - **Requirement:** Find the first number in the sequence (after the 25-number preamble) that is not the sum of two of the previous 25 numbers.
-- **Technique:**
+- **Technique:** Sliding window pair sum validation across the preceding 25-number preamble.
 
 #### Part 2
 - **Requirement:** Find a contiguous range of at least two numbers that sum to the invalid number from Part 1; return the sum of the smallest and largest numbers in that range.
-- **Technique:**
+- **Technique:** Two-pointer sliding window range search and min/max reduction.
 
 ---
 
