@@ -1,11 +1,11 @@
 
-# Stars: 388 ⭐
+# Stars: 390 ⭐
 <a href="./2025/"><img src="https://img.shields.io/badge/2025-24%2F24%20⭐-009900?style=for-the-badge&labelColor=2b2b2b" alt="2025"></a> <a href="./2025/"><img src="https://img.shields.io/badge/-Haskell-5e5086?style=for-the-badge&labelColor=2b2b2b&logo=haskell&logoColor=white" alt="Haskell"></a><br>
 <a href="./2024/"><img src="https://img.shields.io/badge/2024-50%2F50%20⭐-009900?style=for-the-badge&labelColor=2b2b2b" alt="2024"></a> <a href="./2024/"><img src="https://img.shields.io/badge/-Rust-dea584?style=for-the-badge&labelColor=2b2b2b&logo=rust&logoColor=white" alt="Rust"></a><br>
 <a href="./2023/"><img src="https://img.shields.io/badge/2023-50%2F50%20⭐-009900?style=for-the-badge&labelColor=2b2b2b" alt="2023"></a> <a href="./2023/"><img src="https://img.shields.io/badge/-Python-3572A5?style=for-the-badge&labelColor=2b2b2b&logo=python&logoColor=white" alt="Python"></a><br>
 <a href="./2022/"><img src="https://img.shields.io/badge/2022-00%2F50%20⭐-990000?style=for-the-badge&labelColor=2b2b2b" alt="2022"></a><br>
 <a href="./2021/"><img src="https://img.shields.io/badge/2021-00%2F50%20⭐-990000?style=for-the-badge&labelColor=2b2b2b" alt="2021"></a><br>
-<a href="./2020/"><img src="https://img.shields.io/badge/2020-14%2F50%20⭐-995600?style=for-the-badge&labelColor=2b2b2b" alt="2020"></a> <a href="./2020/"><img src="https://img.shields.io/badge/-Java-b07219?style=for-the-badge&labelColor=2b2b2b&logo=openjdk&logoColor=white" alt="Java"></a><br>
+<a href="./2020/"><img src="https://img.shields.io/badge/2020-16%2F50%20⭐-996200?style=for-the-badge&labelColor=2b2b2b" alt="2020"></a> <a href="./2020/"><img src="https://img.shields.io/badge/-Java-b07219?style=for-the-badge&labelColor=2b2b2b&logo=openjdk&logoColor=white" alt="Java"></a><br>
 <a href="./2019/"><img src="https://img.shields.io/badge/2019-50%2F50%20⭐-009900?style=for-the-badge&labelColor=2b2b2b" alt="2019"></a> <a href="./2019/"><img src="https://img.shields.io/badge/-Lua-000080?style=for-the-badge&labelColor=2b2b2b&logo=lua&logoColor=white" alt="Lua"></a><br>
 <a href="./2018/"><img src="https://img.shields.io/badge/2018-50%2F50%20⭐-009900?style=for-the-badge&labelColor=2b2b2b" alt="2018"></a> <a href="./2018/"><img src="https://img.shields.io/badge/-JavaScript-f1e05a?style=for-the-badge&labelColor=2b2b2b&logo=javascript&logoColor=white" alt="JavaScript"></a><br>
 <a href="./2017/"><img src="https://img.shields.io/badge/2017-50%2F50%20⭐-009900?style=for-the-badge&labelColor=2b2b2b" alt="2017"></a> <a href="./2017/"><img src="https://img.shields.io/badge/-F%23-b845fc?style=for-the-badge&labelColor=2b2b2b&logo=fsharp&logoColor=white" alt="F%23"></a><br>
