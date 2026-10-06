@@ -1,5 +1,12 @@
+--- Day 11: Space Police
+---
+--- Simulates the Emergency Hull Painting Robot driven by an Intcode brain.
+
 local utils = require("utils")
 
+--- Parses the puzzle input into an array of integer Intcode instructions.
+---
+--- @return number[] The parsed Intcode program instructions.
 local function parseInput()
     local data = {}
     for value in utils.getInputData(11):gmatch("[^,]+") do
@@ -10,6 +17,11 @@ end
 
 local DIRECTIONS = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } }
 
+--- Simulates the hull-painting robot across a 2D coordinate grid.
+---
+--- @param startOnWhite boolean Whether the starting panel at (0,0) is white (1) or black (0).
+--- @return table<string, number> panels Map of coordinate strings to panel colours (0: black, 1: white).
+--- @return table<string, boolean> paintedPanels Set of coordinate strings that were painted at least once.
 local function runRobot(startOnWhite)
     local program = parseInput()
     local computer = utils.intcode(program)
@@ -51,6 +63,9 @@ local function runRobot(startOnWhite)
     return panels, paintedPanels
 end
 
+--- Counts the number of distinct panels painted at least once starting on black for Part One.
+---
+--- @return number The total number of unique panels painted.
 local function solvePartOne()
     local _, paintedPanels = runRobot(false)
     local count = 0
@@ -60,6 +75,9 @@ local function solvePartOne()
     return count
 end
 
+--- Renders the hull registration identifier bitmap starting on white for Part Two.
+---
+--- @return string The rendered registration code string.
 local function solvePartTwo()
     local panels = runRobot(true)
     local minX, minY, maxX, maxY = 0, 0, 0, 0

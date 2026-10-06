@@ -1,7 +1,13 @@
+//! Day 17: Chronospatial Computer
+//!
+//! Emulates a 3-bit virtual machine architecture and solves for quine-like initial register inputs using recursive backtracking.
+
 use crate::utils::get_input_data;
 
+/// Represents the 3-bit virtual machine state with instruction pointer and 3 registers.
 struct Computer<'a> { program: &'a [i32], ip: usize, a: i32, b: i32, c: i32 }
 impl<'a> Computer<'a> {
+    /// Executes VM instructions until the next output value is produced or execution halts.
     fn run(&mut self) -> Option<i32> {
         while self.ip < self.program.len() {
             let combo = |index: usize| match self.program[index] {
@@ -37,6 +43,7 @@ impl<'a> Computer<'a> {
     }
 }
 
+/// Solves Part One: runs the program from initial register configuration and produces comma-separated outputs.
 fn solve_part_one(a: i32, program: &[i32]) -> String {
     let mut computer = Computer { program, ip: 0, a, b: 0, c: 0 };
     let mut out = Vec::new();
@@ -51,6 +58,7 @@ fn solve_part_one(a: i32, program: &[i32]) -> String {
     out.iter().collect()
 }
 
+/// Solves Part Two: reconstructs the lowest positive initial value for register A that causes the program to output a copy of itself.
 fn solve_part_two(program: Vec<i32>) -> i64 {
     fn find(target: &[i64], ans: i64, program: &[i32]) -> Option<i64> {
         if target.is_empty() {

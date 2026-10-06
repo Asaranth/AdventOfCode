@@ -1,3 +1,7 @@
+--- Day 04: Secure Container
+---
+--- Validates six-digit password combinations meeting monotonic increase and adjacent duplicate criteria.
+
 local utils = require("utils")
 
 local data = utils.getInputData(4)
@@ -5,6 +9,11 @@ local rangeStart, rangeEnd = data:match("(%d+)-(%d+)")
 rangeStart = tonumber(rangeStart)
 rangeEnd = tonumber(rangeEnd)
 
+--- Validates whether a password satisfies the monotonicity and adjacent matching digit constraints.
+---
+--- @param password number The numeric candidate password to test.
+--- @param partTwo boolean When true, enforces that matching adjacent digits belong to a group of exactly two.
+--- @return boolean True if the password meets all rules, false otherwise.
 local function isValidPassword(password, partTwo)
     local passwordStr = tostring(password)
     local hasAdjacent = false
@@ -37,6 +46,9 @@ local function isValidPassword(password, partTwo)
     return hasAdjacent and neverDecreases
 end
 
+--- Counts valid password combinations in the puzzle input range for Part One.
+---
+--- @return number The number of valid passwords.
 local function solvePartOne()
     local count = 0
     for password = rangeStart, rangeEnd do
@@ -47,6 +59,9 @@ local function solvePartOne()
     return count
 end
 
+--- Counts valid password combinations in the puzzle input range for Part Two.
+---
+--- @return number The number of valid passwords with isolated duplicate pairs.
 local function solvePartTwo()
     local count = 0
     for password = rangeStart, rangeEnd do

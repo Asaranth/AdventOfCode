@@ -1,3 +1,7 @@
+#' Day 22: Wizard Simulator 20XX
+#'
+#' Finds minimum mana expenditures to defeat the boss using spell choices, effect timers, and depth-first search.
+
 source(file.path(getwd(), '2015/utils.R'))
 data <- getInputData(22)
 
@@ -19,6 +23,13 @@ spells <- data.frame(
 minMana <<- Inf
 memo <- list()
 
+#' Simulates wizard battle search to find minimum mana required to win.
+#'
+#' @param player Player state list with hp and mana.
+#' @param boss Boss state list with hp and damage.
+#' @param hardMode Logical flag indicating whether player loses 1 HP at start of player turns.
+#' @param maxIterations Maximum iteration limit for stack search.
+#' @return Minimum mana spent to defeat the boss.
 simulate <- function(player, boss, hardMode = FALSE, maxIterations = 100000) {
   effects <- list(shield = 0, poison = 0, recharge = 0)
 
@@ -163,12 +174,18 @@ simulate <- function(player, boss, hardMode = FALSE, maxIterations = 100000) {
   minMana
 }
 
+#' Solves Part One: finds minimum mana spent to defeat the boss on normal difficulty.
+#'
+#' @return Minimum mana cost to win.
 solvePartOne <- function() {
   minMana <<- Inf
   memo <<- list()
   simulate(player, boss, hardMode = FALSE, maxIterations = 200000)
 }
 
+#' Solves Part Two: finds minimum mana spent to defeat the boss on hard difficulty.
+#'
+#' @return Minimum mana cost to win on hard mode.
 solvePartTwo <- function() {
   minMana <<- Inf
   memo <<- list()

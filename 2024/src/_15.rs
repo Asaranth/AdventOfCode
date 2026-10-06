@@ -1,5 +1,10 @@
-﻿use crate::utils::get_input_data;
+//! Day 15: Warehouse Woes
+//!
+//! Simulates robot warehouse box pushing in standard grid layouts and expanded double-width box configurations.
 
+use crate::utils::get_input_data;
+
+/// Maps a movement character (`^`, `v`, `<`, `>`) to a (row_delta, col_delta) tuple.
 fn directions(ch: char) -> (i32, i32) {
     match ch {
         '^' => (-1, 0),
@@ -10,6 +15,7 @@ fn directions(ch: char) -> (i32, i32) {
     }
 }
 
+/// Expands a single warehouse tile character into its double-width equivalent for Part Two.
 fn expression(ch: char) -> Vec<char> {
     match ch {
         '#' => vec!['#', '#'],
@@ -20,6 +26,7 @@ fn expression(ch: char) -> Vec<char> {
     }
 }
 
+/// Finds the starting `(row, col)` coordinate of the robot `@` in the grid.
 fn get_robot_pos(grid: &[Vec<char>]) -> (usize, usize) {
     for r in 0..grid.len() {
         for c in 0..grid[r].len() {
@@ -31,6 +38,7 @@ fn get_robot_pos(grid: &[Vec<char>]) -> (usize, usize) {
     (0, 0)
 }
 
+/// Calculates the GPS coordinate sum for all target box characters (`O` or `[`).
 fn calculate_sum(grid: &[Vec<char>], rows: i32, cols: i32, target: char) -> i32 {
     (0..rows)
         .flat_map(|r| (0..cols).map(move |c| (r as usize, c as usize)))
@@ -39,6 +47,7 @@ fn calculate_sum(grid: &[Vec<char>], rows: i32, cols: i32, target: char) -> i32 
         .sum()
 }
 
+/// Solves Part One: simulates single-width box pushing and calculates GPS sum of boxes.
 fn solve_part_one(map: &[String], movements: &str) -> i32 {
     let mut grid: Vec<Vec<char>> = map.iter().map(|line| line.chars().collect()).collect();
     let rows = grid.len() as i32;
@@ -77,6 +86,7 @@ fn solve_part_one(map: &[String], movements: &str) -> i32 {
     calculate_sum(&grid, rows, cols, 'O')
 }
 
+/// Solves Part Two: simulates double-width box pushing with tree-like block cascades and calculates GPS sum.
 fn solve_part_two(map: Vec<String>, movements: &str) -> i32 {
     let mut grid: Vec<Vec<char>> = map.iter().map(|line| line.chars().flat_map(|ch| expression(ch)).collect()).collect();
     let rows = grid.len() as i32;

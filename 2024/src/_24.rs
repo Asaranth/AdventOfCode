@@ -1,10 +1,16 @@
-﻿use std::collections::{HashMap};
+//! Day 24: Crossed Wires
+//!
+//! Simulates Boolean logic gate circuits and verifies ripple-carry adder correctness to detect swapped output wires.
+
+use std::collections::{HashMap};
 use itertools::Itertools;
 use crate::utils::get_input_data;
 
+/// Represents binary Boolean logic gate operations.
 #[derive(Copy, Clone, Eq, PartialEq, Debug)]
 enum LogicGate { And, Or, Xor }
 impl LogicGate {
+    /// Evaluates the logic gate operation on two Boolean inputs.
     fn evaluate(&self, left: bool, right: bool) -> bool {
         match self {
             LogicGate::And => left && right,
@@ -13,6 +19,7 @@ impl LogicGate {
         }
     }
 
+    /// Parses a logic gate operation from string slice ("AND", "OR", "XOR").
     fn from_str(s: &str) -> Self {
         match s {
             "AND" => LogicGate::And,
@@ -23,10 +30,12 @@ impl LogicGate {
     }
 }
 
+/// Helper verifier that validates full ripple-carry adder wiring stage by stage.
 struct GateVerifier<'a> {
     gates: &'a HashMap<&'a str, (&'a str, LogicGate, &'a str)>,
 }
 impl<'a> GateVerifier<'a> {
+    /// Compares two string slices for equality irrespective of order.
     fn are_sorted_equal(vec1: &[&str], vec2: &[&str]) -> bool {
         let mut sorted1 = vec1.to_vec();
         let mut sorted2 = vec2.to_vec();
@@ -35,14 +44,17 @@ impl<'a> GateVerifier<'a> {
         sorted1 == sorted2
     }
 
+    /// Constructs a pair of formatted wire identifiers `["xNN", "yNN"]`.
     fn make_sorted_wire_pair(c1: char, c2: char, n: usize) -> Vec<String> {
         vec![Self::make_wire(c1, n), Self::make_wire(c2, n)]
     }
 
+    /// Formats a wire name prefix and index into standard label format (e.g., "z05").
     fn make_wire(c: char, n: usize) -> String {
         format!("{}{:02}", c, n)
     }
 
+    /// Verifies that output bit `z{n}` is driven by the expected sum XOR gate.
     fn verify_z(&self, wire: &str, n: usize) -> bool {
         if let Some((x, gate, y)) = self.gates.get(wire) {
             if *gate == LogicGate::Xor {
@@ -56,6 +68,7 @@ impl<'a> GateVerifier<'a> {
         false
     }
 
+    /// Verifies that a wire is the intermediate sum XOR of `x{n}` and `y{n}`.
     fn verify_intermediate_xor(&self, wire: &str, n: usize) -> bool {
         if let Some((x, gate, y)) = self.gates.get(wire) {
             if *gate == LogicGate::Xor {
@@ -71,6 +84,7 @@ impl<'a> GateVerifier<'a> {
         false
     }
 
+    /// Verifies that a wire carries the carry-in bit for bit stage `n`.
     fn verify_carry_bit(&self, wire: &str, n: usize) -> bool {
         if let Some((x, gate, y)) = self.gates.get(wire) {
             if n == 1 && *gate == LogicGate::And {
@@ -84,6 +98,7 @@ impl<'a> GateVerifier<'a> {
         false
     }
 
+    /// Verifies direct carry generated from `x{n} AND y{n}`.
     fn verify_direct_carry(&self, wire: &str, n: usize) -> bool {
         if let Some((x, gate, y)) = self.gates.get(wire) {
             if *gate == LogicGate::And {
@@ -99,6 +114,7 @@ impl<'a> GateVerifier<'a> {
         false
     }
 
+    /// Verifies propagated carry from intermediate XOR and previous carry.
     fn verify_recarry(&self, wire: &str, n: usize) -> bool {
         if let Some((x, gate, y)) = self.gates.get(wire) {
             if *gate == LogicGate::And {
@@ -109,10 +125,12 @@ impl<'a> GateVerifier<'a> {
         false
     }
 
+    /// Verifies the full adder correctness at bit stage `n`.
     fn verify(&self, n: usize) -> bool {
         self.verify_z(Self::make_wire('z', n).as_str(), n)
     }
 
+    /// Computes the number of consecutive valid adder stages starting from bit 0.
     fn progress(&self) -> usize {
         let mut i = 0;
         while self.verify(i) {
@@ -122,6 +140,7 @@ impl<'a> GateVerifier<'a> {
     }
 }
 
+/// Solves Part One: simulates signal propagation through all logic gates and reads the integer output on `z` wires.
 fn solve_part_one<'a>(wires: &mut HashMap<&'a str, bool>, gates: &HashMap<&'a str, (&'a str, LogicGate, &'a str)>) -> u64 {
     let mut to_evaluate: Vec<_> = gates.keys().cloned().collect();
     while !to_evaluate.is_empty() {
@@ -143,6 +162,7 @@ fn solve_part_one<'a>(wires: &mut HashMap<&'a str, bool>, gates: &HashMap<&'a st
     wires.iter().filter(|(k, _)| k.starts_with('z')).sorted_by(|(k1, _), (k2, _)| k2.cmp(k1)).fold(0u64, |acc, (_, &val)| acc * 2 + if val { 1 } else { 0 })
 }
 
+/// Solves Part Two: identifies 4 swapped gate output pairs to restore full 45-bit ripple-carry adder functionality.
 fn solve_part_two(mut gates: HashMap<&str, (&str, LogicGate, &str)>) -> String {
     let mut swaps = Vec::new();
     for _ in 0..4 {

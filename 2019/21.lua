@@ -1,3 +1,7 @@
+--- Day 21: Springdroid Adventure
+---
+--- Programs a boolean logic Springscript CPU to guide the Springdroid over hull gaps.
+
 local utils = require("utils")
 
 local program = {}
@@ -5,6 +9,10 @@ for value in utils.getInputData(21):gmatch("[^,]+") do
     table.insert(program, tonumber(value))
 end
 
+--- Executes Springscript instructions on the Springdroid Intcode computer.
+---
+--- @param instructions string[] List of Springscript instruction lines ending with WALK or RUN.
+--- @return number|nil The final hull damage value emitted upon successful traversal.
 local function solve(instructions)
     local computer = utils.intcode(program)
     for _, instruction in ipairs(instructions) do

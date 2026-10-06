@@ -1,9 +1,15 @@
+//! Day 04: Ceres Search
+//!
+//! Searches for word patterns in a 2D character grid across all straight and diagonal directions.
+
 use crate::utils::get_input_data;
 
+/// Counts occurrences of the substring "XMAS" within a given string slice.
 fn count_xmas(line: &str) -> i32 {
     line.matches("XMAS").count() as i32
 }
 
+/// Solves Part One: searches for all occurrences of "XMAS" horizontally, vertically, and diagonally in both forward and reverse orders.
 fn solve_part_one(data: &[String]) -> i32 {
     let mut count = 0;
     let x = data.len();
@@ -36,6 +42,7 @@ fn solve_part_one(data: &[String]) -> i32 {
     count
 }
 
+/// Solves Part Two: searches for "MAS" intersecting in an 'X' shape centred on 'A'.
 fn solve_part_two(data: Vec<String>) -> i32 {
     let mut count = 0;
     let x = data.len();

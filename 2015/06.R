@@ -1,28 +1,68 @@
+#' Day 06: Probably a Fire Hazard
+#'
+#' Simulates a 1000x1000 light grid under boolean toggle and brightness level instructions.
+
 library(magrittr)
 
 source(file.path(getwd(), '2015/utils.R'))
 data <- getInputData(6)
 
+#' Turns on lights in the specified rectangular subgrid.
+#'
+#' @param grid Grid data frame containing x, y, and lit state.
+#' @param x1 Starting X coordinate.
+#' @param y1 Starting Y coordinate.
+#' @param x2 Ending X coordinate.
+#' @param y2 Ending Y coordinate.
+#' @return Updated grid data frame.
 turnOn <- function(grid, x1, y1, x2, y2) {
   grid <- grid %>% plyr::mutate(lit = ifelse((x >= x1 & x <= x2) & (y >= y1 & y <= y2), TRUE, lit))
   return(grid)
 }
 
+#' Turns off lights in the specified rectangular subgrid.
+#'
+#' @param grid Grid data frame containing x, y, and lit state.
+#' @param x1 Starting X coordinate.
+#' @param y1 Starting Y coordinate.
+#' @param x2 Ending X coordinate.
+#' @param y2 Ending Y coordinate.
+#' @return Updated grid data frame.
 turnOff <- function(grid, x1, y1, x2, y2) {
   grid <- grid %>% plyr::mutate(lit = ifelse((x >= x1 & x <= x2) & (y >= y1 & y <= y2), FALSE, lit))
   return(grid)
 }
 
+#' Toggles the state of lights in the specified rectangular subgrid.
+#'
+#' @param grid Grid data frame containing x, y, and lit state.
+#' @param x1 Starting X coordinate.
+#' @param y1 Starting Y coordinate.
+#' @param x2 Ending X coordinate.
+#' @param y2 Ending Y coordinate.
+#' @return Updated grid data frame.
 toggle <- function(grid, x1, y1, x2, y2) {
   grid <- grid %>% plyr::mutate(lit = ifelse((x >= x1 & x <= x2) & (y >= y1 & y <= y2), !lit, lit))
   return(grid)
 }
 
+#' Adjusts brightness values in the specified rectangular subgrid with zero-floor clamping.
+#'
+#' @param grid Grid data frame containing x, y, and brightness.
+#' @param x1 Starting X coordinate.
+#' @param y1 Starting Y coordinate.
+#' @param x2 Ending X coordinate.
+#' @param y2 Ending Y coordinate.
+#' @param change Integer change in brightness level.
+#' @return Updated grid data frame.
 adjustBrightness <- function(grid, x1, y1, x2, y2, change) {
   grid <- grid %>% plyr::mutate(brightness = ifelse((x >= x1 & x <= x2) & (y >= y1 & y <= y2), pmax(brightness + change, 0), brightness))
   return(grid)
 }
 
+#' Solves Part One: executes instructions on binary on/off grid and counts total lit lights.
+#'
+#' @return Total number of lit lights.
 solvePartOne <- function() {
   grid <- expand.grid(x = seq(from=0, by=1, l=1000), y = seq(from=0, by=1, l=1000), lit = FALSE)
 
@@ -54,6 +94,9 @@ solvePartOne <- function() {
   return(sum(grid$lit == TRUE))
 }
 
+#' Solves Part Two: executes instructions with brightness modifications and computes total brightness sum.
+#'
+#' @return Total accumulated brightness.
 solvePartTwo <- function() {
   grid <- expand.grid(x = seq(from=0, by=1, l=1000), y = seq(from=0, by=1, l=1000), brightness = 0)
 

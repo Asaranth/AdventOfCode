@@ -1,3 +1,7 @@
+//! Application Entry Point
+//!
+//! Dispatches daily puzzle runner routines based on user terminal input.
+
 mod utils;
 mod _01;
 mod _02;

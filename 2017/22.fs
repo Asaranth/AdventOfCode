@@ -3,12 +3,29 @@
 open System
 open System.Collections.Generic
 
+/// <summary>
+/// Day 22: Sporifica Virus
+///
+/// Simulates virus carrier movements and infection state transitions across an infinite 2D grid.
+/// </summary>
 module _22 =
     let Data = (Utils.GetInputData 22).Split('\n', StringSplitOptions.RemoveEmptyEntries)
 
+    /// <summary>
+    /// Cardinal movement direction of the virus carrier.
+    /// </summary>
     type Direction = Up | Right | Down | Left
+
+    /// <summary>
+    /// Health state of a grid node.
+    /// </summary>
     type NodeState = Clean | Weakened | Infected | Flagged
 
+    /// <summary>
+    /// Turns direction 90 degrees left (counter-clockwise).
+    /// </summary>
+    /// <param name="direction">Current heading.</param>
+    /// <returns>New heading.</returns>
     let turnLeft direction =
         match direction with
         | Up -> Left
@@ -16,6 +33,11 @@ module _22 =
         | Down -> Right
         | Left -> Down
 
+    /// <summary>
+    /// Turns direction 90 degrees right (clockwise).
+    /// </summary>
+    /// <param name="direction">Current heading.</param>
+    /// <returns>New heading.</returns>
     let turnRight direction =
         match direction with
         | Up -> Right
@@ -23,6 +45,11 @@ module _22 =
         | Down -> Left
         | Left -> Up
 
+    /// <summary>
+    /// Reverses the current movement direction by 180 degrees.
+    /// </summary>
+    /// <param name="direction">Current heading.</param>
+    /// <returns>Opposite heading.</returns>
     let reverse direction =
         match direction with
         | Up -> Down
@@ -30,6 +57,13 @@ module _22 =
         | Down -> Up
         | Left -> Right
 
+    /// <summary>
+    /// Advances coordinate (x, y) by one step along the given direction.
+    /// </summary>
+    /// <param name="x">Current x position.</param>
+    /// <param name="y">Current y position.</param>
+    /// <param name="direction">Movement heading.</param>
+    /// <returns>New coordinate pair.</returns>
     let move (x, y) direction =
         match direction with
         | Up -> (x, y - 1)
@@ -37,6 +71,10 @@ module _22 =
         | Down -> (x, y + 1)
         | Left -> (x - 1, y)
 
+    /// <summary>
+    /// Solves Part 1: simulates 10,000 virus carrier bursts with simple Clean/Infected binary state transitions.
+    /// </summary>
+    /// <returns>Count of bursts that cause a node to become infected.</returns>
     let solvePartOne() =
         let grid = Dictionary<int * int, bool>()
         for y in 0 .. Data.Length - 1 do
@@ -57,6 +95,10 @@ module _22 =
             position <- move position direction
         infections
 
+    /// <summary>
+    /// Solves Part 2: simulates 10,000,000 bursts with 4-state transitions (Clean -&gt; Weakened -&gt; Infected -&gt; Flagged -&gt; Clean).
+    /// </summary>
+    /// <returns>Count of bursts that cause a node to become infected.</returns>
     let solvePartTwo() =
         let grid = Dictionary<int * int, NodeState>()
         for y in 0 .. Data.Length - 1 do
@@ -87,6 +129,9 @@ module _22 =
             position <- move position direction
         infections
 
+    /// <summary>
+    /// Executes and prints the solutions for Part 1 and Part 2.
+    /// </summary>
     let Run() =
         printfn $"Part One: {solvePartOne()}"
         printfn $"Part Two: {solvePartTwo()}"

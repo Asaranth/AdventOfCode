@@ -1,6 +1,14 @@
+#' Day 19: Medicine for Rudolph
+#'
+#' Generates single-replacement molecular variants and counts grammar reduction steps.
+
 source(file.path(getwd(), '2015/utils.R'))
 data <- getInputData(19)
 
+#' Parses replacement rules and the target medicine molecule string from raw input.
+#'
+#' @param data Character vector of input lines.
+#' @return A list containing replacements list and the target molecule string.
 parseInput <- function(data) {
   replacements <- list()
   molecule <- NULL
@@ -15,6 +23,10 @@ parseInput <- function(data) {
   return(list(replacements = replacements, molecule = molecule))
 }
 
+#' Computes minimum derivation steps using the context-free grammar reduction invariant formula.
+#'
+#' @param molecule Target medicine molecule string.
+#' @return Minimum transformation steps from 'e' to the target molecule.
 countStepsToSolve <- function(molecule) {
   elements <- gregexpr('[A-Z][a-z]?', molecule, perl = TRUE)[[1]]
   numElements <- length(elements)
@@ -25,6 +37,9 @@ countStepsToSolve <- function(molecule) {
   return(steps)
 }
 
+#' Solves Part One: counts distinct molecules reachable via a single replacement step.
+#'
+#' @return Number of distinct molecules created.
 solvePartOne <- function() {
   parsedData <- parseInput(data)
   replacements <- parsedData$replacements
@@ -49,6 +64,9 @@ solvePartOne <- function() {
   return(length(distinctMolecules))
 }
 
+#' Solves Part Two: calculates the minimum steps needed to synthesise the target molecule from electron 'e'.
+#'
+#' @return Minimum synthesis step count.
 solvePartTwo <- function() {
   parsedData <- parseInput(data)
   molecule <- parsedData$molecule

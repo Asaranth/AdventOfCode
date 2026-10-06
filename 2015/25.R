@@ -1,3 +1,7 @@
+#' Day 25: Let It Snow
+#'
+#' Computes security codes in a diagonal grid sequence using modular arithmetic and linear congruential generator progression.
+
 source(file.path(getwd(), '2015/utils.R'))
 data <- getInputData(25)
 

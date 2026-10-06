@@ -2,6 +2,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace _2016;
 
+/// <summary>
+/// Common Utilities
+/// 
+/// Provides HTTP client utilities and puzzle input caching for the 2016 solutions.
+/// </summary>
 public static class Utils
 {
     private static readonly IConfigurationRoot Configuration;
@@ -12,6 +17,11 @@ public static class Utils
         Configuration = new ConfigurationBuilder().SetBasePath(basePath).AddJsonFile("appsettings.json").Build();
     }
 
+    /// <summary>
+    /// Asynchronously fetches puzzle input for a given day, caching the response locally.
+    /// </summary>
+    /// <param name="day">Day number of the puzzle (1–25).</param>
+    /// <returns>A task returning the raw puzzle input string.</returns>
     public static async Task<string> GetInputData(int day)
     {
         var cacheFile = Path.Combine("data", $"{day:00}.txt");

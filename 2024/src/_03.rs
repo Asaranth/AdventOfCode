@@ -1,6 +1,11 @@
+//! Day 03: Mull It Over
+//!
+//! Scans corrupted memory strings for valid multiplication instructions and conditional enable/disable statements.
+
 use regex::Regex;
 use crate::utils::get_input_data;
 
+/// Solves Part One: extracts and evaluates all uncorrupted `mul(X,Y)` instructions.
 fn solve_part_one(data: &[String]) -> i32 {
     let mut total = 0;
     let re_mul = Regex::new(r"mul\((\d{1,3}),(\d{1,3})\)").unwrap();
@@ -14,6 +19,7 @@ fn solve_part_one(data: &[String]) -> i32 {
     total
 }
 
+/// Solves Part Two: evaluates multiplication instructions conditioned on `do()` and `don't()` mode toggles.
 fn solve_part_two(data: Vec<String>) -> i32 {
     let mut total = 0;
     let mut enabled = true;

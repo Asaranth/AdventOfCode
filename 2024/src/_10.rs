@@ -1,8 +1,14 @@
+//! Day 10: Hoof It
+//!
+//! Evaluates topographic hiking trail networks by computing trailhead reachability and total distinct paths.
+
 use std::collections::{HashSet, VecDeque};
 use crate::utils::get_input_data;
 
+/// Orthogonal step deltas in (dx, dy) coordinate format.
 const DIRECTIONS: [(i32, i32); 4] = [(0, 1), (1, 0), (0, -1), (-1, 0)];
 
+/// Validates whether stepping to coordinate (x, y) increases height by exactly one unit within map boundaries.
 fn is_valid_move(x: i32, y: i32, from_height: i32, grid: &[Vec<i32>]) -> bool {
     if x < 0 || x >= grid.len() as i32 || y < 0 || y >= grid[0].len() as i32 {
         return false;
@@ -11,6 +17,7 @@ fn is_valid_move(x: i32, y: i32, from_height: i32, grid: &[Vec<i32>]) -> bool {
     current_height == from_height + 1
 }
 
+/// Solves Part One: computes the sum of scores for all trailheads (number of reachable height 9 peaks).
 fn solve_part_one(grid: &[Vec<i32>]) -> i32 {
     let mut total_score = 0;
     fn bfs(start_x: usize, start_y: usize, grid: &[Vec<i32>]) -> i32 {
@@ -45,6 +52,7 @@ fn solve_part_one(grid: &[Vec<i32>]) -> i32 {
     total_score
 }
 
+/// Solves Part Two: computes the sum of ratings for all trailheads (number of distinct hiking trails to height 9 peaks).
 fn solve_part_two(grid: &[Vec<i32>]) -> i32 {
     let mut total_paths = 0;
 

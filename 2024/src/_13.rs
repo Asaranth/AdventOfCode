@@ -1,8 +1,14 @@
+//! Day 13: Claw Contraption
+//!
+//! Solves 2D linear equation systems to minimise button-press token costs for arcade claw machines.
+
 use crate::utils::get_input_data;
 
+/// Represents an arcade claw machine configuration with button offsets and prize coordinates.
 #[derive(Debug)]
 struct Machine { ax: i64, ay: i64, bx: i64, by: i64, px: i64, py: i64 }
 
+/// Parses claw machine specifications from raw multiline input groups.
 fn parse_input(input: String) -> Vec<Machine> {
     let mut machines = Vec::new();
     for group in input.split("\n\n") {
@@ -32,6 +38,7 @@ fn parse_input(input: String) -> Vec<Machine> {
     machines
 }
 
+/// Solves linear equations via Cramer's rule to find exact integer button counts (a, b) and calculates token cost.
 fn solve_machine(machine: &Machine, offset: i64) -> i64 {
     let px = machine.px + offset;
     let py = machine.py + offset;
@@ -45,10 +52,12 @@ fn solve_machine(machine: &Machine, offset: i64) -> i64 {
     }
 }
 
+/// Solves Part One: finds minimum tokens needed to win all winnable prizes without offset.
 fn solve_part_one(data: &[Machine]) -> i64 {
     data.iter().map(|machine| solve_machine(machine, 0)).sum()
 }
 
+/// Solves Part Two: finds minimum tokens needed with 10^13 unit offset added to prize coordinates.
 fn solve_part_two(data: &[Machine]) -> i64 {
     data.iter().map(|machine| solve_machine(machine, 1e13 as i64)).sum()
 }

@@ -1,3 +1,9 @@
+"""
+Day 24: Never Tell Me The Odds
+
+Solves 2D hailstone trajectory ray intersections and solves 3D linear rock collision systems with SymPy.
+"""
+
 from sympy import symbols, solve
 from utils import get_input_data
 
@@ -5,6 +11,11 @@ hailstones = [tuple(map(int, line.replace('@', ',').split(','))) for line in get
 
 
 def solve_part_one():
+    """
+    Solves Part One: counts pairwise forward path intersections in the XY plane within the target test area.
+
+    :return: Total number of valid future intersections within test boundaries.
+    """
     total = 0
     for i, hs1 in enumerate(hailstones):
         for hs2 in hailstones[:i]:
@@ -20,6 +31,11 @@ def solve_part_one():
 
 
 def solve_part_two():
+    """
+    Solves Part Two: determines the initial position and velocity of a rock that collides with every hailstone.
+
+    :return: Sum of the rock's initial X, Y, and Z integer coordinates.
+    """
     xr, yr, zr, vxr, vyr, vzr = symbols('xr, yr, zr, vxr, vyr, vzr')
     equations = []
     for i, (sx, sy, sz, vx, vy, vz) in enumerate(hailstones):

@@ -1,3 +1,9 @@
+"""
+Day 11: Cosmic Expansion
+
+Expands universe coordinates along empty rows and columns to compute pairwise Manhattan galaxy distances.
+"""
+
 from utils import get_input_data
 
 data = get_input_data(11).splitlines()
@@ -7,6 +13,14 @@ galaxies = {(r, c) for r, row in enumerate(data) for c, ch in enumerate(row) if 
 
 
 def get_distance(g1, g2, es_mult):
+    """
+    Computes Manhattan distance between two galaxies, adding expansion offsets for crossed empty rows/columns.
+
+    :param g1: Tuple of (row, col) coordinates for first galaxy.
+    :param g2: Tuple of (row, col) coordinates for second galaxy.
+    :param es_mult: Multiplier offset added per crossed empty row or column.
+    :return: Adjusted Manhattan distance between the two galaxies.
+    """
     distance_y = abs(g1[0] - g2[0])
     distance_x = abs(g1[1] - g2[1])
     for r in empty_rows:
@@ -19,6 +33,12 @@ def get_distance(g1, g2, es_mult):
 
 
 def travel_galaxies(empty_space_adjustment):
+    """
+    Calculates sum of distances between all unique pairs of galaxies under a given expansion scale.
+
+    :param empty_space_adjustment: Expansion multiplier offset for empty space lines.
+    :return: Sum of pairwise distances.
+    """
     total_distance = 0
     for galaxy in galaxies:
         for next_galaxy in galaxies:
@@ -28,10 +48,20 @@ def travel_galaxies(empty_space_adjustment):
 
 
 def solve_part_one():
+    """
+    Solves Part One: computes distance sum where each empty row/column expands by a factor of 2.
+
+    :return: Total pairwise galaxy distance sum.
+    """
     return travel_galaxies(1)  # Empty space is twice as large
 
 
 def solve_part_two():
+    """
+    Solves Part Two: computes distance sum where each empty row/column expands by a factor of 1,000,000.
+
+    :return: Total pairwise galaxy distance sum under large expansion.
+    """
     return travel_galaxies(999999)  # Empty space is 1 million times larger
 
 

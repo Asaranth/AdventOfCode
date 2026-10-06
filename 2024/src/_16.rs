@@ -1,8 +1,14 @@
+//! Day 16: Reindeer Maze
+//!
+//! Finds the lowest-cost maze navigation paths and optimal path tile coverage using priority queue state search.
+
 use std::collections::{BinaryHeap, HashMap, HashSet};
 use crate::utils::get_input_data;
 
+/// Cardinal direction offsets in `(dr, dc)` order: East, South, West, North.
 const DIRECTIONS: [(i32, i32); 4] = [(0, 1), (1, 0), (0, -1), (-1, 0)];
 
+/// Represents a state in the priority queue ordered by lowest cumulative cost.
 #[derive(Eq, PartialEq)]
 struct State { position: (usize, usize), direction: usize, cost: i32 }
 
@@ -18,6 +24,7 @@ impl PartialOrd for State {
     }
 }
 
+/// Helper function to register parent states and push unvisited candidate states onto the priority queue.
 fn try_add_state(visited: &HashSet<((usize, usize), usize)>, parents: &mut HashMap<((usize, usize), usize), Vec<((usize, usize), usize)>>, heap: &mut BinaryHeap<State>, new_state: State, current_position: ((usize, usize), usize)) {
     if !visited.contains(&(new_state.position, new_state.direction)) {
         parents.entry((new_state.position, new_state.direction)).or_default().push(current_position);
@@ -25,6 +32,7 @@ fn try_add_state(visited: &HashSet<((usize, usize), usize)>, parents: &mut HashM
     }
 }
 
+/// Solves Part One: finds the minimum traversal cost from start to end with 1000-cost turns and 1-cost steps.
 fn solve_part_one(data: &[Vec<char>], start: (usize, usize), end: (usize, usize)) -> i32 {
     let mut heap = BinaryHeap::new();
     let mut visited = HashSet::new();
@@ -50,6 +58,7 @@ fn solve_part_one(data: &[Vec<char>], start: (usize, usize), end: (usize, usize)
     0
 }
 
+/// Solves Part Two: counts distinct grid tiles that lie along any optimal (minimal cost) path from start to end.
 fn solve_part_two(data: Vec<Vec<char>>, start: (usize, usize), end: (usize, usize)) -> i32 {
     let directions = DIRECTIONS;
     let mut heap = BinaryHeap::new();

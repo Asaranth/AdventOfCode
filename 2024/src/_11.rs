@@ -1,6 +1,11 @@
+//! Day 11: Plutonian Pebbles
+//!
+//! Simulates recursive splitting and transformation of numbered stones under blink iteration rules using frequency memoisation.
+
 use crate::utils::get_input_data;
 use std::collections::HashMap;
 
+/// Computes the number of base-10 digits in an integer.
 fn num_digits(n: i64) -> usize {
     if n == 0 {
         1
@@ -9,12 +14,14 @@ fn num_digits(n: i64) -> usize {
     }
 }
 
+/// Splits an even-digit integer into equal left and right numeric halves.
 fn split_in_middle(num: i64) -> (i64, i64) {
     let digits = num_digits(num);
     let divisor = 10_i64.pow((digits / 2) as u32);
     (num / divisor, num % divisor)
 }
 
+/// Simulates a given number of blink cycles on stone counts and returns total stones.
 fn simulate_blinks(data: Vec<i64>, blinks: usize) -> usize {
     let mut stones: HashMap<i64, usize> = HashMap::new();
     for stone in data {

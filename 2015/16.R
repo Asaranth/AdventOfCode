@@ -1,3 +1,7 @@
+#' Day 16: Aunt Sue
+#'
+#' Filters Aunt Sue candidates using exact and range-adjusted MFCSAM retroencabulator readings.
+
 source(file.path(getwd(), '2015/utils.R'))
 data <- getInputData(16)
 MFCSAM <- c(
@@ -13,6 +17,10 @@ MFCSAM <- c(
   perfumes = 1
 )
 
+#' Parses raw Aunt Sue gift memory descriptions into structured attribute lists.
+#'
+#' @param data Character vector of Sue descriptions.
+#' @return Named list mapping Sue IDs to lists of known attribute values.
 parseSues <- function(data) {
   sues <- list()
   for (line in data) {
@@ -30,6 +38,9 @@ parseSues <- function(data) {
 
 sues <- parseSues(data)
 
+#' Solves Part One: finds Sue ID whose recorded attributes exactly match MFCSAM readings.
+#'
+#' @return ID of the matching Aunt Sue.
 solvePartOne <- function() {
   for (sueNo in names(sues)) {
     sueData <- sues[[sueNo]]
@@ -50,6 +61,9 @@ solvePartOne <- function() {
   return(NA)
 }
 
+#' Solves Part Two: finds Sue ID matching retroencabulator ranged criteria (cats/trees greater, pomeranians/goldfish fewer).
+#'
+#' @return ID of the matching Aunt Sue under ranged rules.
 solvePartTwo <- function() {
   for (sueNo in names(sues)) {
     sueData <- sues[[sueNo]]

@@ -1,6 +1,14 @@
+#' Day 15: Science for Hungry People
+#'
+#' Optimises cookie ingredient proportions across capacity, durability, flavour, texture, and calories.
+
 source(file.path(getwd(), '2015/utils.R'))
 data <- getInputData(15)
 
+#' Parses ingredient descriptions into property score vectors.
+#'
+#' @param data Character vector of ingredient specification strings.
+#' @return Named list of property score vectors for each ingredient.
 parseIngredients <- function(data) {
   ingredients <- list()
   for (line in data) {
@@ -15,6 +23,12 @@ parseIngredients <- function(data) {
 ingredients <- parseIngredients(data)
 ingredientNames <- names(ingredients)
 
+#' Computes cookie recipe score across properties, with optional calorie restriction.
+#'
+#' @param amounts Named list of teaspoon quantities for each ingredient.
+#' @param ingredients Named list of ingredient property vectors.
+#' @param calorieConstraint Logical flag requiring exactly 500 total calories.
+#' @return Computed recipe score (product of non-negative property totals).
 calculateScore <- function(amounts, ingredients, calorieConstraint = FALSE) {
   totalCapacity <- 0
   totalDurability <- 0
@@ -39,6 +53,12 @@ calculateScore <- function(amounts, ingredients, calorieConstraint = FALSE) {
   return(max(0, totalCapacity) * max(0, totalDurability) * max(0, totalFlavor) * max(0, totalTexture))
 }
 
+#' Searches all 100-teaspoon combinations to find the highest achievable recipe score.
+#'
+#' @param ingredients Named list of ingredient property vectors.
+#' @param ingredientNames Character vector of ingredient names.
+#' @param calorieConstraint Logical flag requiring exactly 500 total calories.
+#' @return Maximum achievable recipe score.
 findBestScore <- function(ingredients, ingredientNames, calorieConstraint = FALSE) {
   bestScore <- 0
   combinations <- expand.grid(rep(list(0:100), length(ingredientNames)))
@@ -55,10 +75,16 @@ findBestScore <- function(ingredients, ingredientNames, calorieConstraint = FALS
   return(bestScore)
 }
 
+#' Solves Part One: finds highest cookie score without calorie restrictions.
+#'
+#' @return Best cookie score for Part One.
 solvePartOne <- function() {
   findBestScore(ingredients, ingredientNames, calorieConstraint = FALSE)
 }
 
+#' Solves Part Two: finds highest cookie score with a 500-calorie constraint.
+#'
+#' @return Best cookie score for Part Two.
 solvePartTwo <- function() {
   findBestScore(ingredients, ingredientNames, calorieConstraint = TRUE)
 }

@@ -1,3 +1,6 @@
+-- | Common Utilities
+--
+-- Provides puzzle input fetching, caching, and environment configuration for 2025 Haskell solutions.
 module Utils (getInputData) where
 
 import System.Directory (createDirectoryIfMissing, doesFileExist, getCurrentDirectory)
@@ -6,6 +9,7 @@ import System.Exit (ExitCode (..))
 import System.FilePath (takeDirectory, (</>))
 import System.Process (readCreateProcessWithExitCode, shell)
 
+-- | Retrieves the puzzle input for a given day, reading from local cache or fetching via HTTP.
 getInputData :: Int -> IO String
 getInputData day = do
   let path = "data" </> (twoDigits day ++ ".txt")
@@ -14,6 +18,7 @@ getInputData day = do
     then readFile path
     else downloadAndCache day path
 
+-- | Downloads puzzle input from Advent of Code and caches it to disk.
 downloadAndCache :: Int -> FilePath -> IO String
 downloadAndCache day path = do
   session <- getSessionCookie
@@ -29,6 +34,7 @@ downloadAndCache day path = do
       pure out
     ExitFailure _ -> fail $ "curl failed: " ++ trim (out ++ err)
 
+-- | Retrieves the Advent of Code session cookie from the environment or parent @.env@ file.
 getSessionCookie :: IO String
 getSessionCookie = do
   env <- lookupEnv "AOC_SESSION_COOKIE"
@@ -42,14 +48,17 @@ getSessionCookie = do
         Just tok | not (null tok) -> pure tok
         _ -> fail "AOC_SESSION_COOKIE not found in environment variables or .env file."
 
+-- | Formats an integer day number as a two-digit string.
 twoDigits :: Int -> String
 twoDigits n
   | n < 10 = '0' : show n
   | otherwise = show n
 
+-- | Trims leading and trailing whitespace characters from a string.
 trim :: String -> String
 trim = f . f where f = reverse . dropWhile (`elem` ['\n', '\r', '\t', ' '])
 
+-- | Parses a @.env@ file to extract the value of @AOC_SESSION_COOKIE@.
 findEnvInFile :: FilePath -> IO (Maybe String)
 findEnvInFile fp = do
   exists <- doesFileExist fp
@@ -73,6 +82,7 @@ findEnvInFile fp = do
                   (k, '=' : v) | trim k == key -> Just (stripQuotes (trim v))
                   _ -> Nothing
 
+-- | Strips surrounding single or double quotes from a string value.
 stripQuotes :: String -> String
 stripQuotes s =
   case s of

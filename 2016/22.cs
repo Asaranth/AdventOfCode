@@ -2,6 +2,11 @@
 
 namespace _2016;
 
+/// <summary>
+/// Day 22: Grid Computing
+/// 
+/// Analyzes storage grid cluster filesystem nodes to find viable transfer pairs and calculates sliding tile moves for data extraction.
+/// </summary>
 public static partial class _22
 {
     private static readonly string[] Data;
@@ -9,6 +14,10 @@ public static partial class _22
     static _22() => Data = Task.Run(() => Utils.GetInputData(22)).Result
         .Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
+    /// <summary>
+    /// Parses df-like filesystem output lines into a list of storage Node instances.
+    /// </summary>
+    /// <returns>List of parsed nodes.</returns>
     private static List<Node> ParseNodes()
     {
         var regex = MyRegex();
@@ -24,6 +33,14 @@ public static partial class _22
             select new Node(x, y, size, used, avail)).ToList();
     }
 
+    /// <summary>
+    /// Generates orthogonal neighbouring coordinates within grid boundaries.
+    /// </summary>
+    /// <param name="x">Current X coordinate.</param>
+    /// <param name="y">Current Y coordinate.</param>
+    /// <param name="width">Grid width.</param>
+    /// <param name="height">Grid height.</param>
+    /// <returns>Enumeration of adjacent coordinate tuples.</returns>
     private static IEnumerable<(int x, int y)> GetNeighbors(int x, int y, int width, int height)
     {
         if (x > 0) yield return (x - 1, y);
@@ -32,6 +49,9 @@ public static partial class _22
         if (y < height - 1) yield return (x, y + 1);
     }
 
+    /// <summary>
+    /// Represents a grid computing filesystem node with position coordinates and capacity statistics.
+    /// </summary>
     private class Node(int x, int y, int size, int used, int avail)
     {
         public int X { get; } = x;
@@ -41,12 +61,20 @@ public static partial class _22
         public int Avail { get; } = avail;
     }
 
+    /// <summary>
+    /// Solves Part One: counts viable pairs of nodes (A != B, A not empty, A.Used &lt;= B.Avail).
+    /// </summary>
+    /// <returns>Total number of viable node pairs.</returns>
     private static int SolvePartOne()
     {
         var nodes = ParseNodes();
         return nodes.Select((s, i) => nodes.Where((t, j) => i != j && s.Used > 0 && s.Used <= t.Avail).Count()).Sum();
     }
 
+    /// <summary>
+    /// Solves Part Two: calculates fewest steps to move the goal data from top-right to (0, 0) around impassable high-capacity nodes.
+    /// </summary>
+    /// <returns>Minimum step count.</returns>
     private static int SolvePartTwo()
     {
         var nodes = ParseNodes();
@@ -85,12 +113,18 @@ public static partial class _22
         throw new Exception("Solution not found");
     }
 
+    /// <summary>
+    /// Executes and prints the solutions for Part One and Part Two.
+    /// </summary>
     public static void Run()
     {
         Console.WriteLine($"Part One: {SolvePartOne()}");
         Console.WriteLine($"Part Two: {SolvePartTwo()}");
     }
 
+    /// <summary>
+    /// Regex for parsing filesystem node entries in df format.
+    /// </summary>
     [GeneratedRegex(@"/dev/grid/node-x(\d+)-y(\d+)\s+(\d+)T\s+(\d+)T\s+(\d+)T\s+(\d+)%")]
     private static partial Regex MyRegex();
 }

@@ -1,3 +1,9 @@
+"""
+Day 25: Snowverload
+
+Finds the minimum 3-edge cut in a component wiring graph to partition the network into two disconnected groups.
+"""
+
 from networkx import Graph, minimum_edge_cut, connected_components
 from utils import get_input_data
 

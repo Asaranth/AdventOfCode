@@ -1,5 +1,10 @@
 namespace _2016;
 
+/// <summary>
+/// Day 02: Bathroom Security
+/// 
+/// Decodes bathroom entry codes by traversing standard 3x3 and diamond-shaped keypads.
+/// </summary>
 public abstract class _02
 {
     private static readonly string[] Data;
@@ -7,6 +12,10 @@ public abstract class _02
     static _02() => Data = Task.Run(() => Utils.GetInputData(2)).Result
         .Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
 
+    /// <summary>
+    /// Solves Part One: determines the bathroom code on a standard 3x3 numeric keypad.
+    /// </summary>
+    /// <returns>The decoded numeric code as an integer.</returns>
     private static int SolvePartOne()
     {
         int[,] keypad = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
@@ -40,6 +49,10 @@ public abstract class _02
         return int.Parse(string.Join("", code));
     }
 
+    /// <summary>
+    /// Solves Part Two: determines the bathroom code on an actual diamond-shaped alphanumeric keypad.
+    /// </summary>
+    /// <returns>The decoded bathroom code string.</returns>
     private static string SolvePartTwo()
     {
         var instructions = Data;
@@ -72,6 +85,9 @@ public abstract class _02
         return string.Join("", code);
     }
 
+    /// <summary>
+    /// Executes and prints the solutions for Part One and Part Two.
+    /// </summary>
     public static void Run()
     {
         Console.WriteLine($"Part One: {SolvePartOne()}");

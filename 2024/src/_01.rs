@@ -1,6 +1,11 @@
-﻿use std::collections::HashMap;
+//! Day 01: Historian Hysteria
+//!
+//! Pairs and calculates differences between sorted location IDs, and calculates similarity scores using frequency counts.
+
+use std::collections::HashMap;
 use crate::utils::get_input_data;
 
+/// Solves Part One: sorts both lists and sums the absolute differences between corresponding elements.
 fn solve_part_one(left_list: &[i32], right_list: &[i32]) -> i32 {
     let mut left_sorted = left_list.to_vec();
     let mut right_sorted = right_list.to_vec();
@@ -9,6 +14,7 @@ fn solve_part_one(left_list: &[i32], right_list: &[i32]) -> i32 {
     left_sorted.iter().zip(right_sorted.iter()).map(|(left, right)| (left - right).abs()).sum()
 }
 
+/// Solves Part Two: calculates similarity score by multiplying each left list number by its occurrence count in the right list.
 fn solve_part_two(left_list: Vec<i32>, right_list: Vec<i32>) -> i32 {
     let mut right_count = HashMap::new();
     for &number in &right_list {

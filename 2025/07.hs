@@ -1,3 +1,6 @@
+-- | Day 07: Laser Splittinator
+--
+-- Simulates laser beam propagation through splitting prisms using scanline beam tracking and dynamic programming.
 module Main where
 
 import Data.List (elemIndex, sort)
@@ -6,6 +9,7 @@ import qualified Data.Vector as V
 import qualified Data.Vector.Unboxed as U
 import Utils (getInputData)
 
+-- | Solves Part One: simulates downward beam trajectories and counts total split occurrences.
 part1 :: [String] -> Int
 part1 rows =
   let h = length rows
@@ -47,6 +51,7 @@ part1 rows =
                 _ -> (accBeams, accSplits)
         len = length line
 
+-- | Solves Part Two: calculates the total number of outgoing beam paths exiting the bottom of the grid using dynamic programming.
 part2 :: [String] -> Int
 part2 rows =
   let h = length rows
@@ -65,7 +70,7 @@ part2 rows =
           let line = rows !! row
               next = U.replicate w 0
               dpNext = U.ifoldl' (step line) next dp
-           in go (row + 1) dpNext
+            in go (row + 1) dpNext
 
     step :: String -> U.Vector Int -> Int -> Int -> U.Vector Int
     step line next col val

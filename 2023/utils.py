@@ -1,3 +1,9 @@
+"""
+Common Utilities
+
+Provides HTTP client utilities and puzzle input caching for the 2023 solutions.
+"""
+
 import os
 import requests
 from dotenv import load_dotenv
@@ -6,6 +12,12 @@ load_dotenv()
 
 
 def get_input_data(day):
+    """
+    Fetches puzzle input for a given day, caching the response locally.
+
+    :param day: Day number of the puzzle (1–25).
+    :return: Raw puzzle input string.
+    """
     cache_file = f'data/{day:02d}.txt'
     if os.path.exists(cache_file):
         with open(cache_file, 'r') as file:

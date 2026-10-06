@@ -1,6 +1,13 @@
+--- Common Utilities and Intcode Virtual Machine
+---
+--- Provides input data fetching, caching, and the Intcode computer interpreter.
+
 local https = require("ssl.https")
 local ltn12 = require("ltn12")
 
+--- Loads environment variables from the parent .env file.
+---
+--- @return table<string, string> A key-value table of environment variables.
 local function loadEnv()
     local envFile = io.open("../.env", "r")
     if not envFile then
@@ -24,6 +31,10 @@ if not sessionCookie then
     error("AOC_SESSION_COOKIE not found in environment variables")
 end
 
+--- Retrieves the puzzle input data for a specified day, caching it locally in the data directory.
+---
+--- @param day number The day of the puzzle (1-25).
+--- @return string The raw puzzle input string.
 local function getInputData(day)
     local cacheFile = string.format("data/%02d.txt", day)
     local file = io.open(cacheFile, "r")
@@ -53,9 +64,21 @@ local function getInputData(day)
     return data
 end
 
+--- @class IntcodeComputer
+--- @field memory table<number, number> Addressable memory containing instruction opcodes and values.
+--- @field ip number Instruction pointer indicating current execution position.
+--- @field relativeBase number Relative base offset for relative parameter addressing mode.
+--- @field inputs number[] FIFO queue of pending input values.
+--- @field outputs number[] FIFO queue of emitted output values.
+--- @field halted boolean Flag indicating whether the computer encountered opcode 99 and halted.
+--- @field paused boolean Flag indicating whether execution is paused awaiting input.
 local IntcodeComputer = {}
 IntcodeComputer.__index = IntcodeComputer
 
+--- Initialises a new Intcode computer instance with a given program.
+---
+--- @param program number[] List of integer instructions forming the initial memory state.
+--- @return IntcodeComputer A newly initialised Intcode computer instance.
 function IntcodeComputer.new(program)
     local self = setmetatable({}, IntcodeComputer)
     self.memory = {}
@@ -71,14 +94,27 @@ function IntcodeComputer.new(program)
     return self
 end
 
+--- Retrieves the value at the specified memory address.
+---
+--- @param pos number Zero-based memory address.
+--- @return number The value stored at the address, defaulting to 0 if uninitialised.
 function IntcodeComputer:getMemory(pos)
     return self.memory[pos] or 0
 end
 
+--- Stores a value at the specified memory address.
+---
+--- @param pos number Zero-based memory address.
+--- @param val number Value to write.
 function IntcodeComputer:setMemory(pos, val)
     self.memory[pos] = val
 end
 
+--- Evaluates the parameter value for an instruction based on its parameter mode.
+---
+--- @param mode number Mode flag (0: position mode, 1: immediate mode, 2: relative mode).
+--- @param offset number Offset relative to the current instruction pointer.
+--- @return number The resolved parameter value.
 function IntcodeComputer:getParameter(mode, offset)
     local value = self:getMemory(self.ip + offset)
     if mode == 0 then
@@ -92,6 +128,11 @@ function IntcodeComputer:getParameter(mode, offset)
     end
 end
 
+--- Resolves the write destination address based on parameter mode.
+---
+--- @param mode number Mode flag (0: position mode, 2: relative mode).
+--- @param offset number Offset relative to the current instruction pointer.
+--- @return number The resolved memory write address.
 function IntcodeComputer:getWriteAddress(mode, offset)
     local value = self:getMemory(self.ip + offset)
     if mode == 2 then
@@ -101,14 +142,21 @@ function IntcodeComputer:getWriteAddress(mode, offset)
     end
 end
 
+--- Appends an input value to the computer's input queue.
+---
+--- @param value number Input value to queue.
 function IntcodeComputer:addInput(value)
     table.insert(self.inputs, value)
 end
 
+--- Retrieves and removes the oldest output value from the output queue.
+---
+--- @return number|nil The next output value, or nil if the output queue is empty.
 function IntcodeComputer:getOutput()
     return table.remove(self.outputs, 1)
 end
 
+--- Executes instructions until the program halts or pauses waiting for input.
 function IntcodeComputer:run()
     self.paused = false
     while not self.halted and not self.paused do
@@ -183,6 +231,9 @@ function IntcodeComputer:run()
     end
 end
 
+--- Checks whether the Intcode computer has completed execution.
+---
+--- @return boolean True if the computer has halted on opcode 99, false otherwise.
 function IntcodeComputer:isHalted()
     return self.halted
 end

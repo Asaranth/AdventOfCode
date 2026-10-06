@@ -1,5 +1,10 @@
-﻿use crate::utils::get_input_data;
+﻿//! Day 07: Bridge Repair
+//!
+//! Determines whether target calibration values can be produced by inserting operators between numbers.
 
+use crate::utils::get_input_data;
+
+/// Tests if the target value can be formed by left-to-right evaluation of arithmetic operators.
 fn can_form_target_y(target_y: i64, xs: &[i64], allow_concatenation: bool) -> bool {
     let n_ops = xs.len() - 1;
     let max_combinations = if allow_concatenation {
@@ -32,11 +37,13 @@ fn can_form_target_y(target_y: i64, xs: &[i64], allow_concatenation: bool) -> bo
     false
 }
 
+/// Concatenates two 64-bit integers digits together into a single integer.
 fn concatenate(a: i64, b: i64) -> i64 {
     let concatenated = format!("{}{}", a, b);
     concatenated.parse().unwrap_or(0)
 }
 
+/// Solves Part One: sums target values that can be produced using addition and multiplication.
 fn solve_part_one(data: &[String]) -> i64 {
     let mut total_calibration = 0;
     for line in data {
@@ -53,6 +60,7 @@ fn solve_part_one(data: &[String]) -> i64 {
     total_calibration
 }
 
+/// Solves Part Two: sums target values that can be produced using addition, multiplication, and concatenation.
 fn solve_part_two(data: Vec<String>) -> i64 {
     let mut total_calibration = 0;
     for line in data {

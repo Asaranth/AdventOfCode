@@ -1,3 +1,7 @@
+--- Day 18: Many-Worlds Interpretation
+---
+--- Solves maze pathfinding with door/key bitmask states and multi-robot coordination using Dijkstra's algorithm.
+
 local utils = require("utils")
 
 local data = {}
@@ -21,10 +25,19 @@ for y = 1, ROWS do
     end
 end
 
+--- Checks whether the given grid coordinates fall within maze boundaries.
+---
+--- @param x number Horizontal coordinate.
+--- @param y number Vertical coordinate.
+--- @return boolean True if (x, y) is within bounds, false otherwise.
 local function inBounds(x, y)
     return x >= 1 and x <= COLS and y >= 1 and y <= ROWS
 end
 
+--- Inserts a state element into the min-heap ordered by the first element (step count).
+---
+--- @param heap table[] Min-heap array.
+--- @param value table Element table whose first index is the numeric sorting key.
 local function heapPush(heap, value)
     table.insert(heap, value)
     local index = #heap
@@ -38,6 +51,10 @@ local function heapPush(heap, value)
     end
 end
 
+--- Extracts and returns the minimum element from the min-heap.
+---
+--- @param heap table[] Min-heap array.
+--- @return table|nil The extracted minimum element, or nil if the heap is empty.
 local function heapPop(heap)
     if #heap == 0 then
         return nil
@@ -65,6 +82,10 @@ local function heapPop(heap)
     return min
 end
 
+--- Converts a key or door character to its corresponding bitmask representation.
+---
+--- @param tile string Single character representing a key ('a'-'z') or door ('A'-'Z').
+--- @return number|nil Bitmask with the corresponding bit set, or nil if not a letter.
 local function getTileBit(tile)
     if tile:match("%l") then
         return 1 << (tile:byte() - string.byte('a'))
@@ -74,6 +95,9 @@ local function getTileBit(tile)
     return nil
 end
 
+--- Solves Part One by computing the shortest path to collect all keys using a single robot.
+---
+--- @return number The minimum step count to collect all keys.
 local function solvePartOne()
     local heap = {}
     local visited = {}
@@ -106,6 +130,9 @@ local function solvePartOne()
     end
 end
 
+--- Solves Part Two by modifying the centre into 4 vaults with 4 separate robots to collect all keys.
+---
+--- @return number The minimum total steps across all four robots.
 local function solvePartTwo()
     local mapCopy = {}
     for i = 1, #data do

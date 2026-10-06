@@ -1,3 +1,7 @@
+#' Day 13: Knights of the Dinner Table
+#'
+#' Optimises circular table seating arrangements to maximise total mutual happiness.
+
 source(file.path(getwd(), '2015/utils.R'))
 data <- getInputData(13)
 happinessChanges <- list()
@@ -21,6 +25,10 @@ for (line in data) {
   happinessChanges[[paste(person1, person2, sep = '-')]] <- value
 }
 
+#' Computes total happiness delta for a circular seating arrangement.
+#'
+#' @param arrangement Character vector representing guest order around the circular table.
+#' @return Total mutual happiness score.
 calculateHappiness <- function(arrangement) {
   totalHappiness <- 0
   n <- length(arrangement)
@@ -38,6 +46,10 @@ calculateHappiness <- function(arrangement) {
   return(totalHappiness)
 }
 
+#' Evaluates all permutations of guests to find the maximum possible happiness score.
+#'
+#' @param peopleList Character vector of guest names.
+#' @return Maximum achievable happiness score.
 findMaxHappiness <- function(peopleList) {
   arrangements <- combinat::permn(peopleList)
   maxHappiness <- -Inf
@@ -52,10 +64,16 @@ findMaxHappiness <- function(peopleList) {
   return(maxHappiness)
 }
 
+#' Solves Part One: finds optimal seating happiness for the original guest list.
+#'
+#' @return Maximum happiness score for original guests.
 solvePartOne <- function() {
   return(findMaxHappiness(people))
 }
 
+#' Solves Part Two: adds self (with zero mutual change to all guests) and finds optimal happiness.
+#'
+#' @return Maximum happiness score including self.
 solvePartTwo <- function() {
   peopleWithSelf <- c(people, 'Me')
 

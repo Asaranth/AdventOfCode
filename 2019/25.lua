@@ -1,3 +1,7 @@
+--- Day 25: Cryostasis
+---
+--- Solves the text adventure game by exploring all rooms, avoiding hazard items, and weight balancing at the checkpoint.
+
 local utils = require("utils")
 
 local program = {}
@@ -5,6 +9,10 @@ for value in utils.getInputData(25):gmatch("[^,]+") do
     table.insert(program, tonumber(value))
 end
 
+--- Sends an ASCII text command followed by a newline byte (10) to the Intcode computer.
+---
+--- @param computer IntcodeComputer The Intcode virtual machine.
+--- @param command string Text command to send (e.g. "north", "take cake").
 local function sendCommand(computer, command)
     for i = 1, #command do
         computer:addInput(string.byte(command, i))
@@ -12,6 +20,10 @@ local function sendCommand(computer, command)
     computer:addInput(10)
 end
 
+--- Runs the Intcode computer and collects all emitted ASCII output characters into a string.
+---
+--- @param computer IntcodeComputer The Intcode virtual machine.
+--- @return string The concatenated output text response.
 local function runAndReadOutput(computer)
     computer:run()
     local output = {}
@@ -24,6 +36,10 @@ local function runAndReadOutput(computer)
     return table.concat(output)
 end
 
+--- Parses room details from text output including name, description, exits, and visible items.
+---
+--- @param text string Raw text emitted by the text adventure engine.
+--- @return { name: string, exits: string[], items: string[], description: string } Parsed room record.
 local function parseRoom(text)
     local room = {
         name = "",
@@ -58,6 +74,10 @@ local function parseRoom(text)
     return room
 end
 
+--- Returns the opposite compass direction.
+---
+--- @param dir string Direction name ("north", "south", "east", "west").
+--- @return string Opposite direction name.
 local function opposite(dir)
     local opposites = {
         north = "south",
@@ -68,6 +88,11 @@ local function opposite(dir)
     return opposites[dir]
 end
 
+--- Computes the shortest sequence of directional commands to travel to a target room.
+---
+--- @param bot table Explorer state containing discovered rooms and directional graph connections.
+--- @param target string The name of the destination room.
+--- @return string[]|nil List of directional commands, or nil if no path is found.
 local function findPath(bot, target)
     local moves = {}
     local comeFrom = {}
@@ -101,6 +126,9 @@ local function findPath(bot, target)
     return path
 end
 
+--- Solves Day 25 by mapping all safe rooms, collecting non-hazardous items, and testing 2^N item weight combinations.
+---
+--- @return string The password code emitted upon passing the security sensor.
 local function solve()
     local computer = utils.intcode(program)
     computer:run()

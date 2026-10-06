@@ -1,3 +1,7 @@
+--- Day 13: Care Package
+---
+--- Simulates an arcade cabinet game running on Intcode and implements an automated joystick controller.
+
 local utils = require("utils")
 
 local data = {}
@@ -5,6 +9,9 @@ for value in utils.getInputData(13):gmatch("[^,]+") do
     table.insert(data, tonumber(value))
 end
 
+--- Runs the arcade cabinet to completion and counts the total number of block tiles rendered.
+---
+--- @return number The number of block tiles (tile ID 2) on the screen.
 local function solvePartOne()
     local computer = utils.intcode(data)
     local blockCount = 0
@@ -22,6 +29,9 @@ local function solvePartOne()
     return blockCount
 end
 
+--- Plays the game by setting free play mode and tracking paddle/ball X positions for automated joystick inputs.
+---
+--- @return number The final score display value after all blocks are broken.
 local function solvePartTwo()
     local score = 0
     local paddleX = 0
@@ -29,6 +39,9 @@ local function solvePartTwo()
     local computer = utils.intcode(data)
     computer.memory[0] = 2
 
+    --- Determines joystick tilt based on the relative horizontal positions of paddle and ball.
+    ---
+    --- @return number Neutral (0), left (-1), or right (1).
     local function getJoystickPosition()
         if paddleX < ballX then
             return 1

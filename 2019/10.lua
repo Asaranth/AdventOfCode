@@ -1,3 +1,7 @@
+--- Day 10: Monitoring Station
+---
+--- Calculates direct line-of-sight visibility and simulates rotating laser vaporisation of asteroids.
+
 local utils = require("utils")
 
 local data = {}
@@ -13,11 +17,20 @@ for y, line in ipairs(data) do
     end
 end
 
+--- Computes the greatest common divisor of two integers.
+---
+--- @param a number First integer.
+--- @param b number Second integer.
+--- @return number The greatest common divisor.
 local function gcd(a, b)
     if b == 0 then return math.abs(a) end
     return gcd(b, a % b)
 end
 
+--- Groups all visible target asteroids by their radial angle from a given monitoring base.
+---
+--- @param base { x: number, y: number } The asteroid coordinates serving as the base station.
+--- @return table<number, { angle: number, targets: { x: number, y: number }[] }> Map of angle radians to target lists.
 local function getAngles(base)
     local angles = {}
     for _, target in ipairs(asteroids) do
@@ -37,6 +50,10 @@ local function getAngles(base)
     return angles
 end
 
+--- Finds the optimal asteroid location that can detect the maximum number of distinct asteroids.
+---
+--- @return number The maximum count of visible asteroids.
+--- @return { x: number, y: number } The coordinates of the best monitoring station location.
 local function solvePartOne()
     local maxVisible = 0
     local bestLocation = nil
@@ -54,6 +71,10 @@ local function solvePartOne()
     return maxVisible, bestLocation
 end
 
+--- Simulates the clockwise rotating laser vaporising asteroids and finds the 200th asteroid vaporised.
+---
+--- @param location { x: number, y: number } The base station asteroid coordinates.
+--- @return number The coordinate encoding 100 * x + y of the 200th vaporised asteroid.
 local function solvePartTwo(location)
     local angles = {}
     for _, asteroid in ipairs(asteroids) do

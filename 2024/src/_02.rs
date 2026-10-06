@@ -1,5 +1,10 @@
+//! Day 02: Red-Nosed Reports
+//!
+//! Validates nuclear plant safety reports by evaluating monotonic ordering and adjacent level differences.
+
 use crate::utils::get_input_data;
 
+/// Checks whether adjacent differences between consecutive levels are between 1 and 3 inclusive.
 fn valid_increments(vec: &[i32]) -> bool {
     vec.windows(2).all(|pair| {
         let diff = (pair[0] - pair[1]).abs();
@@ -7,6 +12,7 @@ fn valid_increments(vec: &[i32]) -> bool {
     })
 }
 
+/// Solves Part One: counts reports that are strictly monotonic with valid step differences.
 fn solve_part_one(data: &[String]) -> i32 {
     let mut safe_reports = 0;
     for line in data {
@@ -18,6 +24,7 @@ fn solve_part_one(data: &[String]) -> i32 {
     safe_reports
 }
 
+/// Solves Part Two: counts reports that can be made safe by removing at most one level (Problem Dampener).
 fn solve_part_two(data: Vec<String>) -> i32 {
     let mut safe_reports = 0;
     for line in data {

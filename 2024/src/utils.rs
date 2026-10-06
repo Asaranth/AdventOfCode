@@ -1,10 +1,21 @@
-﻿use reqwest::Client;
+//! Common Utilities
+//!
+//! Provides HTTP client utilities and puzzle input caching for 2024 solutions.
+
+use reqwest::Client;
 use std::env;
 use std::fs;
 use std::path::Path;
 use std::io::{self, Write};
 use dotenv::from_filename;
 
+/// Fetches puzzle input for a given day, caching the response locally.
+///
+/// # Arguments
+/// * `day` - The day number of the puzzle (1–25).
+///
+/// # Errors
+/// Returns an error if the session cookie is missing or network/file I/O fails.
 pub async fn get_input_data(day: i32) -> Result<String, Box<dyn std::error::Error>> {
     from_filename("../.env")?;
     let cache_file = format!("data/{:02}.txt", day);

@@ -1,3 +1,7 @@
+--- Day 20: Donut Maze
+---
+--- Solves 2D and recursive dimensional shortest paths through portal-connected mazes using BFS.
+
 local utils = require("utils")
 
 local data = {}
@@ -5,6 +9,10 @@ for line in utils.getInputData(20):gmatch("[^\n]+") do
     table.insert(data, line)
 end
 
+--- Parses the maze characters, extracting the layout grid and two-letter portal entrance points.
+---
+--- @return string[][] grid 2D character map of the maze.
+--- @return table<string, { x: number, y: number }[]> portals Map of two-letter label names to their entrance coordinates.
 local function parseMaze()
     local grid = {}
     local portals = {}
@@ -59,6 +67,12 @@ local function parseMaze()
     return grid, portals
 end
 
+--- Determines whether a portal tile is situated on the outer perimeter of the donut maze.
+---
+--- @param x number Horizontal coordinate.
+--- @param y number Vertical coordinate.
+--- @param grid string[][] 2D maze character grid.
+--- @return boolean True if the coordinate is near the outer boundary, false if on the inner ring.
 local function isOuterEdge(x, y, grid)
     local minX, maxX = math.huge, 0
     local minY, maxY = math.huge, 0
@@ -75,6 +89,10 @@ local function isOuterEdge(x, y, grid)
     return x <= minX + 2 or x >= maxX - 2 or y <= minY + 2 or y >= maxY - 2
 end
 
+--- Creates a lookup mapping each portal entrance coordinate to its destination portal entrance.
+---
+--- @param portals table<string, { x: number, y: number }[]> Map of label strings to coordinates.
+--- @return table<string, { x: number, y: number }> Map of "x,y" keys to destination coordinates.
 local function createPortalMap(portals)
     local portalMap = {}
     for label, positions in pairs(portals) do
@@ -90,6 +108,11 @@ local function createPortalMap(portals)
     return portalMap
 end
 
+--- Creates a lookup indicating whether each portal position is on the outer edge.
+---
+--- @param portals table<string, { x: number, y: number }[]> Map of label strings to coordinates.
+--- @param grid string[][] 2D maze character grid.
+--- @return table<string, boolean> Map of "x,y" keys to boolean outer flag.
 local function createOuterPortalMap(portals, grid)
     local outerMap = {}
     for _, positions in pairs(portals) do
@@ -101,6 +124,9 @@ local function createOuterPortalMap(portals, grid)
     return outerMap
 end
 
+--- Solves Part One by computing the shortest path from AA to ZZ on a single flat level.
+---
+--- @return number The minimum step count.
 local function solvePartOne()
     local grid, portals = parseMaze()
     local portalMap = createPortalMap(portals)
@@ -137,6 +163,9 @@ local function solvePartOne()
     return 0
 end
 
+--- Solves Part Two by computing shortest paths across recursive nested dimensional levels.
+---
+--- @return number The minimum step count on recursion level 0.
 local function solvePartTwo()
     local grid, portals = parseMaze()
     local portalMap = createPortalMap(portals)

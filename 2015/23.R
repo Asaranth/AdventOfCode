@@ -1,6 +1,15 @@
+#' Day 23: Opening the Turing Lock
+#'
+#' Simulates a custom assembly register machine with jumps, halving, tripling, and increment instructions.
+
 source(file.path(getwd(), '2015/utils.R'))
 data <- getInputData(23)
 
+#' Executes instructions on registers 'a' and 'b' until program termination.
+#'
+#' @param a Initial integer value for register 'a'.
+#' @param b Initial integer value for register 'b'.
+#' @return Final integer value in register 'b'.
 execute <- function(a, b) {
   pc <- 1
   while (pc <= length(data) && pc > 0) {
@@ -37,10 +46,16 @@ execute <- function(a, b) {
   return(b)
 }
 
+#' Solves Part One: runs the program with register 'a' initialised to 0 and returns register 'b'.
+#'
+#' @return Final register 'b' value for Part One.
 solvePartOne <- function() {
   return(execute(0, 0))
 }
 
+#' Solves Part Two: runs the program with register 'a' initialised to 1 and returns register 'b'.
+#'
+#' @return Final register 'b' value for Part Two.
 solvePartTwo <- function() {
   return(execute(1, 0))
 }

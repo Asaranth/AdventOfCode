@@ -1,3 +1,7 @@
+--- Day 01: The Tyranny of the Rocket Equation
+---
+--- Calculates total fuel requirements for spacecraft modules and additional fuel mass.
+
 local utils = require("utils")
 
 local data = {}
@@ -5,6 +9,9 @@ for line in utils.getInputData(1):gmatch("[^\r\n]+") do
     table.insert(data, tonumber(line))
 end
 
+--- Calculates the sum of fuel requirements across all module masses for Part One.
+---
+--- @return number The total fuel required for all modules.
 local function solvePartOne()
     local total = 0
     for _, mass in ipairs(data) do
@@ -13,6 +20,9 @@ local function solvePartOne()
     return total
 end
 
+--- Calculates the total fuel requirements including the mass of the added fuel for Part Two.
+---
+--- @return number The total fuel required for modules and recursive fuel mass.
 local function solvePartTwo()
     local total = 0
     for _, mass in ipairs(data) do

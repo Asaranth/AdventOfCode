@@ -1,3 +1,6 @@
+-- | Day 05: Cafeteria
+--
+-- Manages ingredient freshness intervals via range containment testing and interval union merging.
 module Main where
 
 import Data.List (sortOn)
@@ -5,15 +8,18 @@ import Data.List.Split (splitOn)
 import qualified Data.Set as Set
 import Utils (getInputData)
 
+-- | Parses a hyphen-separated interval string into inclusive start and end bounds.
 parseRange :: String -> (Integer, Integer)
 parseRange s =
   case map read (splitOn "-" s) of
     [start, end] -> (start, end)
     _ -> error "Invalid range format"
 
+-- | Checks whether a value falls inclusively within a start and end interval.
 inRange :: Integer -> (Integer, Integer) -> Bool
 inRange x (start, end) = x >= start && x <= end
 
+-- | Solves Part One: counts how many available ingredient IDs fall within at least one fresh range.
 part1 :: [String] -> [String] -> Int
 part1 fresh available =
   let freshRanges = map parseRange fresh
@@ -21,6 +27,7 @@ part1 fresh available =
       isFresh x = any (inRange x) freshRanges
    in Set.size (Set.filter isFresh availableIds)
 
+-- | Solves Part Two: merges overlapping and contiguous fresh intervals and sums the total covered count.
 part2 :: [String] -> Integer
 part2 fresh = go sortedRanges 0 Nothing
   where

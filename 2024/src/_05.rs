@@ -1,5 +1,10 @@
+//! Day 05: Print Queue
+//!
+//! Verifies ordering rules on safety manual page updates and reorders incorrectly ordered sequences.
+
 use crate::utils::get_input_data;
 
+/// Parses input lines into page ordering rules and update sequences.
 fn extract_sections(data: &[String]) -> (Vec<(i32, i32)>, Vec<Vec<i32>>) {
     let mut rules = Vec::new();
     let mut updates = Vec::new();
@@ -24,6 +29,7 @@ fn extract_sections(data: &[String]) -> (Vec<(i32, i32)>, Vec<Vec<i32>>) {
     (rules, updates)
 }
 
+/// Validates whether a single ordering rule is satisfied within a given update sequence.
 fn is_rule_valid(rule: &(i32, i32), page: &[i32]) -> bool {
     let (x, y) = *rule;
     let index_x = page.iter().position(|&n| n == x);
@@ -34,6 +40,7 @@ fn is_rule_valid(rule: &(i32, i32), page: &[i32]) -> bool {
     true
 }
 
+/// Solves Part One: sums middle page numbers of all correctly ordered updates.
 fn solve_part_one(rules: &[(i32, i32)], updates: &[Vec<i32>]) -> i32 {
     let correct_updates: Vec<&Vec<i32>> = updates.iter().filter(|page| {
         rules.iter().all(|rule| is_rule_valid(rule, page))
@@ -41,6 +48,7 @@ fn solve_part_one(rules: &[(i32, i32)], updates: &[Vec<i32>]) -> i32 {
     correct_updates.iter().map(|page| page[page.len() / 2]).sum()
 }
 
+/// Solves Part Two: topologically reorders invalid updates and sums their middle page numbers.
 fn solve_part_two(rules: &[(i32, i32)], updates: &[Vec<i32>]) -> i32 {
     let incorrect_updates: Vec<&Vec<i32>> = updates.iter().filter(|page| {
         rules.iter().any(|rule| !is_rule_valid(rule, page))

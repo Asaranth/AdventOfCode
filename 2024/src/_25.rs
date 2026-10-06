@@ -1,5 +1,10 @@
-﻿use crate::utils::get_input_data;
+//! Day 25: Code Chronicle
+//!
+//! Evaluates pin-height profile compatibility between lock schematics and key schematics without overlapping.
 
+use crate::utils::get_input_data;
+
+/// Executes the daily solution for Day 25: parses lock and key heights and counts all compatible non-overlapping pairs.
 pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
     let data = get_input_data(25).await?;
     let grids = data.split("\n\n").collect::<Vec<_>>();

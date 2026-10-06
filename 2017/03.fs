@@ -1,8 +1,18 @@
 ﻿namespace _2017
 
+/// <summary>
+/// Day 03: Spiral Memory
+///
+/// Models spiral memory grids to compute Manhattan distances and neighbour-sum thresholds.
+/// </summary>
 module _03 =
     let Data = (Utils.GetInputData 3).Trim() |> int
 
+    /// <summary>
+    /// Computes the Manhattan distance from the square at index <paramref name="input"/> to the centre square (1) in the spiral.
+    /// </summary>
+    /// <param name="input">The target square index.</param>
+    /// <returns>Manhattan distance to the centre.</returns>
     let findManhattanDistance input =
         let rec findLayerAndMaxValue layer value =
             if value * value >= input then (layer, value)
@@ -19,8 +29,16 @@ module _03 =
         let distanceToMiddleOfEdge = middlePoints |> List.map(fun middle -> abs(input - middle)) |> List.min
         layer + distanceToMiddleOfEdge
 
+    /// <summary>
+    /// Solves Part 1: finds the Manhattan distance from the puzzle input square to the centre.
+    /// </summary>
+    /// <returns>Manhattan distance for Part 1.</returns>
     let solvePartOne() = findManhattanDistance Data
 
+    /// <summary>
+    /// Solves Part 2: allocates values in a spiral where each cell is the sum of its eight neighbours until exceeding the target.
+    /// </summary>
+    /// <returns>The first value written that is larger than the input value.</returns>
     let solvePartTwo() =
         let directions = [(0, 1); (1, 0); (0, -1); (-1, 0); (1, 1); (-1, -1); (1, -1); (-1, 1)]
         let getValue grid (x, y) = Map.tryFind (x, y) grid |> Option.defaultValue 0
@@ -40,6 +58,9 @@ module _03 =
         let initialGrid = Map.empty |> Map.add (0, 0) 1
         findValue initialGrid 1 0 Data (1, 0)
 
+    /// <summary>
+    /// Executes and prints the solutions for Part 1 and Part 2.
+    /// </summary>
     let Run() =
         printfn $"Part One: {solvePartOne()}"
         printfn $"Part Two: {solvePartTwo()}"

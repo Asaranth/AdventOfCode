@@ -1,6 +1,11 @@
-﻿use std::collections::HashMap;
+//! Day 22: Monkey Market
+//!
+//! Simulates pseudorandom number evolution and maximises banana sales across four-price-change sliding sequences.
+
+use std::collections::HashMap;
 use crate::utils::get_input_data;
 
+/// Generates 2000 pseudorandom iterations from a secret seed, returning the 2000th secret and price differences.
 fn evolve(secret: usize) -> (usize, Vec<(i8, i8)>) {
     let mut evolution = secret;
     let mut differences: Vec<(i8, i8)> = Vec::new();
@@ -16,6 +21,7 @@ fn evolve(secret: usize) -> (usize, Vec<(i8, i8)>) {
     (evolution, differences)
 }
 
+/// Solves Part Two: finds the 4-change consecutive sequence yielding the maximum total bananas across all buyers.
 fn solve_part_two(differences: Vec<Vec<(i8, i8)>>) -> usize {
     let mut scores: HashMap<Vec<i8>, usize> = HashMap::new();
     let mut result: usize = 0;

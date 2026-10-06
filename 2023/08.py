@@ -1,3 +1,9 @@
+"""
+Day 08: Haunted Wasteland
+
+Navigates network graphs using instruction sequences and calculates simultaneous cycle synchronisation via LCM.
+"""
+
 from math import gcd
 from utils import get_input_data
 
@@ -10,6 +16,12 @@ for line in mapping:
 
 
 def solve_part_one(directions):
+    """
+    Solves Part One: counts steps required to navigate from 'AAA' to 'ZZZ'.
+
+    :param directions: String of 'L' and 'R' direction instructions.
+    :return: Total steps taken to reach 'ZZZ'.
+    """
     steps = 0
     current_pos = 'AAA'
     while current_pos != 'ZZZ':
@@ -20,6 +32,12 @@ def solve_part_one(directions):
 
 
 def solve_part_two(directions):
+    """
+    Solves Part Two: tracks simultaneous ghost paths ending in 'Z' and computes the LCM of their cycle lengths.
+
+    :param directions: String of 'L' and 'R' direction instructions.
+    :return: Fewest steps required for all paths to be on nodes ending with 'Z' simultaneously.
+    """
     positions = [key for key in direction_map if key.endswith('A')]
     cycles = []
     for current_pos in positions:

@@ -1,5 +1,13 @@
+--- Day 14: Space Stoichiometry
+---
+--- Calculates raw ORE requirements and fuel yields using chemical reaction recipes and binary search.
+
 local utils = require("utils")
 
+--- Parses a quantity and chemical identifier from a component string (e.g. "10 ORE").
+---
+--- @param str string The raw component string.
+--- @return { chemical: string, quantity: number } The parsed chemical component.
 local function parseComponent(str)
     local quantity, chemical = str:match("(%d+)%s+(%w+)")
     return {
@@ -8,6 +16,11 @@ local function parseComponent(str)
     }
 end
 
+--- Parses a single chemical reaction equation line.
+---
+--- @param line string The raw reaction string (e.g. "7 A, 1 E => 1 FUEL").
+--- @return string resultChemical Name of the produced chemical.
+--- @return { quantity: number, ingredients: table<string, number> } The recipe details.
 local function parseReaction(line)
     local ingredientsStr, resultStr = line:match("(.+)%s+=>%s+(.+)")
     local ingredients = {}
@@ -28,6 +41,12 @@ for line in utils.getInputData(14):gmatch("[^\r\n]+") do
     recipes[chemical] = recipe
 end
 
+--- Recursively calculates the ORE needed to produce a specified quantity of chemical, reusing surplus leftovers.
+---
+--- @param chemical string Name of the chemical to produce.
+--- @param amount number Target quantity required.
+--- @param leftovers table<string, number>|nil Reusable surplus quantities from earlier reactions.
+--- @return number Total units of ORE consumed.
 local function calculateOreRequirement(chemical, amount, leftovers)
     leftovers = leftovers or {}
     leftovers[chemical] = leftovers[chemical] or 0
@@ -51,10 +70,16 @@ local function calculateOreRequirement(chemical, amount, leftovers)
     return oreNeeded
 end
 
+--- Calculates the minimum ORE required to produce 1 unit of FUEL for Part One.
+---
+--- @return number The required ORE quantity.
 local function solvePartOne()
     return calculateOreRequirement("FUEL", 1)
 end
 
+--- Calculates the maximum FUEL producible with 1 trillion (10^12) ORE using binary search for Part Two.
+---
+--- @return number Maximum units of FUEL.
 local function solvePartTwo()
     local targetOre = 1000000000000
     local low = 0

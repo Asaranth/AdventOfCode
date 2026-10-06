@@ -1,3 +1,7 @@
+--- Day 24: Planet of Discord
+---
+--- Simulates cellular automaton bug colonies on 2D flat and infinite recursive nested dimensional grids.
+
 local utils = require("utils")
 
 local data = {}
@@ -5,6 +9,9 @@ for line in utils.getInputData(24):gmatch("[^\n]+") do
     table.insert(data, line)
 end
 
+--- Parses the 5x5 grid map into a 2D boolean array of bug states.
+---
+--- @return boolean[][] 5x5 boolean grid (true for bug, false for empty).
 local function parseGrid()
     local grid = {}
     for y = 1, #data do
@@ -16,6 +23,12 @@ local function parseGrid()
     return grid
 end
 
+--- Counts orthogonal adjacent bug neighbours on a standard 5x5 flat grid.
+---
+--- @param grid boolean[][] 5x5 boolean grid.
+--- @param x number Horizontal coordinate (1-5).
+--- @param y number Vertical coordinate (1-5).
+--- @return number Count of adjacent bugs (0-4).
 local function countAdjacentBugs(grid, x, y)
     local count = 0
     local directions = { { 0, -1 }, { 0, 1 }, { -1, 0 }, { 1, 0 } }
@@ -30,6 +43,10 @@ local function countAdjacentBugs(grid, x, y)
     return count
 end
 
+--- Advances the 2D flat grid by one minute according to life and death rules.
+---
+--- @param grid boolean[][] Current 5x5 boolean grid.
+--- @return boolean[][] The newly evolved 5x5 boolean grid.
 local function evolveGrid(grid)
     local newGrid = {}
     for y = 1, 5 do
@@ -46,6 +63,10 @@ local function evolveGrid(grid)
     return newGrid
 end
 
+--- Calculates the biodiversity rating of a 5x5 grid (sum of 2^i powers for each bug tile).
+---
+--- @param grid boolean[][] 5x5 boolean grid.
+--- @return number The computed biodiversity rating integer.
 local function calculateBiodiversity(grid)
     local rating = 0
     local power = 0
@@ -60,6 +81,13 @@ local function calculateBiodiversity(grid)
     return rating
 end
 
+--- Counts adjacent bugs for a tile across recursive nested dimensional levels.
+---
+--- @param levels table<number, boolean[][]> Map of recursive depth levels to 5x5 boolean grids.
+--- @param level number Current recursive depth level.
+--- @param x number Horizontal coordinate (1-5).
+--- @param y number Vertical coordinate (1-5).
+--- @return number Count of adjacent bugs across current, inner (+1), and outer (-1) levels.
 local function countAdjacentBugsRecursive(levels, level, x, y)
     local count = 0
     local directions = { { x = 0, y = -1 }, { x = 0, y = 1 }, { x = -1, y = 0 }, { x = 1, y = 0 } }
@@ -122,6 +150,11 @@ local function countAdjacentBugsRecursive(levels, level, x, y)
     return count
 end
 
+--- Simulates recursive dimensional grid evolution for a given number of minutes.
+---
+--- @param levels table<number, boolean[][]> Initial recursive levels map.
+--- @param minutes number Number of simulation steps to execute.
+--- @return table<number, boolean[][]> The evolved levels map.
 local function evolveRecursive(levels, minutes)
     for _ = 1, minutes do
         local newLevels = {}
@@ -165,6 +198,10 @@ local function evolveRecursive(levels, minutes)
     return levels
 end
 
+--- Sums all live bugs across all recursive levels.
+---
+--- @param levels table<number, boolean[][]> Map of recursive depth levels to grids.
+--- @return number Total bug count.
 local function countTotalBugs(levels)
     local total = 0
     for _, level in pairs(levels) do
@@ -179,6 +216,9 @@ local function countTotalBugs(levels)
     return total
 end
 
+--- Solves Part One by detecting the first repeated grid layout and returning its biodiversity rating.
+---
+--- @return number The biodiversity rating of the first repeated grid state.
 local function solvePartOne()
     local grid = parseGrid()
     local seen = {}
@@ -192,6 +232,9 @@ local function solvePartOne()
     end
 end
 
+--- Solves Part Two by simulating 200 minutes of recursive dimensional bugs and counting survivors.
+---
+--- @return number Total bugs alive after 200 minutes.
 local function solvePartTwo()
     local initialGrid = parseGrid()
     local levels = {}

@@ -1,3 +1,7 @@
+#' Day 07: Some Assembly Required
+#'
+#' Emulates a 16-bit logic circuit with memoised wire signal propagation.
+
 source(file.path(getwd(), '2015/utils.R'))
 data <- getInputData(7)
 wires <- new.env()
@@ -13,6 +17,10 @@ BITWISE_METHODS <- list(
   RSHIFT = function(a, b) bitwShiftR(a, b)
 )
 
+#' Parses a wiring instruction into operation command, argument list, and destination wire.
+#'
+#' @param instruction Raw instruction string.
+#' @return A list containing command name, arguments, and destination wire identifier.
 parseInstruction <- function(instruction) {
   command <- regmatches(instruction, gregexpr(COMMAND_REGEX, instruction))[[1]]
   args <- regmatches(instruction, gregexpr(ARGUMENTS_REGEX, instruction))[[1]]
@@ -34,6 +42,11 @@ parseInstruction <- function(instruction) {
   list(command = command, args = args, destination = destination)
 }
 
+#' Recursively evaluates the signal on a specified wire using memoised environment storage.
+#'
+#' @param wireName Wire identifier string or numeric literal.
+#' @param wires Environment storing wire definitions and cached numeric values.
+#' @return Evaluated 16-bit integer signal on the wire.
 calculateWire <- function(wireName, wires) {
   if (is.numeric(wireName)) return(wireName)
   wire <- wires[[wireName]]
@@ -50,6 +63,9 @@ calculateWire <- function(wireName, wires) {
   return(wires[[wireName]])
 }
 
+#' Solves Part One: computes the signal provided to wire 'a'.
+#'
+#' @return Signal value on wire 'a'.
 solvePartOne <- function() {
   for (instruction in data) {
     parsedInstruction <- parseInstruction(instruction)
@@ -58,6 +74,10 @@ solvePartOne <- function() {
   return(calculateWire('a', wires))
 }
 
+#' Solves Part Two: overrides wire 'b' with the result of Part One and re-evaluates wire 'a'.
+#'
+#' @param a Output signal from Part One.
+#' @return Updated signal value on wire 'a'.
 solvePartTwo <- function(a) {
   for (instruction in data) {
     parsedInstruction <- parseInstruction(instruction)

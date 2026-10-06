@@ -1,3 +1,7 @@
+--- Day 23: Category Six
+---
+--- Simulates a 50-node asynchronous packet routing network and NAT traffic controller with Intcode.
+
 local utils = require("utils")
 
 local program = {}
@@ -5,6 +9,10 @@ for value in utils.getInputData(23):gmatch("[^,]+") do
     table.insert(program, tonumber(value))
 end
 
+--- Initialises the 50-node Intcode network, assigning network addresses 0 through 49 to each node.
+---
+--- @return table[] computers Array of 50 Intcode computer instances.
+--- @return table<number, table[]> queues Array of packet queues for each node address.
 local function initializeNetwork()
     local computers = {}
     for i = 1, 50 do
@@ -18,6 +26,11 @@ local function initializeNetwork()
     return computers, queues
 end
 
+--- Delivers the next pending packet to a computer's input queue, or inputs -1 when no packets are queued.
+---
+--- @param computer IntcodeComputer The node computer instance.
+--- @param queue table[] The FIFO queue of incoming packets for this node.
+--- @return boolean True if a packet was delivered, false if -1 was sent due to an empty queue.
 local function processComputer(computer, queue)
     if #queue > 0 then
         local packet = table.remove(queue, 1)
@@ -30,6 +43,10 @@ local function processComputer(computer, queue)
     end
 end
 
+--- Extracts all complete 3-value packet tuples [destination, X, Y] emitted by a computer.
+---
+--- @param computer IntcodeComputer The node computer instance.
+--- @return { dest: number, x: number, y: number }[] List of parsed outgoing packets.
 local function collectOutputPackets(computer)
     local packets = {}
     while #computer.outputs >= 3 do
@@ -41,6 +58,9 @@ local function collectOutputPackets(computer)
     return packets
 end
 
+--- Simulates network packet routing and returns the Y coordinate of the first packet sent to address 255.
+---
+--- @return number The Y coordinate sent to address 255.
 local function solvePartOne()
     local computers, queues = initializeNetwork()
     while true do
@@ -61,6 +81,9 @@ local function solvePartOne()
     return 0
 end
 
+--- Simulates the network with a NAT device and returns the first Y coordinate delivered twice consecutively to address 0.
+---
+--- @return number The repeated Y value delivered by the NAT.
 local function solvePartTwo()
     local computers, queues = initializeNetwork()
     local nat, lastNatY

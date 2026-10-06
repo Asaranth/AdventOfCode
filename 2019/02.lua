@@ -1,5 +1,12 @@
+--- Day 02: 1202 Program Alarm
+---
+--- Executes and analyses Intcode programs to find initial state memory parameters.
+
 local utils = require("utils")
 
+--- Parses the puzzle input into an array of integer memory instructions.
+---
+--- @return number[] The parsed Intcode program instructions.
 local function parseInput()
     local data = {}
     for value in utils.getInputData(2):gmatch("[^,]+") do
@@ -8,6 +15,9 @@ local function parseInput()
     return data
 end
 
+--- Solves Part One by restoring the "1202 program alarm" state and running the program.
+---
+--- @return number The value left at address 0 after execution halts.
 local function solvePartOne()
     local program = parseInput()
     program[2] = 12
@@ -17,6 +27,10 @@ local function solvePartOne()
     return computer.memory[0]
 end
 
+--- Solves Part Two by searching for noun and verb pairs producing the specified target output.
+---
+--- @param targetOutput number The desired output value at position 0.
+--- @return number The formula result 100 * noun + verb.
 local function solvePartTwo(targetOutput)
     local originalProgram = parseInput()
     for noun = 0, 99 do

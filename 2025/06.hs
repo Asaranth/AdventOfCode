@@ -1,9 +1,13 @@
+-- | Day 06: Column Operatinator
+--
+-- Evaluates arithmetic worksheet expressions formatted in vertical columns via transpose reductions and streaming digit parsing.
 module Main where
 
 import Data.Char (isDigit)
 import Data.List (transpose)
 import Utils (getInputData)
 
+-- | Solves Part One: computes column totals by applying bottom-row operators to vertical operands.
 part1 :: [[String]] -> Int
 part1 columns = sum $ map solve columns
   where
@@ -12,6 +16,7 @@ part1 columns = sum $ map solve columns
     applyOp "+" = sum
     applyOp _ = const 0
 
+-- | Solves Part Two: parses columns right-to-left into multi-digit numbers and reduces each group with its operator.
 part2 :: [String] -> Int
 part2 linesInput =
   let maxLength = maximum (map length linesInput)

@@ -1,5 +1,12 @@
+--- Day 03: Crossed Wires
+---
+--- Traces wire paths on a 2D grid to compute Manhattan distance and signal delay intersections.
+
 local utils = require("utils")
 
+--- Parses the puzzle input into a list of wire path strings.
+---
+--- @return string[] The movement paths for each wire.
 local function parseInput()
     local data = {}
     for line in utils.getInputData(3):gmatch("[^\r\n]+") do
@@ -8,6 +15,11 @@ local function parseInput()
     return data
 end
 
+--- Traces a wire's path across 2D coordinates, recording visited points or step counts.
+---
+--- @param path string Comma-separated movement instructions (e.g. "R75,D30").
+--- @param withSteps boolean When true, records the earliest step count to each point; otherwise records presence.
+--- @return table<string, number|boolean> Map of coordinate keys ("x,y") to step count or true.
 local function traceWirePath(path, withSteps)
     local x, y = 0, 0
     local visited = {}
@@ -39,6 +51,9 @@ local function traceWirePath(path, withSteps)
     return visited
 end
 
+--- Calculates the minimum Manhattan distance from the origin to any wire intersection point.
+---
+--- @return number The minimum Manhattan distance.
 local function solvePartOne()
     local wires = parseInput()
     local wire1Path = traceWirePath(wires[1], false)
@@ -56,6 +71,9 @@ local function solvePartOne()
     return closestDistance
 end
 
+--- Calculates the fewest combined steps required for both wires to reach an intersection point.
+---
+--- @return number The minimum total step count across all intersections.
 local function solvePartTwo()
     local wires = parseInput()
     local wire1Path = traceWirePath(wires[1], true)

@@ -1,3 +1,7 @@
+--- Day 07: Amplification Circuit
+---
+--- Simulates series and feedback loop configurations of Intcode amplifier circuits.
+
 local utils = require("utils")
 
 local data = {}
@@ -5,6 +9,11 @@ for value in utils.getInputData(7):gmatch("[^,]+") do
     table.insert(data, tonumber(value))
 end
 
+--- Generates all permutations of an array in-place using Heap's algorithm.
+---
+--- @param array number[] The array of elements to permute.
+--- @param n number The number of elements to consider.
+--- @param results number[][] Destination collection storing generated permutations.
 local function permutations(array, n, results)
     if n == 1 then
         table.insert(results, { table.unpack(array) })
@@ -20,6 +29,12 @@ local function permutations(array, n, results)
     end
 end
 
+--- Executes a single Intcode amplifier program with a phase setting and input signal.
+---
+--- @param program number[] The amplifier Intcode program.
+--- @param phaseSetting number The assigned phase setting (0-4 or 5-9).
+--- @param inputSignal number The input signal to amplify.
+--- @return number|nil The amplifier output signal.
 local function runAmplifier(program, phaseSetting, inputSignal)
     local computer = utils.intcode(program)
     computer:addInput(phaseSetting)
@@ -28,6 +43,9 @@ local function runAmplifier(program, phaseSetting, inputSignal)
     return computer:getOutput()
 end
 
+--- Finds the maximum thruster signal by evaluating all phase setting permutations in series for Part One.
+---
+--- @return number The highest output signal generated.
 local function solvePartOne()
     local maxOutput = 0
     local phaseSettings = { 0, 1, 2, 3, 4 }
@@ -43,6 +61,9 @@ local function solvePartOne()
     return maxOutput
 end
 
+--- Finds the maximum thruster signal using a five-amplifier feedback loop for Part Two.
+---
+--- @return number The highest feedback output signal generated.
 local function solvePartTwo()
     local maxOutput = 0
     local phaseSettings = { 5, 6, 7, 8, 9 }

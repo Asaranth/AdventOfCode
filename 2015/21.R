@@ -1,3 +1,7 @@
+#' Day 21: RPG Simulator 20XX
+#'
+#' Simulates turn-based RPG combat across weapon, armour, and ring equipment combinations.
+
 source(file.path(getwd(), '2015/utils.R'))
 data <- getInputData(21)
 
@@ -28,6 +32,11 @@ rings <- data.frame(
   armor = c(0, 0, 0, 0, 1, 2, 3)
 )
 
+#' Simulates turn-based combat between player and boss until one is defeated.
+#'
+#' @param playerDamage Player's total damage stat.
+#' @param playerArmor Player's total armour stat.
+#' @return TRUE if player wins; otherwise, FALSE.
 simulate <- function(playerDamage, playerArmor) {
   bossHpLeft <- boss$hp
   playerHpLeft <- playerHp
@@ -46,6 +55,13 @@ simulate <- function(playerDamage, playerArmor) {
   }
 }
 
+#' Computes total gold cost, damage, and armour for an equipment loadout.
+#'
+#' @param weapon 1-based index into weapons table.
+#' @param armor 1-based index into armours table.
+#' @param ring1 1-based index into rings table for first finger.
+#' @param ring2 1-based index into rings table for second finger.
+#' @return A list containing total cost, damage, and armour stats.
 calculateStats <- function(weapon, armor, ring1, ring2) {
   totalCost <- sum(weapons$cost[weapon], armors$cost[armor], rings$cost[ring1], rings$cost[ring2])
   totalDamage <- sum(weapons$damage[weapon], rings$damage[ring1], rings$damage[ring2])
@@ -53,6 +69,9 @@ calculateStats <- function(weapon, armor, ring1, ring2) {
   return(list(cost = totalCost, damage = totalDamage, armor = totalArmor))
 }
 
+#' Iterates through all legal item combinations, invoking a callback function for each.
+#'
+#' @param callback Function accepting (weapon, armor, ring1, ring2) index arguments.
 forEachCombination <- function(callback) {
   for (weapon in seq_len(nrow(weapons))) {
     for (armor in seq_len(nrow(armors))) {
@@ -66,6 +85,9 @@ forEachCombination <- function(callback) {
   }
 }
 
+#' Finds the minimum gold spend required for an equipment set that defeats the boss.
+#'
+#' @return Minimum gold cost to achieve victory.
 findMinCostToWin <- function() {
   minCost <<- Inf
   forEachCombination(function(weapon, armor, ring1, ring2) {
@@ -77,6 +99,9 @@ findMinCostToWin <- function() {
   return(minCost)
 }
 
+#' Finds the maximum gold spend on an equipment set that still results in defeat.
+#'
+#' @return Maximum gold cost while losing.
 findMaxCostToLose <- function() {
   maxCost <<- -Inf
   forEachCombination(function(weapon, armor, ring1, ring2) {
@@ -88,10 +113,16 @@ findMaxCostToLose <- function() {
   return(maxCost)
 }
 
+#' Solves Part One: finds minimum equipment cost to win the fight.
+#'
+#' @return Minimum cost to win.
 solvePartOne <- function() {
   return(findMinCostToWin())
 }
 
+#' Solves Part Two: finds maximum equipment cost to still lose the fight.
+#'
+#' @return Maximum cost to lose.
 solvePartTwo <- function() {
   return(findMaxCostToLose())
 }

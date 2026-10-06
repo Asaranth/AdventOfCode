@@ -1,3 +1,9 @@
+"""
+Day 17: Clumsy Crucible
+
+Calculates minimum heat loss paths using Dijkstra's algorithm subject to straight-line movement constraints.
+"""
+
 from heapq import heappush, heappop
 from utils import get_input_data
 
@@ -6,6 +12,13 @@ rows, cols = len(data), len(data[0])
 
 
 def dijkstras_algorithm(min_steps_before_turn, max_steps_before_turn):
+    """
+    Finds the minimum cumulative heat loss to reach the bottom-right corner using Dijkstra's algorithm.
+
+    :param min_steps_before_turn: Minimum consecutive steps in the current direction before turning is allowed.
+    :param max_steps_before_turn: Maximum consecutive steps allowed in the same direction.
+    :return: Minimum heat loss to reach destination.
+    """
     seen = set()
     priority_queue = [(0, 0, 0, 0, 0, 0)]
     while priority_queue:
@@ -32,10 +45,20 @@ def dijkstras_algorithm(min_steps_before_turn, max_steps_before_turn):
 
 
 def solve_part_one():
+    """
+    Solves Part One: finds minimum heat loss for a standard crucible (1 to 3 steps per direction).
+
+    :return: Minimum heat loss.
+    """
     return dijkstras_algorithm(1, 3)
 
 
 def solve_part_two():
+    """
+    Solves Part Two: finds minimum heat loss for an ultra crucible (4 to 10 steps per direction).
+
+    :return: Minimum heat loss.
+    """
     return dijkstras_algorithm(4, 10)
 
 

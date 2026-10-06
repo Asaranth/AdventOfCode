@@ -1,5 +1,13 @@
+#' Common Utilities
+#'
+#' Provides HTTP client utilities and puzzle input caching for the 2015 solutions.
+
 dotenv::load_dot_env()
 
+#' Fetches puzzle input for a given day, caching the response locally.
+#'
+#' @param day Day number of the puzzle (1–25).
+#' @return A character vector containing the raw puzzle input lines.
 getInputData <- function(day) {
   cache_file <- file.path(getwd(), sprintf('2015/data/%02d.txt', day))
 

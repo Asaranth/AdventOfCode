@@ -1,9 +1,16 @@
+--- Day 08: Space Image Format
+---
+--- Decodes and renders layered Space Image Format (SIF) data.
+
 local utils = require("utils")
 
 local data = utils.getInputData(8)
 local width, height = 25, 6
 local layerSize = width * height
 
+--- Splits the raw digit string into an array of image layers.
+---
+--- @return string[] Array of layer substrings of size width * height.
 local function getLayers()
     local layers = {}
     local cleanData = data:gsub("%s", ""):gsub("[^0-9]", "")
@@ -13,6 +20,10 @@ local function getLayers()
     return layers
 end
 
+--- Counts occurrences of digits '0', '1', and '2' within a single image layer.
+---
+--- @param layer string The string of layer pixel digits.
+--- @return table<string, number> A map of digit characters to their frequencies.
 local function countDigits(layer)
     local counts = { ['0'] = 0, ['1'] = 0, ['2'] = 0 }
     for i = 1, #layer do
@@ -22,6 +33,9 @@ local function countDigits(layer)
     return counts
 end
 
+--- Solves Part One by finding the layer with the fewest '0' digits and multiplying its '1' and '2' counts.
+---
+--- @return number The checksum value (count of 1s multiplied by count of 2s).
 local function solvePartOne()
     local layers = getLayers()
     local minZeroLayer = nil
@@ -36,6 +50,9 @@ local function solvePartOne()
     return minZeroLayer['1'] * minZeroLayer['2']
 end
 
+--- Solves Part Two by compositing layers from front to back and rendering the visible image.
+---
+--- @return string The rendered ASCII art message string.
 local function solvePartTwo()
     local layers = getLayers()
     local finalImage = {}

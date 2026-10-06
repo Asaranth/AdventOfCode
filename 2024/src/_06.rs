@@ -1,9 +1,15 @@
+//! Day 06: Guard Gallivant
+//!
+//! Simulates guard patrol routes on a mapped grid to track visited positions and detect obstruction loops.
+
 use crate::utils::get_input_data;
 use std::collections::HashSet;
 
+/// Represents the guard's cardinal facing direction.
 #[derive(Clone, Copy, Hash, PartialEq, Eq)]
 enum Direction { Up, Down, Left, Right }
 
+/// Returns the new direction after turning 90 degrees clockwise.
 fn turn_right(current_direction: &Direction) -> Direction {
     match current_direction {
         Direction::Up => Direction::Right,
@@ -13,6 +19,7 @@ fn turn_right(current_direction: &Direction) -> Direction {
     }
 }
 
+/// Locates the initial position and facing direction of the guard in the grid.
 fn find_initial_guard(data: &[String]) -> ((usize, usize), Direction) {
     data.iter()
         .enumerate()
@@ -30,6 +37,7 @@ fn find_initial_guard(data: &[String]) -> ((usize, usize), Direction) {
         }).unwrap_or(((0, 0), Direction::Up))
 }
 
+/// Advances the guard one step forward or turns right if blocked by an obstacle.
 fn move_guard(data: &[String], position: (usize, usize), direction: &Direction) -> ((usize, usize), Direction, bool) {
     let (new_x, new_y) = match direction {
         Direction::Up => (position.0.wrapping_sub(1), position.1),
@@ -47,6 +55,7 @@ fn move_guard(data: &[String], position: (usize, usize), direction: &Direction) 
     }
 }
 
+/// Solves Part One: counts distinct positions visited by the guard before exiting the map.
 fn solve_part_one(data: &[String]) -> i32 {
     let (mut position, mut direction) = find_initial_guard(data);
     let mut visited = vec![vec![false; data[0].len()]; data.len()];
@@ -62,6 +71,7 @@ fn solve_part_one(data: &[String]) -> i32 {
     visited.iter().flat_map(|row| row.iter()).filter(|&&v| v).count() as i32
 }
 
+/// Solves Part Two: counts grid positions where adding a single obstacle causes the guard to enter an infinite loop.
 fn solve_part_two(data: Vec<String>) -> i32 {
     let (initial_position, initial_direction) = find_initial_guard(&data);
     let mut loop_causing_obstructions = 0;

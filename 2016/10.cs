@@ -1,5 +1,10 @@
 ﻿namespace _2016;
 
+/// <summary>
+/// Day 10: Balance Bots
+/// 
+/// Simulates chip-swapping factory balance bots distributing low and high microchips to bots and outputs.
+/// </summary>
 public abstract class _10
 {
     private static readonly string[] Data;
@@ -15,6 +20,9 @@ public abstract class _10
         Outputs = new Dictionary<int, int>();
     }
 
+    /// <summary>
+    /// Parses input instructions to configure initial chip values and bot distribution rules.
+    /// </summary>
     private static void ParseInstructions()
     {
         var initialAssignments = new List<(int chip, int bot)>();
@@ -51,6 +59,12 @@ public abstract class _10
         }
     }
 
+    /// <summary>
+    /// Hands a microchip to a destination bot or output bin.
+    /// </summary>
+    /// <param name="destType">Destination type ("bot" or "output").</param>
+    /// <param name="dest">Destination identifier.</param>
+    /// <param name="chip">Microchip value.</param>
     private static void DistributeChip(string destType, int dest, int chip)
     {
         switch (destType)
@@ -65,6 +79,10 @@ public abstract class _10
         }
     }
 
+    /// <summary>
+    /// Solves Part One: finds the bot ID responsible for comparing microchips with values 17 and 61.
+    /// </summary>
+    /// <returns>The responsible bot number.</returns>
     private static int SolvePartOne()
     {
         ParseInstructions();
@@ -97,6 +115,10 @@ public abstract class _10
         return targetBot;
     }
 
+    /// <summary>
+    /// Solves Part Two: multiplies the values of the microchips in outputs 0, 1, and 2.
+    /// </summary>
+    /// <returns>Product of chips in output bins 0, 1, and 2.</returns>
     private static int SolvePartTwo()
     {
         ParseInstructions();
@@ -121,6 +143,9 @@ public abstract class _10
         return Outputs[0] * Outputs[1] * Outputs[2];
     }
 
+    /// <summary>
+    /// Executes and prints the solutions for Part One and Part Two.
+    /// </summary>
     public static void Run()
     {
         Console.WriteLine($"Part One: {SolvePartOne()}");

@@ -1,6 +1,11 @@
+//! Day 19: Linen Layout
+//!
+//! Counts possible and total distinct combinations of towel stripe patterns that assemble desired designs.
+
 use std::collections::HashMap;
 use crate::utils::get_input_data;
 
+/// Checks whether a given towel design can be constructed from the available towel stripe patterns.
 fn possible_config(config: String, towels: &[String]) -> bool {
     if config.is_empty() {
         return true;
@@ -16,6 +21,7 @@ fn possible_config(config: String, towels: &[String]) -> bool {
     false
 }
 
+/// Recursively counts all distinct combinations of towels that form the target design, using memoisation.
 fn count_configurations(config: &str, towels: &[String], memo: &mut HashMap<String, i64>) -> i64 {
     if config.is_empty() {
         return 1;
@@ -34,6 +40,7 @@ fn count_configurations(config: &str, towels: &[String], memo: &mut HashMap<Stri
     total_count
 }
 
+/// Solves Part One: counts how many target designs are possible using available towel patterns.
 fn solve_part_one(towels: &[String], configs: &[String]) -> i32 {
     let mut possible_configs = 0;
     for config in configs {
@@ -44,6 +51,7 @@ fn solve_part_one(towels: &[String], configs: &[String]) -> i32 {
     possible_configs
 }
 
+/// Solves Part Two: calculates the sum of all different ways to make each target design.
 fn solve_part_two(towels: &[String], configs: &[String]) -> i64 {
     let mut total_configs = 0i64;
     let mut memo = HashMap::new();

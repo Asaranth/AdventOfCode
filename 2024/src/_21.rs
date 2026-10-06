@@ -1,7 +1,12 @@
-﻿use std::cmp::min;
+//! Day 21: Keypad Conundrum
+//!
+//! Computes optimal shortest button sequence complexities through cascaded robot directional keypads.
+
+use std::cmp::min;
 use std::collections::HashMap;
 use crate::utils::get_input_data;
 
+/// Returns the `(row, col)` coordinates for a numeric keypad key.
 fn numpad(key: char) -> (i32, i32) {
     match key {
         '7' => (0, 0),
@@ -19,6 +24,7 @@ fn numpad(key: char) -> (i32, i32) {
     }
 }
 
+/// Returns the `(row, col)` coordinates for a directional keypad key.
 fn dirpad(key: char) -> (i32, i32) {
     match key {
         '^' => (0, 1),
@@ -30,6 +36,7 @@ fn dirpad(key: char) -> (i32, i32) {
     }
 }
 
+/// Computes the minimal length of directional movements needed across `steps` robot layers.
 fn arrows(y: i32, x: i32, steps: usize, x_first: bool, memo: &mut HashMap<(i32, i32, usize, bool), usize>) -> usize {
     if let Some(&result) = memo.get(&(y, x, steps, x_first)) {
         return result;
@@ -65,6 +72,7 @@ fn arrows(y: i32, x: i32, steps: usize, x_first: bool, memo: &mut HashMap<(i32, 
     result
 }
 
+/// Computes the complexity score for typing a code sequence through `steps` intermediate directional keypads.
 fn enter_code(sequence: &str, steps: usize) -> usize {
     let mut cur = numpad('A');
     let mut memo = HashMap::new();

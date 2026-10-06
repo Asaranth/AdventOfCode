@@ -1,5 +1,12 @@
+--- Day 16: Flawed Frequency Transmission
+---
+--- Simulates Flawed Frequency Transmission (FFT) signal processing algorithms.
+
 local utils = require("utils")
 
+--- Parses the input text into a list of integer digits.
+---
+--- @return number[] Array of single-digit numbers.
 local function parseInput()
     local digits = {}
     for digit in utils.getInputData(16):gmatch("%d") do
@@ -8,6 +15,11 @@ local function parseInput()
     return digits
 end
 
+--- Generates the repeating transformation pattern for a specific output position.
+---
+--- @param pos number 1-based element output index.
+--- @param length number Total length of the digit sequence.
+--- @return number[] The truncated pattern values matching sequence length.
 local function getPattern(pos, length)
     local basePattern = { 0, 1, 0, -1 }
     local pattern = {}
@@ -26,6 +38,10 @@ local function getPattern(pos, length)
     return result
 end
 
+--- Applies a single phase of the standard FFT algorithm to all digits.
+---
+--- @param digits number[] Array of input digits.
+--- @return number[] Array of transformed digits.
 local function processPhase(digits)
     local result = {}
     local len = #digits
@@ -40,6 +56,10 @@ local function processPhase(digits)
     return result
 end
 
+--- Reads the 7-digit message offset integer from the first seven input digits.
+---
+--- @param digits number[] Array of input digits.
+--- @return number The parsed numeric message offset.
 local function getOffset(digits)
     local offset = 0
     for i = 1, 7 do
@@ -48,6 +68,9 @@ local function getOffset(digits)
     return offset
 end
 
+--- Solves Part One by running 100 phases of standard FFT and returning the first 8 digits.
+---
+--- @return string The first eight digits after 100 phases.
 local function solvePartOne()
     local digits = parseInput()
     for _ = 1, 100 do
@@ -60,6 +83,9 @@ local function solvePartOne()
     return result
 end
 
+--- Solves Part Two using backward cumulative suffix sums on the 10,000x repeated signal.
+---
+--- @return string The eight-digit message starting at the message offset.
 local function solvePartTwo()
     local digits = parseInput()
     local offset = getOffset(digits)

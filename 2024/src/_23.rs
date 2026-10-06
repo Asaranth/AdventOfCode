@@ -1,6 +1,11 @@
-﻿use std::collections::{HashMap, HashSet};
+//! Day 23: LAN Party
+//!
+//! Identifies triangles and maximum cliques in network connection graphs using Bron-Kerbosch maximal clique search.
+
+use std::collections::{HashMap, HashSet};
 use crate::utils::get_input_data;
 
+/// Finds all maximal cliques in the graph using the Bron-Kerbosch backtracking algorithm with pivoting sets.
 fn bron_kerbosch(graph: &HashMap<String, HashSet<String>>, r: HashSet<String>, p: HashSet<String>, x: HashSet<String>, max_clique: &mut Vec<String>) {
     if p.is_empty() && x.is_empty() {
         if r.len() > max_clique.len() {
@@ -20,6 +25,7 @@ fn bron_kerbosch(graph: &HashMap<String, HashSet<String>>, r: HashSet<String>, p
     }
 }
 
+/// Solves Part One: finds all 3-cliques containing at least one computer whose name begins with 't'.
 fn solve_part_one(graph: HashMap<String, HashSet<String>>) -> usize {
     let mut groups = Vec::new();
     let mut visited = HashSet::new();
@@ -42,6 +48,7 @@ fn solve_part_one(graph: HashMap<String, HashSet<String>>) -> usize {
     groups.iter().filter(|g| g.iter().any(|c| c.starts_with('t'))).count()
 }
 
+/// Solves Part Two: finds the maximum clique in the graph and formats its sorted computer names as a comma-separated password.
 fn solve_part_two(graph: HashMap<String, HashSet<String>>) -> String {
     let all_nodes: HashSet<String> = graph.keys().cloned().collect();
     let mut max_clique = Vec::new();

@@ -1,3 +1,9 @@
+"""
+Day 21: Step Counter
+
+Performs BFS garden plot reachability counts and geometric grid extrapolation for large step quantities.
+"""
+
 from collections import deque
 from utils import get_input_data
 
@@ -6,6 +12,14 @@ start_row, start_col = next((r, c) for r, row in enumerate(grid) for c, ch in en
 
 
 def take_steps(sr, sc, steps):
+    """
+    Counts reachable plots from a starting cell within a fixed step budget using BFS parity tracking.
+
+    :param sr: Starting row coordinate.
+    :param sc: Starting column coordinate.
+    :param steps: Exact maximum step count.
+    :return: Number of distinct reachable plot coordinates with matching step parity.
+    """
     ans = set()
     seen = {(sr, sc)}
     queue = deque([(sr, sc, steps)])
@@ -24,6 +38,13 @@ def take_steps(sr, sc, steps):
 
 
 def full_grids(width, size):
+    """
+    Calculates reachable points inside fully-covered repeating interior grid tiles.
+
+    :param width: Grid diamond expansion width factor.
+    :param size: Dimension of single grid tile.
+    :return: Reachable points in full odd and even interior grid instances.
+    """
     odd_grids = (width // 2 * 2 + 1) ** 2
     even_grids = ((width + 1) // 2 * 2) ** 2
     odd_points = take_steps(start_row, start_col, size * 2 + 1)
@@ -32,6 +53,12 @@ def full_grids(width, size):
 
 
 def grid_points(size):
+    """
+    Calculates reachable points on the four cardinal tip grids (top, bottom, right, left).
+
+    :param size: Dimension of single grid tile.
+    :return: Sum of reachable plots across cardinal corner tips.
+    """
     top_points = take_steps(size - 1, start_col, size - 1)
     bottom_points = take_steps(0, start_col, size - 1)
     right_points = take_steps(start_row, 0, size - 1)
@@ -40,6 +67,13 @@ def grid_points(size):
 
 
 def small_slices(width, size):
+    """
+    Calculates reachable points across outer boundary diagonal corner slices.
+
+    :param width: Grid diamond expansion width factor.
+    :param size: Dimension of single grid tile.
+    :return: Sum of reachable plots across small diagonal corner slices.
+    """
     top_right = take_steps(size - 1, 0, size // 2 - 1)
     top_left = take_steps(size - 1, size - 1, size // 2 - 1)
     bottom_right = take_steps(0, 0, size // 2 - 1)
@@ -48,6 +82,13 @@ def small_slices(width, size):
 
 
 def big_slices(width, size):
+    """
+    Calculates reachable points across large inner diagonal edge slices.
+
+    :param width: Grid diamond expansion width factor.
+    :param size: Dimension of single grid tile.
+    :return: Sum of reachable plots across big diagonal edge slices.
+    """
     top_right = take_steps(size - 1, 0, size * 3 // 2 - 1)
     top_left = take_steps(size - 1, size - 1, size * 3 // 2 - 1)
     bottom_right = take_steps(0, 0, size * 3 // 2 - 1)
@@ -56,10 +97,20 @@ def big_slices(width, size):
 
 
 def solve_part_one():
+    """
+    Solves Part One: counts reachable garden plots after 64 steps on the single starting grid.
+
+    :return: Number of reachable garden plots.
+    """
     return take_steps(start_row, start_col, 64)
 
 
 def solve_part_two():
+    """
+    Solves Part Two: computes total reachable plots after 26,501,365 steps on infinite repeating grids.
+
+    :return: Total reachable garden plots.
+    """
     size = len(grid)
     steps = 26501365
     assert len(grid) == len(grid[0])

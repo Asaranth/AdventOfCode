@@ -3,9 +3,19 @@
 open System
 open System.Collections.Generic
 
+/// <summary>
+/// Day 07: Recursive Circus
+///
+/// Models tower hierarchy trees to find the root program and calculate corrected node weights for balance.
+/// </summary>
 module _07 =
     let Data = (Utils.GetInputData 7).Split('\n', StringSplitOptions.RemoveEmptyEntries)
 
+    /// <summary>
+    /// Parses a single line representing a program, its weight, and its held child programs.
+    /// </summary>
+    /// <param name="line">Raw text line containing program details.</param>
+    /// <returns>A tuple of program name, its weight, and array of child names.</returns>
     let parseLine(line: string) =
         let nameWeightSplit = line.IndexOf('(')
         let program = line[..nameWeightSplit - 2].Trim()
@@ -18,6 +28,10 @@ module _07 =
                 [||]
         program, weight, children
 
+    /// <summary>
+    /// Solves Part 1: finds the root program at the bottom of the tower (not held by any other program).
+    /// </summary>
+    /// <returns>Name of the bottom program.</returns>
     let solvePartOne() =
         let programs = Dictionary<string, string[]>()
         let allPrograms = HashSet<string>()
@@ -32,6 +46,10 @@ module _07 =
         |> Seq.filter(fun p -> not (supportedPrograms.Contains(p)))
         |> Seq.exactlyOne
 
+    /// <summary>
+    /// Solves Part 2: finds the program with the incorrect weight and calculates what its weight should be to balance the tower.
+    /// </summary>
+    /// <returns>The corrected weight of the imbalanced program.</returns>
     let solvePartTwo() =
         let programs = Dictionary<string, string[]>()
         let weights = Dictionary<string, int>()
@@ -77,6 +95,9 @@ module _07 =
         let _, correctedWeight = findImbalance root 0
         correctedWeight
 
+    /// <summary>
+    /// Executes and prints the solutions for Part 1 and Part 2.
+    /// </summary>
     let Run() =
         printfn $"Part One: {solvePartOne()}"
         printfn $"Part Two: {solvePartTwo()}"

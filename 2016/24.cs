@@ -1,5 +1,10 @@
 ﻿namespace _2016;
 
+/// <summary>
+/// Day 24: Air Duct Spelunking
+/// 
+/// Solves the Traveling Salesperson Problem over duct maze points of interest using BFS all-pairs shortest paths and dynamic programming with bitmask memoisation.
+/// </summary>
 public static class _24
 {
     private static readonly string[] Data;
@@ -9,6 +14,9 @@ public static class _24
     static _24() => Data = Task.Run(() => Utils.GetInputData(24)).Result
         .Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
+    /// <summary>
+    /// Identifies all numbered points of interest in the maze and precomputes pairwise shortest distances.
+    /// </summary>
     private static void Initialize()
     {
         var pointsList = new List<(int, int)>();
@@ -22,6 +30,9 @@ public static class _24
         CalculateDistances();
     }
 
+    /// <summary>
+    /// Performs BFS from each numbered point to populate the all-pairs shortest distance matrix.
+    /// </summary>
     private static void CalculateDistances()
     {
         for (var i = 0; i < _points.Length; i++)
@@ -49,6 +60,14 @@ public static class _24
         }
     }
 
+    /// <summary>
+    /// Recursively computes the minimum distance to visit all remaining points using bitmask dynamic programming.
+    /// </summary>
+    /// <param name="computeEndCondition">Function computing terminal cost once all locations have been visited.</param>
+    /// <param name="mask">Bitmask of visited points.</param>
+    /// <param name="pos">Current point index.</param>
+    /// <param name="memo">Memoisation table.</param>
+    /// <returns>Minimum total travel distance.</returns>
     private static int Tsp(Func<int, int, int> computeEndCondition, int mask, int pos, int[,] memo)
     {
         if (computeEndCondition(mask, pos) != -1) return computeEndCondition(mask, pos);
@@ -67,6 +86,11 @@ public static class _24
         return memo[mask, pos] = res;
     }
 
+    /// <summary>
+    /// Initialises matrices and executes TSP starting from point '0'.
+    /// </summary>
+    /// <param name="computeEndCondition">Terminal condition handler.</param>
+    /// <returns>Shortest path length.</returns>
     private static int Solve(Func<int, int, int> computeEndCondition)
     {
         Initialize();
@@ -78,10 +102,25 @@ public static class _24
         return Tsp(computeEndCondition, 1, 0, memo);
     }
 
+    /// <summary>
+    /// Evaluates the end condition for Part One: visiting all points with no return to origin required.
+    /// </summary>
+    /// <param name="mask">Current visited bitmask.</param>
+    /// <param name="pos">Current point index.</param>
+    /// <returns>0 if complete; -1 otherwise.</returns>
     private static int SolvePartOne(int mask, int pos) => mask == (1 << _points.Length) - 1 ? 0 : -1;
 
+    /// <summary>
+    /// Evaluates the end condition for Part Two: visiting all points and returning back to starting location '0'.
+    /// </summary>
+    /// <param name="mask">Current visited bitmask.</param>
+    /// <param name="pos">Current point index.</param>
+    /// <returns>Distance back to point 0 if complete; -1 otherwise.</returns>
     private static int SolvePartTwo(int mask, int pos) => mask == (1 << _points.Length) - 1 ? _distances[pos, 0] : -1;
 
+    /// <summary>
+    /// Executes and prints the solutions for Part One and Part Two.
+    /// </summary>
     public static void Run()
     {
         Console.WriteLine($"Part One: {Solve(SolvePartOne)}");

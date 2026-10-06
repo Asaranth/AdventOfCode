@@ -1,3 +1,7 @@
+--- Day 15: Oxygen System
+---
+--- Explores a remote maze via an Intcode repair droid to locate the oxygen system and simulate oxygen diffusion.
+
 local utils = require("utils")
 
 local data = {}
@@ -14,6 +18,10 @@ local DIRECTIONS = {
     [EAST] = { x = 1, y = 0 }
 }
 
+--- Deep copies an Intcode computer instance to allow branch exploration in BFS.
+---
+--- @param original IntcodeComputer The source computer to duplicate.
+--- @return IntcodeComputer A detached clone with identical execution state.
 local function cloneComputer(original)
     local new = utils.intcode({})
     for k, v in pairs(original.memory) do
@@ -27,6 +35,10 @@ local function cloneComputer(original)
     return new
 end
 
+--- Explores the entire maze layout using BFS and cloned Intcode droid instances.
+---
+--- @return table<string, string> map Coordinate map with '#' for walls, '.' for passages, and 'O' for oxygen.
+--- @return { x: number, y: number }|nil oxygenPos The coordinates of the oxygen system.
 local function buildCompleteMap()
     local computer = utils.intcode(data)
     local position = { x = 0, y = 0 }
@@ -60,6 +72,9 @@ local function buildCompleteMap()
     return map, oxygenPos
 end
 
+--- Finds the minimum number of movement steps from the starting position to the oxygen system for Part One.
+---
+--- @return number|string The minimum movement step count, or an error message.
 local function solvePartOne()
     local computer = utils.intcode(data)
     local position = { x = 0, y = 0 }
@@ -90,6 +105,9 @@ local function solvePartOne()
     return "No path found"
 end
 
+--- Simulates oxygen diffusion across all reachable open tiles and computes the total minutes required for Part Two.
+---
+--- @return number|string Total minutes until all spaces are filled with oxygen.
 local function solvePartTwo()
     local map, oxygenPos = buildCompleteMap()
     if not oxygenPos then return "Oxygen system not found" end

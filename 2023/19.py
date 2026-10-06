@@ -1,3 +1,9 @@
+"""
+Day 19: Aplenty
+
+Parses rule workflows to evaluate discrete part ratings and recursively partitions 4D rating intervals.
+"""
+
 from re import findall
 from utils import get_input_data
 
@@ -10,6 +16,9 @@ operators = {
 
 
 def build_workflows():
+    """
+    Parses workflow specification lines into rule tuples and default fallback targets.
+    """
     for workflow in wfs.splitlines():
         key, rules = workflow[:-1].split('{')
         rules = rules.split(',')
@@ -20,6 +29,13 @@ def build_workflows():
 
 
 def run_workflow(xmas, key = 'in'):
+    """
+    Evaluates a single discrete part rating dictionary through the workflow rule DAG.
+
+    :param xmas: Dictionary of part ratings mapping 'x', 'm', 'a', 's' to integer values.
+    :param key: Current workflow name key.
+    :return: True if the part is accepted ('A'); False if rejected ('R').
+    """
     if key == 'R':
         return False
     if key == 'A':
@@ -32,6 +48,13 @@ def run_workflow(xmas, key = 'in'):
 
 
 def count_possible_combinations(ranges, key = 'in'):
+    """
+    Recursively splits 4D rating intervals across workflow conditions to count all accepted rating combinations.
+
+    :param ranges: Dictionary mapping 'x', 'm', 'a', 's' to (min, max) interval tuples.
+    :param key: Current workflow name key.
+    :return: Total number of accepted rating combinations.
+    """
     if key == 'R':
         return 0
     if key == 'A':
@@ -64,6 +87,11 @@ def count_possible_combinations(ranges, key = 'in'):
 
 
 def solve_part_one():
+    """
+    Solves Part One: filters given part ratings through workflows and sums accepted rating categories.
+
+    :return: Sum of all rating numbers for accepted parts.
+    """
     result = 0
     for rating in ratings.splitlines():
         xmas = dict(zip(['x', 'm', 'a', 's'], map(int, findall(r'\d+', rating))))
@@ -73,6 +101,11 @@ def solve_part_one():
 
 
 def solve_part_two():
+    """
+    Solves Part Two: counts all possible accepted rating combinations in the range 1..4000.
+
+    :return: Total number of distinct accepted combination ratings.
+    """
     return count_possible_combinations({key: (1, 4000) for key in 'xmas'})
 
 

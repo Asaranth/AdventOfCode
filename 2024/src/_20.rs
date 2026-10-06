@@ -1,6 +1,11 @@
+//! Day 20: Race Condition
+//!
+//! Evaluates racetrack cheat shortcuts that phase through walls by computing Manhattan offset time savings.
+
 use crate::utils::get_input_data;
 use std::collections::{BinaryHeap, HashMap, HashSet};
 
+/// Computes shortest path distances from the start position to all reachable track tiles via Dijkstra search.
 fn dijkstra(start: (i32, i32), free_spaces: &HashSet<(i32, i32)>) -> HashMap<(i32, i32), i32> {
     let mut to_visit = BinaryHeap::new();
     let mut visited = HashMap::new();
@@ -22,6 +27,7 @@ fn dijkstra(start: (i32, i32), free_spaces: &HashSet<(i32, i32)>) -> HashMap<(i3
     visited
 }
 
+/// Counts cheat shortcuts with at most `jump_size` picoseconds that save at least 100 picoseconds.
 fn solve(distances: &HashMap<(i32, i32), i32>, jump_size: i32) -> usize {
     let mut ret = 0;
     for p in distances.keys() {

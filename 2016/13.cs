@@ -1,5 +1,10 @@
 ﻿namespace _2016;
 
+/// <summary>
+/// Day 13: A Maze of Twisty Little Cubicles
+/// 
+/// Explores a mathematically generated infinite cubicle maze using breadth-first search and bit-parity wall detection.
+/// </summary>
 public abstract class _13
 {
     private static readonly int Data;
@@ -7,6 +12,12 @@ public abstract class _13
 
     static _13() => Data = int.Parse(Task.Run(() => Utils.GetInputData(13)).Result);
 
+    /// <summary>
+    /// Determines whether the coordinate (x, y) is a wall using polynomial coordinate arithmetic and bit parity.
+    /// </summary>
+    /// <param name="x">X coordinate (0-indexed column).</param>
+    /// <param name="y">Y coordinate (0-indexed row).</param>
+    /// <returns>True if the location is an impassable wall; otherwise, false.</returns>
     private static bool IsWall(int x, int y)
     {
         if (x < 0 || y < 0) return true;
@@ -18,6 +29,14 @@ public abstract class _13
         return bitCount % 2 != 0;
     }
 
+    /// <summary>
+    /// Executes a breadth-first search through the open spaces of the cubicle maze.
+    /// </summary>
+    /// <param name="start">Starting grid coordinates.</param>
+    /// <param name="isEnd">Predicate to test if the goal position has been reached.</param>
+    /// <param name="shouldContinue">Predicate to determine whether exploration should expand from the current step.</param>
+    /// <param name="visitedCount">Outputs the total number of distinct locations visited during traversal.</param>
+    /// <returns>The minimum steps taken to satisfy the end condition, or -1 if unreachable.</returns>
     private static int Bfs((int x, int y) start,
         Func<((int x, int y) position, int steps), bool> isEnd,
         Func<((int x, int y) position, int steps), bool> shouldContinue, out int visitedCount)
@@ -54,6 +73,10 @@ public abstract class _13
         return -1;
     }
 
+    /// <summary>
+    /// Solves Part One: finds the fewest steps required to navigate from (1, 1) to (31, 39).
+    /// </summary>
+    /// <returns>Minimum step count to reach target.</returns>
     private static int SolvePartOne()
     {
         var start = (x: 1, y: 1);
@@ -61,6 +84,10 @@ public abstract class _13
         return Bfs(start, endCondition => endCondition.position == destination, _ => true, out _);
     }
 
+    /// <summary>
+    /// Solves Part Two: counts the number of distinct locations reachable within at most 50 steps from (1, 1).
+    /// </summary>
+    /// <returns>Count of reachable cubicles in 50 steps.</returns>
     private static int SolvePartTwo()
     {
         var start = (x: 1, y: 1);
@@ -68,6 +95,9 @@ public abstract class _13
         return visitedCount;
     }
 
+    /// <summary>
+    /// Executes and prints the solutions for Part One and Part Two.
+    /// </summary>
     public static void Run()
     {
         Console.WriteLine($"Part One: {SolvePartOne()}");

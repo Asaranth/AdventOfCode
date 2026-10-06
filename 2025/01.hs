@@ -1,14 +1,20 @@
+-- | Day 01: Secret Entrance
+--
+-- Simulates dial movements along a circular track using modular arithmetic and integer-division wrap-around analysis.
 module Main where
 
 import Utils (getInputData)
 
+-- | Total number of discrete positions on the circular dial track.
 trackSize :: Int
 trackSize = 100
 
+-- | Parses a raw movement instruction string into a direction character and step magnitude.
 parseInstr :: String -> (Char, Int)
 parseInstr (d : ds) = (d, read ds)
 parseInstr _ = error "Invalid instruction"
 
+-- | Iterates through instructions starting from an initial position, accumulating event hits.
 iterateInstr :: (Int -> Char -> Int -> (Int, Int)) -> Int -> [String] -> Int
 iterateInstr step start = go start 0
   where
@@ -18,6 +24,7 @@ iterateInstr step start = go start 0
           (pos', hits) = step pos dir val
        in go pos' (count + hits) xs
 
+-- | Solves Part One: counts how many times the dial stops exactly at position 0.
 part1 :: [String] -> Int
 part1 = iterateInstr step1 50
   where
@@ -29,6 +36,7 @@ part1 = iterateInstr step1 50
           hits = if newPos == 0 then 1 else 0
        in (newPos, hits)
 
+-- | Solves Part Two: counts the total number of times the dial crosses or lands on position 0.
 part2 :: [String] -> Int
 part2 = iterateInstr step2 50
   where

@@ -1,3 +1,6 @@
+-- | Day 10: Factory
+--
+-- Configures factory machine indicators and joltage counters using BFS state search and constrained linear system solvers.
 module Main where
 
 import Data.Bits (finiteBitSize, popCount, shiftL, xor, (.&.), (.|.))
@@ -8,6 +11,7 @@ import Data.Set (Set)
 import qualified Data.Set as Set
 import Utils (getInputData)
 
+-- | Represents a factory machine configuration with target state, button bitmasks, and joltage requirements.
 data Machine = Machine
   { targetVal :: Int,
     targetStr :: String,
@@ -17,15 +21,18 @@ data Machine = Machine
   }
   deriving (Show, Eq)
 
+-- | Converts an indicator light string (@\'#\'@ and @\'.\'@) into an integer bitmask.
 lightsToMask :: String -> Int
 lightsToMask s = foldl' (\acc c -> acc * 2 + if c == '#' then 1 else 0) 0 . reverse $ filter (`elem` "#.") s
 
+-- | Parses a parenthesised button definition into a bitmask representing toggled lights.
 buttonToMask :: String -> Int
 buttonToMask s = foldl' (\acc i -> acc .|. (1 `shiftL` i)) 0 indices
   where
     cleaned = map (\c -> if c `elem` ",()" then ' ' else c) s
     indices = map read $ words cleaned
 
+-- | Parses a single line into the target light mask and list of button bitmasks.
 parseLightLine :: String -> (Int, [Int])
 parseLightLine line =
   case filter ("[" `isPrefixOf`) parts of
@@ -36,6 +43,7 @@ parseLightLine line =
   where
     parts = words line
 
+-- | Performs BFS over XOR bitmask states to find the minimum button presses needed to reach the target light state.
 minPressesBFS :: Int -> [Int] -> Int
 minPressesBFS target buttons = bfs (Set.singleton 0) [0] 0
   where
@@ -48,21 +56,26 @@ minPressesBFS target buttons = bfs (Set.singleton 0) [0] 0
         nextFrontier = [xor m b | m <- frontier, b <- buttons, not (Set.member (xor m b) visited)]
         visited' = foldr Set.insert visited nextFrontier
 
+-- | Filters out specified characters from a string.
 removeChars :: [Char] -> String -> String
 removeChars chars = filter (`notElem` chars)
 
+-- | Selects the element that minimises a given projection function.
 minUsing :: (Ord b) => (a -> b) -> [a] -> a
 minUsing f = foldl1 (\x y -> if f x <= f y then x else y)
 
+-- | Parses a binary diagram into an integer bitmask.
 parseDiagram :: String -> Int
 parseDiagram [] = 0
 parseDiagram ('.' : xs) = 2 * parseDiagram xs
 parseDiagram ('#' : xs) = 1 + 2 * parseDiagram xs
 parseDiagram s = error $ "Invalid wiring diagram: " ++ s
 
+-- | Parses a comma-separated button indices string into a list of integers.
 parseButton :: String -> [Int]
 parseButton s = map read (splitOn "," s)
 
+-- | Parses a machine line specification into a 'Machine' record.
 parseMachineLine :: String -> Machine
 parseMachineLine str = case words (removeChars "[](){}" str) of
   (tStr : rest) ->
@@ -79,9 +92,11 @@ parseMachineLine str = case words (removeChars "[](){}" str) of
           }
   _ -> error $ "Unable to parse line: " ++ str
 
+-- | Extracts the active bit indices from an integer.
 toBits :: Int -> [Int]
 toBits n = [i | i <- [0 .. finiteBitSize n - 1], n .&. (1 `shiftL` i) /= 0]
 
+-- | Substitutes solved variable assignments into a linear constraint equation.
 substitute :: [(Int, Int)] -> (Int, Int) -> (Int, Int)
 substitute subs (vars, target) = foldl apply (vars, target) subs
   where
@@ -89,11 +104,13 @@ substitute subs (vars, target) = foldl apply (vars, target) subs
       | v .&. (1 `shiftL` var) /= 0 = (v - (1 `shiftL` var), t - val)
       | otherwise = (v, t)
 
+-- | Validates whether a linear equation has non-negative target solutions.
 isValidEq :: (Int, Int) -> Bool
 isValidEq (0, 0) = True
 isValidEq (0, _) = False
 isValidEq (_, v) = v >= 0
 
+-- | Converts a 'Machine' into a full bitmask and a system of linear constraints.
 machineToEq :: Machine -> (Int, [(Int, Int)])
 machineToEq m = (2 ^ length (buttons m) - 1, eqs)
   where
@@ -102,15 +119,18 @@ machineToEq m = (2 ^ length (buttons m) - 1, eqs)
     bitmaskForIndex i = sum [if b .&. (1 `shiftL` i) /= 0 then 2 ^ j else 0 | (j, b) <- pairs]
     eqs = zipWith (\i t -> (bitmaskForIndex i, t)) [0 ..] (joltages m)
 
+-- | Generates all non-negative integer partitions of a sum across @n@ variables.
 waysToSum :: Int -> Int -> [[Int]]
 waysToSum 0 0 = [[]]
 waysToSum 0 n = [replicate n 0]
 waysToSum _ 0 = []
 waysToSum s n = concat [map (a :) $ waysToSum (s - a) (n - 1) | a <- [0 .. s]]
 
+-- | Augments the system of linear equations by deriving subset difference equations.
 augment :: [(Int, Int)] -> [(Int, Int)]
 augment eqs = eqs ++ [(vb - va, tb - ta) | (va, ta) <- eqs, (vb, tb) <- eqs, tb > ta, va .&. vb == va]
 
+-- | Minimises button press counts using branch-and-bound backtracking over linear constraints.
 minimizeSystem :: (Int, [(Int, Int)]) -> Int
 minimizeSystem (0, _) = 0
 minimizeSystem (remainingBits, eqs) =
@@ -126,14 +146,17 @@ minimizeSystem (remainingBits, eqs) =
         then maxBound
         else minimum $ map minimizeSystem filteredCandidates
 
+-- | Solves the minimum button presses required for a single machine.
 solveMachine :: Machine -> Int
 solveMachine m = minimizeSystem (rbs, augment eqs)
   where
     (rbs, eqs) = machineToEq m
 
+-- | Solves Part One: computes the sum of minimum button presses for all light indicator machines.
 part1 :: [String] -> Int
 part1 = sum . map (uncurry minPressesBFS . parseLightLine)
 
+-- | Solves Part Two: computes the sum of minimum button presses for all joltage counter machines.
 part2 :: [String] -> Int
 part2 input = sum $ map (solveMachine . parseMachineLine) input
 

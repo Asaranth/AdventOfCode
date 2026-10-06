@@ -1,3 +1,9 @@
+"""
+Day 10: Pipe Maze
+
+Traces closed pipe network loops and calculates enclosed interior tile area via parity scanlines.
+"""
+
 from collections import deque
 from utils import get_input_data
 
@@ -5,6 +11,12 @@ data = get_input_data(10).splitlines()
 
 
 def process_grid(g):
+    """
+    Traces the main pipe loop using BFS, deduces the shape of start tile 'S', and returns cleaned grid.
+
+    :param g: List of raw pipe grid string lines.
+    :return: Tuple of (cleaned_grid_matrix, loop_coordinate_set).
+    """
     sr, sc = get_start()
     loop = {(sr, sc)}
     queue = deque([(sr, sc)])
@@ -40,22 +52,59 @@ def process_grid(g):
 
 
 def can_go_up(row, col, char):
+    """
+    Checks if a pipe connection can extend upwards from the current cell.
+
+    :param row: Current row index.
+    :param col: Current column index.
+    :param char: Current tile character.
+    :return: True if movement upwards is valid; otherwise, False.
+    """
     return row > 0 and char in 'S|JL' and data[row - 1][col] in '|7F'
 
 
 def can_go_down(row, col, char):
+    """
+    Checks if a pipe connection can extend downwards from the current cell.
+
+    :param row: Current row index.
+    :param col: Current column index.
+    :param char: Current tile character.
+    :return: True if movement downwards is valid; otherwise, False.
+    """
     return row < len(data) - 1 and char in 'S|7F' and data[row + 1][col] in '|JL'
 
 
 def can_go_left(row, col, char):
+    """
+    Checks if a pipe connection can extend leftwards from the current cell.
+
+    :param row: Current row index.
+    :param col: Current column index.
+    :param char: Current tile character.
+    :return: True if movement leftwards is valid; otherwise, False.
+    """
     return col > 0 and char in 'S-J7' and data[row][col - 1] in '-FL'
 
 
 def can_go_right(row, col, char):
+    """
+    Checks if a pipe connection can extend rightwards from the current cell.
+
+    :param row: Current row index.
+    :param col: Current column index.
+    :param char: Current tile character.
+    :return: True if movement rightwards is valid; otherwise, False.
+    """
     return col < len(data[0]) and char in 'S-FL' and data[row][col + 1] in '-J7'
 
 
 def get_start():
+    """
+    Finds the (row, col) coordinates of the animal starting position 'S'.
+
+    :return: Tuple of (start_row, start_col).
+    """
     for r, row in enumerate(data):
         for c, tile in enumerate(row):
             if tile == 'S':
@@ -63,6 +112,12 @@ def get_start():
 
 
 def get_outside(g):
+    """
+    Identifies all coordinates outside the enclosed pipe loop boundary using ray-casting parity checks.
+
+    :param g: Cleaned 2D grid matrix of characters.
+    :return: Set of (row, col) coordinates outside the loop.
+    """
     outside = set()
     for r, row in enumerate(g):
         within = False
@@ -89,10 +144,23 @@ def get_outside(g):
 
 
 def solve_part_one(loop):
+    """
+    Solves Part One: finds the maximum distance along the loop from the starting position.
+
+    :param loop: Set of coordinates in the main pipe loop.
+    :return: Half the length of the loop (farthest distance).
+    """
     return len(loop) // 2
 
 
 def solve_part_two(g, loop):
+    """
+    Solves Part Two: calculates total enclosed tiles inside the pipe loop.
+
+    :param g: Cleaned 2D grid matrix of characters.
+    :param loop: Set of coordinates in the main pipe loop.
+    :return: Number of enclosed interior tiles.
+    """
     outside = get_outside(g)
     return len(g) * len(g[0]) - len(outside | loop)
 

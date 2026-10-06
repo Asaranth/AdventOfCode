@@ -1,3 +1,9 @@
+"""
+Day 18: Lavaduct Lagoon
+
+Computes polygonal trench capacity using the Shoelace formula and Pick's theorem on integer coordinates.
+"""
+
 from utils import get_input_data
 
 data = get_input_data(18).splitlines()
@@ -10,14 +16,32 @@ directions = {
 
 
 def get_area(p):
+    """
+    Computes polygon area from a list of vertices using the Shoelace formula.
+
+    :param p: List of (row, col) polygon vertices.
+    :return: Enclosed polygon area.
+    """
     return abs(sum(p[i][0] * (p[i - 1][1] - p[(i + 1) % len(p)][1]) for i in range(len(p)))) / 2
 
 
 def picks_theorem(area, boundary):
+    """
+    Calculates total enclosed integer grid points (interior plus boundary) using Pick's theorem.
+
+    :param area: Polygonal area calculated via Shoelace formula.
+    :param boundary: Total perimeter boundary length.
+    :return: Total number of interior and boundary lagoon tiles.
+    """
     return (area - boundary // 2 + 1) + boundary
 
 
 def solve_part_one():
+    """
+    Solves Part One: computes lagoon capacity using standard direction and metre distance instructions.
+
+    :return: Total lagoon capacity in cubic metres.
+    """
     points = [(0, 0)]
     boundary = 0
     for line in data:
@@ -31,6 +55,11 @@ def solve_part_one():
 
 
 def solve_part_two():
+    """
+    Solves Part Two: computes lagoon capacity by decoding hexadecimal colour codes into distances and directions.
+
+    :return: Total lagoon capacity under hexadecimal instruction decoding.
+    """
     points = [(0, 0)]
     boundary = 0
     for line in data:

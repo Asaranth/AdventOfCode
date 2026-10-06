@@ -3,9 +3,17 @@
 open System
 open System.Collections.Generic
 
+/// <summary>
+/// Day 18: Duet
+///
+/// Interprets assembly instructions for audio frequency modulation and synchronised dual-process message passing.
+/// </summary>
 module _18 =
     let Data = (Utils.GetInputData 18).Split('\n', StringSplitOptions.RemoveEmptyEntries)
 
+    /// <summary>
+    /// Assembly instruction set supported by the duet coprocessor.
+    /// </summary>
     type Instruction =
         | Snd of string
         | Set of string * string
@@ -15,12 +23,20 @@ module _18 =
         | Rcv of string
         | Jgz of string * string
 
+    /// <summary>
+    /// Execution state of a single concurrently communicating duet program thread.
+    /// </summary>
     type State =
         | WaitingFor of string * Dictionary<string, int64> * int
         | Sent of int64 * Dictionary<string, int64> * int
         | Running of Dictionary<string, int64> * int
         | Terminated
 
+    /// <summary>
+    /// Parses a single text line into an <see cref="Instruction"/>.
+    /// </summary>
+    /// <param name="line">Instruction string.</param>
+    /// <returns>Parsed Instruction variant.</returns>
     let parseInstruction(line: string) =
         let parts = line.Split(" ", StringSplitOptions.RemoveEmptyEntries)
         match parts[0] with
@@ -33,11 +49,21 @@ module _18 =
         | "jgz" -> Jgz (parts[1], parts[2])
         | _ -> failwith "Unknown instruction"
 
+    /// <summary>
+    /// Evaluates an operand as either a direct 64-bit integer literal or a register lookup.
+    /// </summary>
+    /// <param name="registers">Current register dictionary.</param>
+    /// <param name="operand">Register name or numeric literal string.</param>
+    /// <returns>Resolved 64-bit value.</returns>
     let getValue(registers: Dictionary<string, int64>) (operand: string) =
         match Int64.TryParse(operand) with
         | true, value -> value
         | false, _ -> if registers.ContainsKey(operand) then registers[operand] else 0L
 
+    /// <summary>
+    /// Solves Part 1: executes sound synthesizer instructions until the first non-zero receive instruction recovers a frequency.
+    /// </summary>
+    /// <returns>Recovered sound frequency value for Part 1.</returns>
     let solvePartOne() =
         let instructions = Data |> Array.map parseInstruction
         let registers = Dictionary<string, int64>()
@@ -77,6 +103,10 @@ module _18 =
         | Some freq -> int freq
         | None -> -1
 
+    /// <summary>
+    /// Solves Part 2: simulates two concurrent programs communicating via message queues and counts messages sent by program 1.
+    /// </summary>
+    /// <returns>Total number of send operations executed by program 1.</returns>
     let solvePartTwo() =
         let instructions = Data |> Array.map parseInstruction
         let runFor index registers =
@@ -138,6 +168,9 @@ module _18 =
 
         sentCount
 
+    /// <summary>
+    /// Executes and prints the solutions for Part 1 and Part 2.
+    /// </summary>
     let Run() =
         printfn $"Part One: {solvePartOne()}"
         printfn $"Part Two: {solvePartTwo()}"

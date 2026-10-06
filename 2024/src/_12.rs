@@ -1,10 +1,16 @@
+//! Day 12: Garden Groups
+//!
+//! Calculates fencing costs for contiguous garden plots by calculating region area, perimeter, and side counts.
+
 use std::collections::{HashSet, VecDeque};
 use crate::utils::get_input_data;
 
+/// Returns the area of a region given by its set of plot coordinates.
 fn get_area(region: &HashSet<(usize, usize)>) -> i32 {
     region.len() as i32
 }
 
+/// Calculates the perimeter of a garden region by counting exposed boundary edges.
 fn get_perimeter(grid: &[Vec<char>], region: &HashSet<(usize, usize)>) -> i32 {
     let directions = [(-1, 0), (1, 0), (0, -1), (0, 1)];
     region.iter().fold(0, |perimeter, &(x, y)| {
@@ -18,6 +24,7 @@ fn get_perimeter(grid: &[Vec<char>], region: &HashSet<(usize, usize)>) -> i32 {
     })
 }
 
+/// Retrieves the character at a given coordinate or a placeholder character if out of bounds.
 fn get_value(grid: &[Vec<char>], x: isize, y: isize) -> char {
     if x >= 0 && y >= 0 && x < grid.len() as isize && y < grid[0].len() as isize {
         grid[x as usize][y as usize]
@@ -26,6 +33,7 @@ fn get_value(grid: &[Vec<char>], x: isize, y: isize) -> char {
     }
 }
 
+/// Computes the number of distinct straight sides (or corners) of a garden region.
 fn get_sides(grid: &[Vec<char>], region: &HashSet<(usize, usize)>) -> i32 {
     let directions = [((-1, -1), (-1, 0), (0, -1)), ((-1, 1), (-1, 0), (0, 1)), ((1, -1), (1, 0), (0, -1)), ((1, 1), (1, 0), (0, 1))];
     region.iter().fold(0, |total_sides, &(x, y)| {
@@ -44,6 +52,7 @@ fn get_sides(grid: &[Vec<char>], region: &HashSet<(usize, usize)>) -> i32 {
     })
 }
 
+/// Identifies a connected region of matching plant type using breadth-first search.
 fn find_region(grid: &[Vec<char>], start: (usize, usize), plant_type: char, visited: &mut HashSet<(usize, usize)>) -> HashSet<(usize, usize)> {
     let mut region = HashSet::new();
     let mut queue = VecDeque::new();
@@ -68,6 +77,7 @@ fn find_region(grid: &[Vec<char>], start: (usize, usize), plant_type: char, visi
     region
 }
 
+/// Solves Part One: computes total fence cost as the sum of region area multiplied by perimeter.
 fn solve_part_one(grid: &[Vec<char>]) -> i32 {
     let mut visited = HashSet::new();
     let mut total_cost = 0;
@@ -85,6 +95,7 @@ fn solve_part_one(grid: &[Vec<char>]) -> i32 {
     total_cost
 }
 
+/// Solves Part Two: computes total fence cost with bulk discount as region area multiplied by number of sides.
 fn solve_part_two(grid: &[Vec<char>]) -> i32 {
     let mut visited = HashSet::new();
     let mut total_cost = 0;

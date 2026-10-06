@@ -1,3 +1,9 @@
+"""
+Day 20: Pulse Propagation
+
+Simulates stateful pulse communication circuits and calculates button press cycle synchronisation using LCM.
+"""
+
 from collections import deque
 from math import lcm
 from utils import get_input_data
@@ -6,7 +12,18 @@ data = get_input_data(20).splitlines()
 
 
 class Module:
+    """
+    Represents a logic communication module (flip-flop, conjunction, or broadcaster).
+    """
+
     def __init__(self, name, t, outputs):
+        """
+        Initialises module state, type identifier, and output destination names.
+
+        :param name: Module label name.
+        :param t: Module type character ('%' for flip-flop, '&' for conjunction).
+        :param outputs: List of target module names.
+        """
         self.name = name
         self.type = t
         self.outputs = outputs
@@ -17,6 +34,11 @@ class Module:
 
 
 def setup_data():
+    """
+    Parses configuration lines into module instances and initialises conjunction memory inputs.
+
+    :return: Tuple of (module_dict, broadcast_target_list).
+    """
     modules = {}
     broadcast_targets = []
     for line in data:
@@ -35,6 +57,14 @@ def setup_data():
 
 
 def press_button(queue, module, origin, pulse):
+    """
+    Updates module internal state in response to an incoming pulse and appends outgoing pulses to the queue.
+
+    :param queue: Deque of pending pulse signals (origin, target, pulse_type).
+    :param module: Target Module instance receiving the pulse.
+    :param origin: Name of the sender module.
+    :param pulse: Pulse polarity ('low' or 'high').
+    """
     if module.type == '%':
         if pulse == 'low':
             module.memory = 'on' if module.memory == 'off' else 'off'
@@ -49,6 +79,11 @@ def press_button(queue, module, origin, pulse):
 
 
 def solve_part_one():
+    """
+    Solves Part One: simulates 1000 button presses and computes the product of total low and high pulses transmitted.
+
+    :return: Product of low pulse count and high pulse count.
+    """
     modules, broadcast_targets = setup_data()
     low = high = 0
     for _ in range(1000):
@@ -67,6 +102,11 @@ def solve_part_one():
 
 
 def solve_part_two():
+    """
+    Solves Part Two: tracks high-pulse cycle periodicities feeding into the penultimate conjunction for 'rx'.
+
+    :return: Fewest button presses required to deliver a low pulse to 'rx'.
+    """
     modules, broadcast_targets = setup_data()
     (feed,) = [name for name, module in modules.items() if 'rx' in module.outputs]
     cycle_lengths = {}

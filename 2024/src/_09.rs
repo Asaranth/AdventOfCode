@@ -1,5 +1,10 @@
+//! Day 09: Disk Fragmenter
+//!
+//! Compacts dense disk layouts via block-by-block swapping and contiguous whole-file relocation.
+
 use crate::utils::get_input_data;
 
+/// Parses condensed disk representation into individual block allocations and free spaces.
 fn parse_disk(data: &str) -> Vec<Option<i32>> {
     let chars: Vec<char> = data.chars().collect();
     let mut disk: Vec<Option<i32>> = Vec::new();
@@ -21,10 +26,12 @@ fn parse_disk(data: &str) -> Vec<Option<i32>> {
     disk
 }
 
+/// Computes the filesystem checksum by multiplying each block index by its file ID.
 fn calculate_checksum(disk: &[Option<i32>]) -> i64 {
     disk.iter().enumerate().filter_map(|(position, &file_option)| { file_option.map(|file_id| position as i64 * file_id as i64) }).sum()
 }
 
+/// Solves Part One: compacts disk by moving individual rightmost file blocks into leftmost free spaces.
 fn solve_part_one(data: &str) -> i64 {
     let mut disk = parse_disk(data);
     let mut first_empty = 0;
@@ -44,6 +51,7 @@ fn solve_part_one(data: &str) -> i64 {
     calculate_checksum(&disk)
 }
 
+/// Solves Part Two: compacts disk by moving whole files into leftmost contiguous free spans.
 fn solve_part_two(data: &str) -> i64 {
     let mut disk = parse_disk(data);
     let max_file_id = disk.iter().filter_map(|&x| x).max().unwrap_or(0);

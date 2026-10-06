@@ -1,3 +1,9 @@
+"""
+Day 23: A Long Walk
+
+Compresses maze junctions into a condensed graph to find longest path hikes via backtracking DFS.
+"""
+
 from utils import get_input_data
 
 data = get_input_data(23).splitlines()
@@ -13,6 +19,11 @@ directions = {
 
 
 def get_points():
+    """
+    Identifies all decision junction nodes (cells with >= 3 open neighbours) plus the start and end coordinates.
+
+    :return: List of (row, col) junction coordinates.
+    """
     points = [start, end]
     for r, row in enumerate(data):
         for c, ch in enumerate(row):
@@ -22,12 +33,18 @@ def get_points():
             for nr, nc in [(r - 1, c), (r + 1, c), (r, c - 1), (r, c + 1)]:
                 if 0 <= nr < len(data) and 0 <= nc < len(data[0]) and data[nr][nc] != '#':
                     neighbors += 1
-                if neighbors >= 3:
-                    points.append((r, c))
+            if neighbors >= 3:
+                points.append((r, c))
     return points
 
 
 def get_trails(part):
+    """
+    Compresses grid corridors between junction points into an adjacency graph with edge weights.
+
+    :param part: Puzzle part number (1 for steep icy slopes, 2 for climbable slopes).
+    :return: Adjacency dictionary mapping junction points to {neighbour: segment_length} maps.
+    """
     points = get_points()
     graph = {pt: {} for pt in points}
     for sr, sc in points:
@@ -48,6 +65,11 @@ def get_trails(part):
 
 
 def solve_part_one():
+    """
+    Solves Part One: finds longest hike length respecting steep slope directional constraints.
+
+    :return: Maximum step count from start to end.
+    """
     trails = get_trails(1)
     seen = set()
 
@@ -65,6 +87,11 @@ def solve_part_one():
 
 
 def solve_part_two():
+    """
+    Solves Part Two: finds longest hike length treating slopes as normal bidirectional paths.
+
+    :return: Maximum step count without slope direction restrictions.
+    """
     trails = get_trails(2)
     seen = set()
 

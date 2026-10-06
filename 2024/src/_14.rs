@@ -1,11 +1,18 @@
-﻿use std::collections::HashSet;
+//! Day 14: Restroom Redoubt
+//!
+//! Simulates discrete robot velocity vectors with toroidal boundary wraparound and detects periodic alignment patterns.
+
+use std::collections::HashSet;
 use crate::utils::get_input_data;
 
+/// Represents a 2D integer position or velocity vector.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 struct Plot { x: i32, y: i32 }
 impl Plot {
+    /// Creates a new coordinate plot.
     fn new(x: i32, y: i32) -> Self { Self { x, y } }
 
+    /// Adds another plot vector with modular wrapping over specified boundaries.
     fn add_wrapped(&self, other: Plot, bounds: Plot) -> Self {
         Plot {
             x: (self.x + other.x).rem_euclid(bounds.x),
@@ -14,9 +21,11 @@ impl Plot {
     }
 }
 
+/// Represents a robot with current position and constant velocity vectors.
 #[derive(Debug, Clone, Copy)]
 struct Robot { pos: Plot, vel: Plot }
 
+/// Solves Part One: simulates 100 seconds of motion and calculates safety factor from quadrant counts.
 fn solve_part_one(data: &[Robot]) -> i32 {
     let bounds = Plot::new(101, 103);
     let cx = bounds.x / 2;
@@ -39,9 +48,10 @@ fn solve_part_one(data: &[Robot]) -> i32 {
     quadrant_counts.iter().product()
 }
 
+/// Solves Part Two: iterates time steps to find the frame with minimal spatial entropy forming the Christmas tree pattern.
 fn solve_part_two(mut data: Vec<Robot>) -> i32 {
     let bounds = Plot::new(101, 103);
-    let max_frames = 10000; // Arbitrary number
+    let max_frames = 10000;
     let mut compressed = vec![0; max_frames];
     for i in 0..max_frames {
         let x_positions: HashSet<i32> = data.iter().map(|robot| robot.pos.x).collect();
