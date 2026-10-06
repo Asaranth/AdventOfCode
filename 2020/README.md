@@ -1,6 +1,6 @@
 # Advent of Code 2020
 
-<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-20%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-24%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Report Repair
 #### Part 1
@@ -115,22 +115,22 @@
 ### Day 11 – Seating System
 #### Part 1
 - **Requirement:** Simulate the seating cellular automaton based on adjacent seats until equilibrium; return the total number of occupied seats.
-- **Technique:**
+- **Technique:** 2D grid cellular automaton simulation checking eight adjacent neighbours with an occupancy threshold of 4 until equilibrium.
 
 #### Part 2
 - **Requirement:** Simulate the seating automaton based on the first visible seat in each of the eight directions with an occupancy threshold of 5; return the total number of occupied seats.
-- **Technique:**
+- **Technique:** 2D grid cellular automaton simulation using ray casting in eight directions to find the first visible seats with an occupancy threshold of 5 until equilibrium.
 
 ---
 
 ### Day 12 – Rain Risk
 #### Part 1
 - **Requirement:** Follow the navigation instructions to move and turn the ship; return the Manhattan distance from the starting position.
-- **Technique:**
+- **Technique:** Direct 2D vector translation and modular arithmetic turn angle mapping (`Math.floorMod`) to track ship position and facing direction, followed by Manhattan distance calculation.
 
 #### Part 2
 - **Requirement:** Follow the navigation instructions to move and rotate the waypoint and move the ship toward it; return the Manhattan distance from the starting position.
-- **Technique:**
+- **Technique:** Relative waypoint vector translation and 90-degree quadrant rotation around the origin with scalar vector multiplication for ship translation, followed by Manhattan distance calculation.
 
 ---
 
