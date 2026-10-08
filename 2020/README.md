@@ -1,6 +1,6 @@
 # Advent of Code 2020
 
-<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-32%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-34%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Report Repair
 #### Part 1
@@ -159,11 +159,11 @@
 ### Day 15 – Rambunctious Recitation
 #### Part 1
 - **Requirement:** Play the memory game starting with the input list; determine the 2020th number spoken.
-- **Technique:** Simulate the memory game using a hash map (`Map<Integer, Integer>`) to record the most recent turn each number was spoken, calculating the difference between successive occurrences or speaking 0 for newly encountered numbers up to turn 2020.
+- **Technique:** Simulate the memory game using a hash map (`Map<Integer, Integer>`) to record the most recent turn each number was spoken, calculating the difference between successive occurrences, or speaking 0 for newly encountered numbers up to turn 2020.
 
 #### Part 2
 - **Requirement:** Play the memory game starting with the input list; determine the 30000000th number spoken.
-- **Technique:** Scale the same turn-tracking simulation and hash map history lookup to 30,000,000 turns to find the 30,000,000th spoken number.
+- **Technique:** Scale the same turn-tracking simulation and hash map history lookup to 30 million turns to find the 30,000,000th spoken number.
 
 ---
 
@@ -181,11 +181,11 @@
 ### Day 17 – Conway Cubes
 #### Part 1
 - **Requirement:** Simulate a 3D Conway's Game of Life on pocket dimension hypercubes for six cycles; return the total number of active cubes.
-- **Technique:**
+- **Technique:** Coordinate-based sparse set simulation in 3D: parse initial 2D active `#` cubes into 3D points, compute all 26 neighbour offsets, aggregate active neighbour counts in a frequency map (`Map<Point, Integer>`), and apply Conway's transition rules over six boot cycles.
 
 #### Part 2
 - **Requirement:** Simulate a 4D Conway's Game of Life (4D hypercubes) for six cycles; return the total number of active cubes.
-- **Technique:**
+- **Technique:** Generalise the N-dimensional coordinate model to 4D ($3^4–1 = 80$ neighbour offsets) using recursive offset generation, tracking sparse active hypercubes in `Set<Point>` across 6 boot cycles.
 
 ---
 
