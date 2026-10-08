@@ -1,6 +1,6 @@
 # Advent of Code 2020
 
-<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-24%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
+<img src="https://img.shields.io/badge/-Java-ED8B00?style=for-the-badge&labelColor=2b2b2b&logo=openjdk" alt="Java"> <img src="https://img.shields.io/badge/⭐-32%2F50%20-990000?style=for-the-badge&labelColor=2b2b2b" alt="Stars">
 
 ### Day 01 – Report Repair
 #### Part 1
@@ -137,44 +137,44 @@
 ### Day 13 – Shuttle Search
 #### Part 1
 - **Requirement:** Find the earliest bus you can take given your earliest departure time; return the bus ID multiplied by the minutes you need to wait.
-- **Technique:**
+- **Technique:** Filter active bus IDs, calculate the next departure timestamp for each bus using modular arithmetic, group departures in a sorted map (`TreeMap`), and select the earliest bus departure.
 
 #### Part 2
 - **Requirement:** Find the earliest timestamp such that each bus departs at an offset matching its index position in the list.
-- **Technique:**
+- **Technique:** Chinese Remainder Theorem (CRT) sieve method / incremental step search by updating the step size with the product of coprime bus moduli as each congruence condition `(timestamp + offset) % bus_id == 0` is satisfied.
 
 ---
 
 ### Day 14 – Docking Data
 #### Part 1
 - **Requirement:** Execute the initialisation program where bitmasks modify the binary values written to memory addresses; return the sum of all values in memory.
-- **Technique:**
+- **Technique:** Parse 36-bit masks and memory assignments, apply bitwise OR (`|=`) for '1' bits and bitwise AND with inverted mask (`&= ~`) for '0' bits to modify values before storing in a memory map (`Map<Long, Long>`), and calculate the sum of remaining values.
 
 #### Part 2
 - **Requirement:** Execute the initialisation program where bitmasks apply to memory addresses with floating bits; return the sum of all values in memory.
-- **Technique:**
+- **Technique:** Memory address decoding / combinatorial bit generation by forcing '1' bits and identifying floating 'X' bit positions, expanding each address across all $2^N$ permutations using bit manipulation, and updating memory before summing values.
 
 ---
 
 ### Day 15 – Rambunctious Recitation
 #### Part 1
 - **Requirement:** Play the memory game starting with the input list; determine the 2020th number spoken.
-- **Technique:**
+- **Technique:** Simulate the memory game using a hash map (`Map<Integer, Integer>`) to record the most recent turn each number was spoken, calculating the difference between successive occurrences or speaking 0 for newly encountered numbers up to turn 2020.
 
 #### Part 2
 - **Requirement:** Play the memory game starting with the input list; determine the 30000000th number spoken.
-- **Technique:**
+- **Technique:** Scale the same turn-tracking simulation and hash map history lookup to 30,000,000 turns to find the 30,000,000th spoken number.
 
 ---
 
 ### Day 16 – Ticket Translation
 #### Part 1
 - **Requirement:** Identify all invalid field values across nearby tickets that do not match any field's valid ranges; return the sum of these invalid values (error rate).
-- **Technique:**
+- **Technique:** Parse ticket notes (dual-range field rules, your ticket, nearby tickets) and stream nearby ticket values to sum those that fail validation against every field rule.
 
 #### Part 2
 - **Requirement:** Discard invalid tickets, determine the correct field assignment for each index, and return the product of the six "departure" field values on your ticket.
-- **Technique:**
+- **Technique:** Filter valid tickets, identify valid rule candidate sets for each ticket field index, iteratively resolve unique 1-to-1 field assignments by constraint elimination, and multiply the values for all fields starting with "departure" on your ticket.
 
 ---
 
